@@ -1,44 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CoverageIQ - Antibiotic Coverage Reference</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>CoverageIQ</title>
     <style>
-        .writing-mode-vertical {
-            writing-mode: vertical-rl;
-            transform: rotate(180deg);
-            padding: 6px 2px;
-        }
+        body { font-family: Arial; max-width: 1200px; margin: 50px auto; padding: 20px; }
+        h1 { color: #4F46E5; }
+        .info { background: #FEF3C7; padding: 15px; border-left: 4px solid #F59E0B; margin: 20px 0; }
     </style>
 </head>
 <body>
-    <div id="root"></div>
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <script type="text/babel">
-        const { useState } = React;
-        const Info = ({ className }) => <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>;
-        const Zap = ({ className }) => <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>;
-        const AlertTriangle = ({ className }) => <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>;
-
-        function CoverageIQ() {
-            const [hoveredAntibiotic, setHoveredAntibiotic] = useState(null);
-            const [hoveredBug, setHoveredBug] = useState(null);
-            const [showQuickPick, setShowQuickPick] = useState(false);
-            const [selectedScenario, setSelectedScenario] = useState(null);
-            const [expandedClasses, setExpandedClasses] = useState({
-                'Penicillins': false, 'Cephalosporins (1st)': false, 'Cephalosporins (2nd)': false, 'Cephalosporins (3rd)': false, 'Cephalosporins (4th)': false, 'Cephalosporins (Adv)': false, 'Carbapenems': false, 'Fluoroquinolones': false, 'Glycopeptides': false, 'Lipopeptides': false, 'Oxazolidinones': false, 'Aminoglycosides': false, 'Macrolides': false, 'Tetracyclines': false, 'Others': false, 'Nitroimidazoles': false, 'Siderophores': false, 'Macrocyclics': false
-            });
-
-            const toggleClass = (className) => { setExpandedClasses(prev => ({ ...prev, [className]: !prev[className] })); };
-            const classColors = { 'Penicillins': 'bg-blue-500', 'Cephalosporins (1st)': 'bg-purple-500', 'Cephalosporins (2nd)': 'bg-purple-600', 'Cephalosporins (3rd)': 'bg-purple-700', 'Cephalosporins (4th)': 'bg-purple-800', 'Cephalosporins (Adv)': 'bg-purple-900', 'Carbapenems': 'bg-red-600', 'Fluoroquinolones': 'bg-yellow-600', 'Glycopeptides': 'bg-green-600', 'Lipopeptides': 'bg-teal-600', 'Oxazolidinones': 'bg-pink-600', 'Aminoglycosides': 'bg-orange-600', 'Macrolides': 'bg-cyan-600', 'Tetracyclines': 'bg-lime-600', 'Others': 'bg-gray-600', 'Nitroimidazoles': 'bg-indigo-700', 'Siderophores': 'bg-rose-700', 'Macrocyclics': 'bg-amber-700' };
-            const scenarios = { 'Septic Shock': { empiric: ['Vancomycin', 'Pip-Tazo'], coverage: ['MRSA', 'Pseudomonas', 'ESBL'], rationale: 'Broad spectrum for undifferentiated sepsis' }, 'CAP (Severe)': { empiric: ['Ceftriaxone', 'Azithromycin'], coverage: ['Strep pneumoniae', 'Legionella'], rationale: 'Standard CAP with atypical coverage' }, 'HAP/VAP': { empiric: ['Vancomycin', 'Cefepime'], coverage: ['MRSA', 'Pseudomonas'], rationale: 'Hospital-acquired pathogen coverage' }, 'Neutropenic Fever': { empiric: ['Cefepime'], coverage: ['Pseudomonas', 'E. coli'], rationale: 'Anti-pseudomonal beta-lactam' }, 'Urosepsis': { empiric: ['Ceftriaxone'], coverage: ['E. coli', 'Klebsiella'], rationale: 'Consider local resistance' }, 'Intra-abdominal': { empiric: ['Pip-Tazo'], coverage: ['E. coli', 'Anaerobes'], rationale: 'Aerobic and anaerobic coverage' } };
-            const antibioticsList = [ { name: 'Penicillin G', class: 'Penicillins' }, { name: 'Ampicillin', class: 'Penicillins' }, { name: 'Amoxicillin', class: 'Penicillins' }, { name: 'Amox-Clav', class: 'Penicillins' }, { name: 'Nafcillin', class: 'Penicillins' }, { name: 'Pip-Tazo', class: 'Penicillins' }, { name: 'Cefazolin', class: 'Cephalosporins (1st)' }, { name: 'Cefuroxime', class: 'Cephalosporins (2nd)' }, { name: 'Ceftriaxone', class: 'Cephalosporins (3rd)' }, { name: 'Cefepime', class: 'Cephalosporins (4th)' }, { name: 'Ceftaz-Avi', class: 'Cephalosporins (Adv)' }, { name: 'Ceftolozane-Tazo', class: 'Cephalosporins (Adv)' }, { name: 'Meropenem', class: 'Carbapenems' }, { name: 'Imipenem', class: 'Carbapenems' }, { name: 'Ertapenem', class: 'Carbapenems' }, { name: 'Ciprofloxacin', class: 'Fluoroquinolones' }, { name: 'Levofloxacin', class: 'Fluoroquinolones' }, { name: 'Moxifloxacin', class: 'Fluoroquinolones' }, { name: 'Vancomycin', class: 'Glycopeptides' }, { name: 'Daptomycin', class: 'Lipopeptides' }, { name: 'Linezolid', class: 'Oxazolidinones' }, { name: 'Gentamicin', class: 'Aminoglycosides' }, { name: 'Tobramycin', class: 'Aminoglycosides' }, { name: 'Azithromycin', class: 'Macrolides' }, { name: 'Clarithromycin', class: 'Macrolides' }, { name: 'Doxycycline', class: 'Tetracyclines' }, { name: 'Tigecycline', class: 'Tetracyclines' }, { name: 'TMP-SMX', class: 'Others' }, { name: 'Metronidazole', class: 'Nitroimidazoles' }, { name: 'Cefiderocol', class: 'Siderophores' }, { name: 'Fidaxomicin', class: 'Macrocyclics' } ];
-            const bugClasses = { 'Gram+ Cocci': ['Strep pneumo', 'Strep pyogenes', 'MSSA', 'MRSA', 'Enterococcus', 'VRE'], 'Gram+ Rods': ['Listeria', 'C. diff'], 'Gram- Cocci': ['N. meningitidis'], 'Gram- Rods': ['E. coli', 'Klebsiella', 'ESBL', 'CRE', 'Pseudomonas', 'MDR Pseudo', 'Acinetobacter', 'H. influenzae'], 'Atypicals': ['Legionella', 'Mycoplasma', 'Chlamydia'], 'Anaerobes': ['B. fragilis', 'Anaerobes'] };
-            const coverage = { 'Penicillin G': { 'Strep pneumo': 'first', 'Strep pyogenes': 'first', 'Enterococcus': 'second', 'Anaerobes': 'first', 'N. meningitidis': 'first' }, 'Ampicillin': { 'Strep pneumo': 'first', 'Strep pyogenes': 'first', 'Enterococcus': 'first', 'Listeria': 'first', 'E. coli': 'third', 'H. influenzae': 'third' }, 'Amoxicillin': { 'Strep pneumo': 'first', 'Strep pyogenes': 'first', 'H. influenzae': 'second', 'E. coli': 'third' }, 'Amox-Clav': { 'Strep pneumo': 'first', 'Strep pyogenes': 'first', 'MSSA': 'first', 'H. influenzae': 'first', 'E. coli': 'second', 'Klebsiella': 'second', 'Anaerobes': 'first' }, 'Nafcillin': { 'MSSA': 'first', 'Strep pyogenes': 'first', 'Strep pneumo': 'first' }, 'Pip-Tazo': { 'Pseudomonas': 'first', 'E. coli': 'first', 'Klebsiella': 'first', 'MSSA': 'first', 'Strep pneumo': 'first', 'Anaerobes': 'first', 'B. fragilis': 'first', 'Enterococcus': 'second' }, 'Cefazolin': { 'MSSA': 'first', 'Strep pyogenes': 'first', 'Strep pneumo': 'first', 'E. coli': 'second', 'Klebsiella': 'second' }, 'Cefuroxime': { 'MSSA': 'first', 'Strep pneumo': 'first', 'H. influenzae': 'first', 'E. coli': 'second' }, 'Ceftriaxone': { 'Strep pneumo': 'first', 'N. meningitidis': 'first', 'E. coli': 'first', 'Klebsiella': 'first', 'H. influenzae': 'first', 'MSSA': 'second' }, 'Cefepime': { 'Pseudomonas': 'first', 'E. coli': 'first', 'Klebsiella': 'first', 'Strep pneumo': 'first', 'MSSA': 'first', 'H. influenzae': 'first' }, 'Ceftaz-Avi': { 'CRE': 'first', 'MDR Pseudo': 'first', 'ESBL': 'first', 'Pseudomonas': 'first', 'E. coli': 'first', 'Klebsiella': 'first' }, 'Ceftolozane-Tazo': { 'MDR Pseudo': 'first', 'Pseudomonas': 'first', 'E. coli': 'first' }, 'Meropenem': { 'ESBL': 'first', 'Pseudomonas': 'first', 'E. coli': 'first', 'Klebsiella': 'first', 'MSSA': 'first', 'Strep pneumo': 'first', 'Listeria': 'first', 'Anaerobes': 'first', 'H. influenzae': 'first' }, 'Imipenem': { 'ESBL': 'first', 'Pseudomonas': 'first', 'E. coli': 'first', 'Klebsiella': 'first', 'MSSA': 'first', 'Anaerobes': 'first' }, 'Ertapenem': { 'ESBL': 'first', 'E. coli': 'first', 'Klebsiella': 'first', 'MSSA': 'first', 'Strep pneumo': 'first', 'Anaerobes': 'first' }, 'Ciprofloxacin': { 'Pseudomonas': 'first', 'E. coli': 'second', 'Klebsiella': 'second' }, 'Levofloxacin': { 'Strep pneumo': 'first', 'Legionella': 'first', 'Mycoplasma': 'first', 'Chlamydia': 'first', 'E. coli': 'second', 'H. influenzae': 'first' }, 'Moxifloxacin': { 'Strep pneumo': 'first', 'Mycoplasma': 'first', 'Chlamydia': 'first', 'Anaerobes': 'second' }, 'Vancomycin': { 'MRSA': 'first', 'Enterococcus': 'first', 'Strep pneumo': 'first', 'Strep pyogenes': 'first', 'C. diff': 'first' }, 'Daptomycin': { 'MRSA': 'first', 'VRE': 'first', 'Enterococcus': 'first', 'MSSA': 'first' }, 'Linezolid': { 'MRSA': 'first', 'VRE': 'first', 'Strep pneumo': 'first' }, 'Gentamicin': { 'E. coli': 'first', 'Pseudomonas': 'first', 'Klebsiella': 'first', 'Enterococcus': 'second' }, 'Tobramycin': { 'Pseudomonas': 'first', 'E. coli': 'first', 'Klebsiella': 'first' }, 'Azithromycin': { 'Mycoplasma': 'first', 'Chlamydia': 'first', 'Legionella': 'first', 'Strep pneumo': 'second' }, 'Clarithromycin': { 'Mycoplasma': 'first', 'Chlamydia': 'first', 'Strep pneumo': 'second' }, 'Doxycycline': { 'Mycoplasma': 'first', 'Chlamydia': 'first', 'MRSA': 'second', 'Legionella': 'first' }, 'Tigecycline': { 'MRSA': 'first', 'VRE': 'first', 'ESBL': 'first', 'Acinetobacter': 'first' }, 'TMP-SMX': { 'MRSA': 'first', 'E. coli': 'second' }, 'Metronidazole': { 'C. diff': 'first', 'Anaerobes': 'first', 'B. fragilis': 'first' }, 'Cefiderocol': { 'CRE': 'first', 'MDR Pseudo': 'first', 'Acinetobacter': 'first' }, 'Fidaxomicin': { 'C. diff': 'first' } };
-
-            const getCellColor = (antibiotic, bug) => { const cov = coverage[antibiotic]?.[bug]; if (hoveredAntibiotic === antibiotic || hoveredBug === bug) { if (cov === 'first') return 'bg-orange-500'; if (cov === 'second') return 'bg-yellow-400'; if (cov === 'third') return 'bg-yellow-200'; return 'bg-gray-200'; } return 'bg-white'; };
-            const
+    <h1>CoverageIQ</h1>
+    <p>Interactive antibiotic coverage reference tool for hospitalists and clinicians</p>
+    
+    <div class="info">
+        <strong>Coming Soon:</strong> Full interactive matrix with hover functionality
+    </div>
+    
+    <h2>Features:</h2>
+    <ul>
+        <li>Interactive antibiotic-organism coverage matrix</li>
+        <li>Hover to see coverage patterns</li>
+        <li>Clinical scenario quick reference</li>
+        <li>Updated for 2025 resistance patterns</li>
+    </ul>
+    
+    <p style="color: #6B7280; font-size: 12px; margin-top: 40px; text-align: center;">
+        Created by Scott A. Van Gemert, MD
+    </p>
+</body>
+</html>
