@@ -2,83 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 
-/* CoverageIQ palette
-   Inspired by petri dishes, biology textbooks, and slightly irreverent clinical art.
-   Dark mode is the default vibe — deep indigo canvas with bright bug/drug accents.
-*/
+/* ============================================================
+   CoverageIQ — Multi-flavor Design System
+   3 distinct visual styles, each with light + dark mode.
 
-/* LIGHT MODE — clean exam-room white with playful pops */
+   Flavors:
+   - apothecary  — warm parchment, serif-display, hand-drawn vibes
+   - editorial   — cream/black broadsheet, dense typographic
+   - bauhaus     — neo-brutalist blocks, primary colors, hard borders
+
+   Toggle theme (dark/light) and flavor independently.
+   ============================================================ */
+
+/* ---------------- BASE TOKENS (shared, overridden per-flavor) -------- */
 :root {
   --button-outline: rgba(0, 0, 0, 0.1);
   --badge-outline: rgba(0, 0, 0, 0.05);
   --opaque-button-border-intensity: -8;
   --elevate-1: rgba(0, 0, 0, 0.04);
   --elevate-2: rgba(0, 0, 0, 0.09);
-
-  --background: 220 30% 98%;
-  --foreground: 230 30% 12%;
-  --border: 230 14% 88%;
-  --card: 0 0% 100%;
-  --card-foreground: 230 30% 12%;
-  --card-border: 230 14% 90%;
-  --sidebar: 230 25% 96%;
-  --sidebar-foreground: 230 30% 12%;
-  --sidebar-border: 230 14% 88%;
-  --sidebar-primary: 270 70% 55%;
-  --sidebar-primary-foreground: 0 0% 100%;
-  --sidebar-accent: 230 14% 90%;
-  --sidebar-accent-foreground: 230 30% 12%;
-  --sidebar-ring: 270 70% 55%;
-  --popover: 0 0% 100%;
-  --popover-foreground: 230 30% 12%;
-  --popover-border: 230 14% 88%;
-
-  /* Brand: vivid violet primary — feels both modern and slightly irreverent */
-  --primary: 270 70% 55%;
-  --primary-foreground: 0 0% 100%;
-  --secondary: 230 20% 92%;
-  --secondary-foreground: 230 30% 12%;
-  --muted: 230 20% 94%;
-  --muted-foreground: 230 14% 42%;
-  --accent: 270 60% 95%;
-  --accent-foreground: 270 70% 30%;
-  --destructive: 350 80% 50%;
-  --destructive-foreground: 0 0% 100%;
-  --input: 230 14% 82%;
-  --ring: 270 70% 55%;
-
-  /* Coverage colors — borrowed from BugDrugDX, bumped for vibrancy */
-  --cov-primary: 28 95% 58%;     /* orange = primary therapy */
-  --cov-primary-bg: 28 100% 92%;
-  --cov-alternate: 48 96% 60%;   /* yellow = possible */
-  --cov-alternate-bg: 48 100% 92%;
-  --cov-class: 150 60% 55%;      /* green = class group */
-  --cov-class-bg: 150 60% 92%;
-
-  /* Module accents — bacteria/fungi/virus */
-  --bacteria: 175 75% 45%;       /* electric teal */
-  --bacteria-glow: 175 75% 70%;
-  --fungi: 38 95% 55%;           /* mustard / amber */
-  --fungi-glow: 38 95% 75%;
-  --virus: 320 75% 60%;          /* magenta */
-  --virus-glow: 320 75% 80%;
-
-  /* Bug-category colors */
-  --gram-pos: 200 75% 55%;       /* sky blue */
-  --gram-neg: 10 80% 60%;        /* coral red */
-  --atypical: 280 60% 60%;       /* lavender */
-  --anaerobe: 130 50% 50%;       /* moss green */
-
-  --chart-1: 270 70% 55%;
-  --chart-2: 175 75% 45%;
-  --chart-3: 28 95% 58%;
-  --chart-4: 320 75% 60%;
-  --chart-5: 38 95% 55%;
-
+  --radius: 0.625rem;
   --font-sans: 'Inter', sans-serif;
   --font-display: 'Space Grotesk', 'Inter', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
-  --radius: 0.625rem;
+  --font-script: 'Caveat', cursive;
+  --font-serif: 'Fraunces', Georgia, serif;
+  --font-block: 'Archivo Black', 'Inter', sans-serif;
 
   --shadow-2xs: 0px 1px 0px 0px hsl(0 0% 0% / 0.04);
   --shadow-xs: 0px 1px 2px 0px hsl(0 0% 0% / 0.06);
@@ -88,141 +37,433 @@
   --shadow-lg: 0px 12px 32px 0px hsl(0 0% 0% / 0.14);
   --shadow-xl: 0px 20px 48px 0px hsl(0 0% 0% / 0.18);
   --shadow-2xl: 0px 28px 64px 0px hsl(0 0% 0% / 0.22);
-  --tracking-normal: 0em;
-  --spacing: 0.25rem;
-
-  --primary-border: hsl(var(--primary));
-  --primary-border: hsl(from hsl(var(--primary)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
-  --secondary-border: hsl(var(--secondary));
-  --secondary-border: hsl(from hsl(var(--secondary)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
-  --muted-border: hsl(var(--muted));
-  --muted-border: hsl(from hsl(var(--muted)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
-  --accent-border: hsl(var(--accent));
-  --accent-border: hsl(from hsl(var(--accent)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
-  --destructive-border: hsl(var(--destructive));
-  --destructive-border: hsl(from hsl(var(--destructive)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
-  --sidebar-primary-border: hsl(var(--sidebar-primary));
-  --sidebar-primary-border: hsl(from hsl(var(--sidebar-primary)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
-  --sidebar-accent-border: hsl(var(--sidebar-accent));
-  --sidebar-accent-border: hsl(from hsl(var(--sidebar-accent)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
 }
 
-/* DARK MODE — deep indigo lab terminal */
-.dark {
-  --button-outline: rgba(255, 255, 255, 0.1);
-  --badge-outline: rgba(255, 255, 255, 0.05);
-  --opaque-button-border-intensity: 9;
-  --elevate-1: rgba(255, 255, 255, 0.05);
-  --elevate-2: rgba(255, 255, 255, 0.1);
+/* =========================================================
+   FLAVOR 1 — APOTHECARY (default, warm parchment)
+   ========================================================= */
+:root.flavor-apothecary {
+  --background: 38 50% 92%;             /* parchment */
+  --foreground: 28 50% 12%;
+  --border: 35 30% 70%;
+  --card: 38 60% 96%;
+  --card-foreground: 28 50% 12%;
+  --card-border: 35 30% 65%;
+  --sidebar: 38 50% 90%;
+  --sidebar-foreground: 28 50% 12%;
+  --sidebar-border: 35 30% 70%;
+  --popover: 38 55% 94%;
+  --popover-foreground: 28 50% 12%;
+  --popover-border: 35 30% 65%;
 
-  --background: 235 35% 8%;        /* deep indigo-black */
-  --foreground: 230 30% 92%;
-  --border: 235 25% 18%;
-  --card: 235 30% 11%;
-  --card-foreground: 230 30% 92%;
-  --card-border: 235 25% 18%;
-  --sidebar: 235 30% 10%;
-  --sidebar-foreground: 230 30% 92%;
-  --sidebar-border: 235 25% 18%;
-  --sidebar-primary: 270 80% 70%;
-  --sidebar-primary-foreground: 235 35% 8%;
-  --sidebar-accent: 235 25% 16%;
-  --sidebar-accent-foreground: 230 30% 92%;
-  --sidebar-ring: 270 80% 70%;
-  --popover: 235 30% 12%;
-  --popover-foreground: 230 30% 92%;
-  --popover-border: 235 25% 20%;
+  --primary: 18 70% 45%;                /* tomato/clay */
+  --primary-foreground: 38 50% 96%;
+  --secondary: 35 35% 80%;
+  --secondary-foreground: 28 50% 12%;
+  --muted: 35 30% 84%;
+  --muted-foreground: 28 30% 38%;
+  --accent: 35 40% 78%;
+  --accent-foreground: 28 50% 12%;
+  --destructive: 0 70% 50%;
+  --destructive-foreground: 38 50% 96%;
+  --input: 35 30% 70%;
+  --ring: 18 70% 45%;
 
-  --primary: 270 80% 70%;
-  --primary-foreground: 235 35% 8%;
-  --secondary: 235 25% 16%;
-  --secondary-foreground: 230 30% 92%;
-  --muted: 235 25% 14%;
-  --muted-foreground: 230 14% 65%;
-  --accent: 270 30% 22%;
-  --accent-foreground: 270 80% 80%;
-  --destructive: 350 80% 60%;
-  --destructive-foreground: 0 0% 100%;
-  --input: 235 25% 22%;
-  --ring: 270 80% 70%;
+  /* Coverage colors — warm, mustardy */
+  --cov-primary: 16 85% 50%;
+  --cov-primary-bg: 16 80% 86%;
+  --cov-alternate: 42 90% 50%;
+  --cov-alternate-bg: 42 85% 86%;
+  --cov-class: 95 45% 38%;
+  --cov-class-bg: 95 35% 84%;
 
-  /* Coverage colors in dark mode — keep saturation high */
-  --cov-primary: 28 100% 65%;
-  --cov-primary-bg: 28 60% 22%;
-  --cov-alternate: 48 100% 65%;
-  --cov-alternate-bg: 48 50% 22%;
-  --cov-class: 150 60% 55%;
-  --cov-class-bg: 150 40% 18%;
+  /* Module accents */
+  --bacteria: 195 60% 38%;              /* prussian blue */
+  --bacteria-glow: 195 60% 50%;
+  --fungi: 30 65% 45%;                  /* burnt sienna */
+  --fungi-glow: 30 65% 60%;
+  --virus: 340 55% 45%;                 /* madder */
+  --virus-glow: 340 55% 60%;
 
-  --bacteria: 175 80% 60%;
-  --bacteria-glow: 175 90% 75%;
-  --fungi: 38 100% 65%;
-  --fungi-glow: 38 100% 80%;
-  --virus: 320 85% 70%;
-  --virus-glow: 320 90% 85%;
+  /* Bug categories */
+  --gram-pos: 195 60% 40%;
+  --gram-neg: 18 65% 45%;
+  --atypical: 280 40% 45%;
+  --anaerobe: 32 50% 38%;
 
-  --gram-pos: 200 85% 65%;
-  --gram-neg: 10 90% 70%;
-  --atypical: 280 70% 75%;
-  --anaerobe: 130 60% 60%;
+  /* Drug class palette */
+  --c-pcn: 210 50% 38%;
+  --c-ceph: 270 35% 40%;
+  --c-carb: 18 65% 42%;
+  --c-mono: 320 45% 42%;
+  --c-fq: 0 60% 45%;
+  --c-ag: 28 60% 38%;
+  --c-mac: 42 70% 38%;
+  --c-tet: 80 40% 35%;
+  --c-gly: 145 40% 32%;
+  --c-lip: 175 40% 32%;
+  --c-oxa: 200 50% 35%;
+  --c-nit: 270 40% 38%;
+  --c-linc: 320 45% 38%;
+  --c-sulf: 38 55% 38%;
+  --c-uri: 22 55% 40%;
 
-  --chart-1: 270 80% 70%;
-  --chart-2: 175 80% 60%;
-  --chart-3: 28 100% 65%;
-  --chart-4: 320 85% 70%;
-  --chart-5: 38 100% 65%;
+  --chart-1: 18 70% 45%;
+  --chart-2: 195 60% 38%;
+  --chart-3: 30 65% 45%;
+  --chart-4: 340 55% 45%;
+  --chart-5: 95 45% 38%;
+}
 
-  --shadow-2xs: 0px 1px 0px 0px hsl(0 0% 0% / 0.3);
-  --shadow-xs: 0px 1px 2px 0px hsl(0 0% 0% / 0.4);
-  --shadow-sm: 0px 1px 3px 0px hsl(0 0% 0% / 0.5);
-  --shadow: 0px 2px 6px 0px hsl(0 0% 0% / 0.5);
-  --shadow-md: 0px 4px 12px 0px hsl(0 0% 0% / 0.55);
-  --shadow-lg: 0px 12px 32px 0px hsl(0 0% 0% / 0.6);
-  --shadow-xl: 0px 20px 48px 0px hsl(0 0% 0% / 0.7);
-  --shadow-2xl: 0px 28px 64px 0px hsl(0 0% 0% / 0.8);
+:root.flavor-apothecary.dark {
+  --background: 28 30% 11%;
+  --foreground: 38 50% 90%;
+  --border: 30 20% 22%;
+  --card: 28 30% 14%;
+  --card-foreground: 38 50% 90%;
+  --card-border: 30 20% 22%;
+  --sidebar: 28 30% 13%;
+  --sidebar-foreground: 38 50% 90%;
+  --sidebar-border: 30 20% 22%;
+  --popover: 28 30% 14%;
+  --popover-foreground: 38 50% 90%;
+  --popover-border: 30 20% 24%;
 
+  --primary: 18 80% 60%;
+  --primary-foreground: 28 30% 11%;
+  --secondary: 30 25% 22%;
+  --secondary-foreground: 38 50% 90%;
+  --muted: 28 25% 18%;
+  --muted-foreground: 35 30% 70%;
+  --accent: 30 35% 24%;
+  --accent-foreground: 38 50% 90%;
+  --destructive: 0 70% 55%;
+  --destructive-foreground: 38 50% 96%;
+  --input: 30 25% 26%;
+  --ring: 18 80% 60%;
+
+  --cov-primary: 16 95% 60%;
+  --cov-primary-bg: 16 60% 22%;
+  --cov-alternate: 42 95% 60%;
+  --cov-alternate-bg: 42 50% 22%;
+  --cov-class: 95 55% 50%;
+  --cov-class-bg: 95 35% 18%;
+
+  --bacteria: 195 75% 60%;
+  --bacteria-glow: 195 85% 75%;
+  --fungi: 30 85% 60%;
+  --fungi-glow: 30 85% 75%;
+  --virus: 340 75% 65%;
+  --virus-glow: 340 85% 80%;
+
+  --gram-pos: 195 75% 65%;
+  --gram-neg: 18 75% 65%;
+  --atypical: 280 55% 70%;
+  --anaerobe: 32 55% 60%;
+}
+
+/* =========================================================
+   FLAVOR 2 — EDITORIAL (broadsheet, cream/black)
+   ========================================================= */
+:root.flavor-editorial {
+  --background: 42 38% 96%;             /* off-white cream */
+  --foreground: 0 0% 5%;
+  --border: 0 0% 12%;
+  --card: 0 0% 100%;
+  --card-foreground: 0 0% 5%;
+  --card-border: 0 0% 12%;
+  --sidebar: 42 30% 94%;
+  --sidebar-foreground: 0 0% 5%;
+  --sidebar-border: 0 0% 12%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 0 0% 5%;
+  --popover-border: 0 0% 12%;
+
+  --primary: 6 75% 42%;                 /* signal red */
+  --primary-foreground: 42 38% 96%;
+  --secondary: 42 28% 90%;
+  --secondary-foreground: 0 0% 5%;
+  --muted: 42 22% 90%;
+  --muted-foreground: 35 8% 32%;
+  --accent: 42 25% 88%;
+  --accent-foreground: 0 0% 5%;
+  --destructive: 0 75% 45%;
+  --destructive-foreground: 42 38% 96%;
+  --input: 0 0% 75%;
+  --ring: 6 75% 42%;
+
+  --cov-primary: 6 80% 45%;
+  --cov-primary-bg: 6 75% 88%;
+  --cov-alternate: 42 88% 50%;
+  --cov-alternate-bg: 42 88% 86%;
+  --cov-class: 145 50% 35%;
+  --cov-class-bg: 145 40% 86%;
+
+  --bacteria: 210 60% 35%;
+  --bacteria-glow: 210 60% 50%;
+  --fungi: 30 70% 40%;
+  --fungi-glow: 30 70% 55%;
+  --virus: 320 55% 40%;
+  --virus-glow: 320 55% 55%;
+
+  --gram-pos: 210 60% 40%;
+  --gram-neg: 6 70% 45%;
+  --atypical: 280 50% 45%;
+  --anaerobe: 30 60% 38%;
+
+  --c-pcn: 210 60% 32%;
+  --c-ceph: 270 50% 35%;
+  --c-carb: 6 70% 38%;
+  --c-mono: 320 55% 38%;
+  --c-fq: 0 70% 42%;
+  --c-ag: 28 65% 32%;
+  --c-mac: 42 75% 35%;
+  --c-tet: 80 50% 30%;
+  --c-gly: 145 55% 28%;
+  --c-lip: 175 55% 28%;
+  --c-oxa: 200 65% 30%;
+  --c-nit: 270 55% 35%;
+  --c-linc: 320 60% 35%;
+  --c-sulf: 38 65% 32%;
+  --c-uri: 22 65% 35%;
+
+  --chart-1: 6 75% 42%;
+  --chart-2: 210 60% 35%;
+  --chart-3: 30 70% 40%;
+  --chart-4: 320 55% 40%;
+  --chart-5: 145 50% 35%;
+}
+
+:root.flavor-editorial.dark {
+  --background: 0 0% 6%;
+  --foreground: 42 30% 92%;
+  --border: 0 0% 22%;
+  --card: 0 0% 9%;
+  --card-foreground: 42 30% 92%;
+  --card-border: 0 0% 22%;
+  --sidebar: 0 0% 8%;
+  --sidebar-foreground: 42 30% 92%;
+  --sidebar-border: 0 0% 22%;
+  --popover: 0 0% 10%;
+  --popover-foreground: 42 30% 92%;
+  --popover-border: 0 0% 24%;
+
+  --primary: 6 85% 60%;
+  --primary-foreground: 0 0% 6%;
+  --secondary: 0 0% 16%;
+  --secondary-foreground: 42 30% 92%;
+  --muted: 0 0% 14%;
+  --muted-foreground: 0 0% 65%;
+  --accent: 0 0% 18%;
+  --accent-foreground: 42 30% 92%;
+  --destructive: 0 80% 60%;
+  --destructive-foreground: 42 30% 92%;
+  --input: 0 0% 22%;
+  --ring: 6 85% 60%;
+
+  --cov-primary: 6 95% 65%;
+  --cov-primary-bg: 6 65% 22%;
+  --cov-alternate: 42 95% 65%;
+  --cov-alternate-bg: 42 60% 22%;
+  --cov-class: 145 60% 55%;
+  --cov-class-bg: 145 40% 18%;
+
+  --bacteria: 210 75% 65%;
+  --bacteria-glow: 210 85% 78%;
+  --fungi: 30 85% 60%;
+  --fungi-glow: 30 90% 75%;
+  --virus: 320 75% 65%;
+  --virus-glow: 320 85% 78%;
+
+  --gram-pos: 210 75% 65%;
+  --gram-neg: 6 80% 65%;
+  --atypical: 280 65% 70%;
+  --anaerobe: 30 65% 60%;
+}
+
+/* =========================================================
+   FLAVOR 3 — BAUHAUS (neo-brutalist, primary colors)
+   ========================================================= */
+:root.flavor-bauhaus {
+  --background: 48 70% 94%;             /* warm cream */
+  --foreground: 0 0% 5%;
+  --border: 0 0% 5%;
+  --card: 48 70% 94%;
+  --card-foreground: 0 0% 5%;
+  --card-border: 0 0% 5%;
+  --sidebar: 48 60% 90%;
+  --sidebar-foreground: 0 0% 5%;
+  --sidebar-border: 0 0% 5%;
+  --popover: 48 60% 96%;
+  --popover-foreground: 0 0% 5%;
+  --popover-border: 0 0% 5%;
+
+  --primary: 14 95% 55%;                /* electric orange */
+  --primary-foreground: 48 70% 94%;
+  --secondary: 48 50% 86%;
+  --secondary-foreground: 0 0% 5%;
+  --muted: 48 40% 88%;
+  --muted-foreground: 0 0% 28%;
+  --accent: 48 55% 80%;
+  --accent-foreground: 0 0% 5%;
+  --destructive: 0 85% 50%;
+  --destructive-foreground: 48 70% 94%;
+  --input: 0 0% 70%;
+  --ring: 14 95% 55%;
+
+  --cov-primary: 14 95% 55%;
+  --cov-primary-bg: 14 95% 80%;
+  --cov-alternate: 50 100% 55%;
+  --cov-alternate-bg: 50 100% 80%;
+  --cov-class: 142 70% 42%;
+  --cov-class-bg: 142 60% 80%;
+
+  --bacteria: 200 90% 50%;              /* sky blue */
+  --bacteria-glow: 200 90% 65%;
+  --fungi: 50 100% 50%;                 /* school-bus yellow */
+  --fungi-glow: 50 100% 65%;
+  --virus: 320 75% 55%;                 /* hot pink */
+  --virus-glow: 320 90% 70%;
+
+  --gram-pos: 200 90% 55%;
+  --gram-neg: 22 90% 55%;
+  --atypical: 50 100% 55%;
+  --anaerobe: 270 70% 55%;
+
+  --c-pcn: 215 90% 50%;
+  --c-ceph: 270 70% 55%;
+  --c-carb: 14 90% 55%;
+  --c-mono: 320 75% 55%;
+  --c-fq: 350 80% 50%;
+  --c-ag: 28 95% 55%;
+  --c-mac: 50 100% 50%;
+  --c-tet: 80 70% 45%;
+  --c-gly: 142 70% 42%;
+  --c-lip: 175 70% 40%;
+  --c-oxa: 200 90% 50%;
+  --c-nit: 280 70% 55%;
+  --c-linc: 320 75% 55%;
+  --c-sulf: 50 95% 50%;
+  --c-uri: 22 90% 55%;
+
+  --chart-1: 14 95% 55%;
+  --chart-2: 200 90% 50%;
+  --chart-3: 50 100% 50%;
+  --chart-4: 320 75% 55%;
+  --chart-5: 142 70% 42%;
+}
+
+:root.flavor-bauhaus.dark {
+  --background: 0 0% 5%;
+  --foreground: 48 90% 92%;
+  --border: 48 90% 92%;
+  --card: 0 0% 8%;
+  --card-foreground: 48 90% 92%;
+  --card-border: 48 90% 92%;
+  --sidebar: 0 0% 6%;
+  --sidebar-foreground: 48 90% 92%;
+  --sidebar-border: 48 90% 92%;
+  --popover: 0 0% 10%;
+  --popover-foreground: 48 90% 92%;
+  --popover-border: 48 90% 92%;
+
+  --primary: 14 100% 60%;
+  --primary-foreground: 0 0% 5%;
+  --secondary: 0 0% 16%;
+  --secondary-foreground: 48 90% 92%;
+  --muted: 0 0% 14%;
+  --muted-foreground: 48 30% 75%;
+  --accent: 0 0% 18%;
+  --accent-foreground: 48 90% 92%;
+  --destructive: 0 90% 60%;
+  --destructive-foreground: 48 90% 92%;
+  --input: 0 0% 22%;
+  --ring: 14 100% 60%;
+
+  --cov-primary: 14 100% 65%;
+  --cov-primary-bg: 14 80% 28%;
+  --cov-alternate: 50 100% 60%;
+  --cov-alternate-bg: 50 80% 28%;
+  --cov-class: 142 80% 55%;
+  --cov-class-bg: 142 60% 22%;
+
+  --bacteria: 200 95% 65%;
+  --bacteria-glow: 200 95% 75%;
+  --fungi: 50 100% 60%;
+  --fungi-glow: 50 100% 75%;
+  --virus: 320 90% 70%;
+  --virus-glow: 320 95% 80%;
+
+  --gram-pos: 200 95% 65%;
+  --gram-neg: 22 95% 65%;
+  --atypical: 50 100% 60%;
+  --anaerobe: 270 80% 70%;
+}
+
+/* ---------------- BORDER ALIASES ---------------- */
+:root, :root.flavor-apothecary, :root.flavor-editorial, :root.flavor-bauhaus {
   --primary-border: hsl(var(--primary));
-  --primary-border: hsl(from hsl(var(--primary)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
   --secondary-border: hsl(var(--secondary));
-  --secondary-border: hsl(from hsl(var(--secondary)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
   --muted-border: hsl(var(--muted));
-  --muted-border: hsl(from hsl(var(--muted)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
   --accent-border: hsl(var(--accent));
-  --accent-border: hsl(from hsl(var(--accent)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
   --destructive-border: hsl(var(--destructive));
-  --destructive-border: hsl(from hsl(var(--destructive)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
-  --sidebar-primary-border: hsl(var(--sidebar-primary));
-  --sidebar-primary-border: hsl(from hsl(var(--sidebar-primary)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
-  --sidebar-accent-border: hsl(var(--sidebar-accent));
-  --sidebar-accent-border: hsl(from hsl(var(--sidebar-accent)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
+  --sidebar-primary-border: hsl(var(--primary));
+  --sidebar-accent-border: hsl(var(--accent));
+  --sidebar-primary: 270 70% 55%;
+  --sidebar-primary-foreground: 0 0% 100%;
+  --sidebar-accent: 230 14% 90%;
+  --sidebar-accent-foreground: 230 30% 12%;
+  --sidebar-ring: 270 70% 55%;
+}
+
+/* ============================================================
+   FLAVOR-SPECIFIC TYPOGRAPHY & TEXTURES
+   ============================================================ */
+.flavor-apothecary body {
+  font-family: var(--font-serif);
+  background-image:
+    radial-gradient(circle at 20% 0%, hsl(var(--primary) / 0.06), transparent 50%),
+    radial-gradient(circle at 80% 100%, hsl(var(--bacteria) / 0.05), transparent 50%);
+}
+.flavor-apothecary h1, .flavor-apothecary h2, .flavor-apothecary h3 {
+  font-family: var(--font-serif);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+}
+.flavor-apothecary .script { font-family: var(--font-script); }
+
+.flavor-editorial body {
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01", "cv11";
+  background-image: none;
+}
+.flavor-editorial h1, .flavor-editorial h2, .flavor-editorial h3 {
+  font-family: var(--font-serif);
+  font-weight: 900;
+  letter-spacing: -0.025em;
+}
+
+.flavor-bauhaus body {
+  font-family: var(--font-sans);
+  background-image:
+    radial-gradient(circle at 20% 0%, hsl(var(--bacteria) / 0.08), transparent 50%),
+    radial-gradient(circle at 80% 100%, hsl(var(--virus) / 0.08), transparent 50%);
+}
+.flavor-bauhaus h1, .flavor-bauhaus h2, .flavor-bauhaus h3 {
+  font-family: var(--font-block);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
-
-  body {
-    @apply font-sans antialiased bg-background text-foreground;
-    background-image:
-      radial-gradient(circle at 20% 0%, hsl(var(--primary) / 0.06), transparent 50%),
-      radial-gradient(circle at 80% 100%, hsl(var(--bacteria) / 0.06), transparent 50%);
-    background-attachment: fixed;
-  }
-
-  .dark body {
-    background-image:
-      radial-gradient(circle at 20% 0%, hsl(var(--primary) / 0.12), transparent 50%),
-      radial-gradient(circle at 80% 100%, hsl(var(--bacteria) / 0.08), transparent 50%);
-  }
-
-  h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-display);
-    letter-spacing: -0.01em;
-  }
-
+  * { @apply border-border; }
+  body { @apply font-sans antialiased bg-background text-foreground; background-attachment: fixed; }
   .font-display { font-family: var(--font-display); }
   .font-mono { font-family: var(--font-mono); }
+  .font-script { font-family: var(--font-script); }
+  .font-serif { font-family: var(--font-serif); }
+  .font-block { font-family: var(--font-block); }
 }
 
 @layer utilities {
@@ -230,114 +471,514 @@
   .cov-primary {
     background: hsl(var(--cov-primary-bg));
     color: hsl(var(--cov-primary));
-    border-color: hsl(var(--cov-primary) / 0.4);
+    border-color: hsl(var(--cov-primary) / 0.5) !important;
   }
   .cov-alternate {
     background: hsl(var(--cov-alternate-bg));
     color: hsl(var(--cov-alternate));
-    border-color: hsl(var(--cov-alternate) / 0.4);
+    border-color: hsl(var(--cov-alternate) / 0.5) !important;
   }
   .cov-class {
     background: hsl(var(--cov-class-bg));
     color: hsl(var(--cov-class));
-    border-color: hsl(var(--cov-class) / 0.4);
+    border-color: hsl(var(--cov-class) / 0.5) !important;
   }
 
-  /* Halo glow on hover/active */
-  .halo-bacteria { box-shadow: 0 0 0 2px hsl(var(--bacteria) / 0.4), 0 0 20px hsl(var(--bacteria-glow) / 0.5); }
-  .halo-fungi { box-shadow: 0 0 0 2px hsl(var(--fungi) / 0.4), 0 0 20px hsl(var(--fungi-glow) / 0.5); }
-  .halo-virus { box-shadow: 0 0 0 2px hsl(var(--virus) / 0.4), 0 0 20px hsl(var(--virus-glow) / 0.5); }
-
-  .halo-primary { box-shadow: 0 0 0 2px hsl(var(--cov-primary) / 0.5), 0 0 16px hsl(var(--cov-primary) / 0.6); }
-  .halo-alternate { box-shadow: 0 0 0 2px hsl(var(--cov-alternate) / 0.5), 0 0 16px hsl(var(--cov-alternate) / 0.5); }
-
-  /* Subtle dot grid background for matrix area */
-  .grid-bg {
-    background-image:
-      radial-gradient(circle, hsl(var(--foreground) / 0.05) 1px, transparent 1px);
-    background-size: 24px 24px;
+  /* Halo glow */
+  .halo-primary {
+    box-shadow: 0 0 0 2px hsl(var(--cov-primary) / 0.5),
+                0 0 16px hsl(var(--cov-primary) / 0.45);
   }
-  .dark .grid-bg {
-    background-image:
-      radial-gradient(circle, hsl(var(--foreground) / 0.08) 1px, transparent 1px);
+  .halo-alternate {
+    box-shadow: 0 0 0 2px hsl(var(--cov-alternate) / 0.5),
+                0 0 16px hsl(var(--cov-alternate) / 0.45);
   }
+  .halo-bacteria { box-shadow: 0 0 0 2px hsl(var(--bacteria) / 0.4), 0 0 18px hsl(var(--bacteria-glow) / 0.5); }
+  .halo-fungi    { box-shadow: 0 0 0 2px hsl(var(--fungi)    / 0.4), 0 0 18px hsl(var(--fungi-glow)    / 0.5); }
+  .halo-virus    { box-shadow: 0 0 0 2px hsl(var(--virus)    / 0.4), 0 0 18px hsl(var(--virus-glow)    / 0.5); }
 
   /* Hide ugly search cancel button */
-  input[type='search']::-webkit-search-cancel-button {
-    @apply hidden;
-  }
+  input[type='search']::-webkit-search-cancel-button { @apply hidden; }
 
-  /* Custom scrollbar — subtle */
+  /* Custom scrollbar */
   .nice-scroll::-webkit-scrollbar { width: 8px; height: 8px; }
   .nice-scroll::-webkit-scrollbar-track { background: transparent; }
-  .nice-scroll::-webkit-scrollbar-thumb {
-    background: hsl(var(--border));
-    border-radius: 4px;
-  }
-  .nice-scroll::-webkit-scrollbar-thumb:hover {
-    background: hsl(var(--muted-foreground) / 0.5);
-  }
+  .nice-scroll::-webkit-scrollbar-thumb { background: hsl(var(--border)); border-radius: 4px; }
+  .nice-scroll::-webkit-scrollbar-thumb:hover { background: hsl(var(--muted-foreground) / 0.5); }
 
-  /* Pulse animation for "active" hovered items */
-  @keyframes pulse-glow {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.85; }
-  }
-  .pulse-glow {
-    animation: pulse-glow 2.4s ease-in-out infinite;
-  }
+  /* Animations */
+  @keyframes pulse-glow { 0%,100% { opacity: 1; } 50% { opacity: 0.85; } }
+  .pulse-glow { animation: pulse-glow 2.4s ease-in-out infinite; }
 
-  /* Rise animation for tooltips */
   @keyframes rise-in {
     from { opacity: 0; transform: translateY(8px) scale(0.98); }
-    to { opacity: 1; transform: translateY(0) scale(1); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
   }
-  .rise-in {
-    animation: rise-in 0.18s ease-out;
+  .rise-in { animation: rise-in 0.18s ease-out; }
+
+  /* Bauhaus offset shadows */
+  .shadow-block {
+    box-shadow: 4px 4px 0 hsl(var(--foreground));
+  }
+  .shadow-block-sm {
+    box-shadow: 2px 2px 0 hsl(var(--foreground));
+  }
+  .shadow-block-lg {
+    box-shadow: 6px 6px 0 hsl(var(--foreground));
+  }
+
+  /* Apothecary dashed underlines for "hand-written" labels */
+  .dashed-underline {
+    border-bottom: 1.5px dashed hsl(var(--foreground) / 0.4);
+  }
+
+  /* Editorial double-rule for headers */
+  .double-rule {
+    border-bottom: 3px double hsl(var(--foreground));
+  }
+
+  /* Halo when actively selected */
+  .ring-active {
+    box-shadow: 0 0 0 2px hsl(var(--primary)),
+                0 0 22px hsl(var(--primary) / 0.5);
   }
 
   /* Elevate utility (kept from template) */
-  .toggle-elevate::before,
-  .toggle-elevate-2::before {
-    content: '';
-    pointer-events: none;
-    position: absolute;
-    inset: 0px;
-    border-radius: inherit;
-    z-index: -1;
+  .toggle-elevate::before, .toggle-elevate-2::before {
+    content: ''; pointer-events: none; position: absolute; inset: 0px;
+    border-radius: inherit; z-index: -1;
   }
-  .toggle-elevate.toggle-elevated::before {
-    background-color: var(--elevate-2);
-  }
+  .toggle-elevate.toggle-elevated::before { background-color: var(--elevate-2); }
   .border.toggle-elevate::before { inset: -1px; }
   .hover-elevate:not(.no-default-hover-elevate),
   .active-elevate:not(.no-default-active-elevate),
   .hover-elevate-2:not(.no-default-hover-elevate),
   .active-elevate-2:not(.no-default-active-elevate) {
-    position: relative;
-    z-index: 0;
+    position: relative; z-index: 0;
   }
   .hover-elevate:not(.no-default-hover-elevate)::after,
   .active-elevate:not(.no-default-active-elevate)::after,
   .hover-elevate-2:not(.no-default-hover-elevate)::after,
   .active-elevate-2:not(.no-default-active-elevate)::after {
-    content: '';
-    pointer-events: none;
-    position: absolute;
-    inset: 0px;
-    border-radius: inherit;
-    z-index: 999;
+    content: ''; pointer-events: none; position: absolute; inset: 0px;
+    border-radius: inherit; z-index: 999;
   }
   .hover-elevate:hover:not(.no-default-hover-elevate)::after,
-  .active-elevate:active:not(.no-default-active-elevate)::after {
-    background-color: var(--elevate-1);
-  }
+  .active-elevate:active:not(.no-default-active-elevate)::after { background-color: var(--elevate-1); }
   .hover-elevate-2:hover:not(.no-default-hover-elevate)::after,
-  .active-elevate-2:active:not(.no-default-active-elevate)::after {
-    background-color: var(--elevate-2);
-  }
-  .border.hover-elevate::after,
-  .border.active-elevate::after,
-  .border.hover-elevate-2::after,
-  .border.active-elevate-2::after { inset: -1px; }
+  .active-elevate-2:active:not(.no-default-active-elevate)::after { background-color: var(--elevate-2); }
+  .border.hover-elevate::after, .border.active-elevate::after,
+  .border.hover-elevate-2::after, .border.active-elevate-2::after { inset: -1px; }
 }
+
+/* ============================================================
+   MATRIX COMPONENTS — flavor-aware
+   .panel · .dclass · .drug-cell · .bug-cell · .synd-row
+   ============================================================ */
+@layer components {
+  /* Panel — outer column container */
+  .panel {
+    background: hsl(var(--card));
+    color: hsl(var(--card-foreground));
+    border: 2px solid hsl(var(--foreground));
+    border-radius: 0;
+    overflow: hidden;
+  }
+  .panel__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 12px;
+    background: hsl(var(--background));
+    border-bottom: 2px solid hsl(var(--foreground));
+  }
+  .panel__title {
+    font-family: var(--font-serif);
+    font-weight: 900;
+    font-size: 14px;
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+  .panel__count {
+    font-family: var(--font-script);
+    font-size: 12px;
+    color: hsl(var(--muted-foreground));
+    background: hsl(var(--card));
+    padding: 0px 7px;
+    border: 1.5px solid hsl(var(--muted-foreground));
+    border-radius: 99px;
+  }
+
+  /* DRUG CLASS GROUP */
+  .dclass {
+    border-radius: 4px;
+    transition: all .15s ease;
+  }
+  .dclass--active {
+    background: color-mix(in oklab, hsl(var(--klass)) 8%, transparent);
+  }
+  .dclass__head {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 0 3px 1px;
+    font-family: var(--font-script);
+    font-size: 12px;
+    font-weight: 700;
+    color: hsl(var(--klass));
+    border-bottom: 1px dashed color-mix(in oklab, hsl(var(--klass)) 60%, transparent);
+    margin-bottom: 2px;
+    line-height: 1;
+  }
+  .dclass__swatch {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: hsl(var(--klass));
+    border: 1.5px solid hsl(var(--foreground));
+    flex-shrink: 0;
+  }
+  .dclass__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2px;
+  }
+  @media (min-width: 1280px) {
+    .dclass__grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  /* DRUG CELL */
+  .drug-cell {
+    background: hsl(var(--background));
+    color: hsl(var(--foreground));
+    border-color: hsl(var(--foreground));
+    border-radius: 0;
+    padding: 2px 5px !important;
+    font-size: 10px !important;
+    line-height: 1.05;
+    min-height: 19px;
+  }
+  .drug-cell .drug-gen {
+    font-family: var(--font-script);
+    font-size: 11px;
+    font-weight: 700;
+    color: hsl(var(--muted-foreground));
+    flex-shrink: 0;
+    line-height: 1;
+  }
+  .drug-cell--primary {
+    background: hsl(var(--cov-primary-bg));
+    color: hsl(var(--cov-primary));
+    border-color: hsl(var(--cov-primary));
+  }
+  .drug-cell--alternate {
+    background: hsl(var(--cov-alternate-bg));
+    color: hsl(var(--cov-alternate));
+    border-color: hsl(var(--cov-alternate));
+  }
+  .drug-cell--class {
+    background: hsl(var(--cov-class-bg));
+    color: hsl(var(--cov-class));
+    border-color: hsl(var(--cov-class));
+  }
+  .drug-cell--active {
+    background: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+    border-color: hsl(var(--foreground));
+    box-shadow: 3px 3px 0 hsl(var(--foreground));
+    transform: translate(-1px, -1px);
+  }
+  .drug-cell--pinned {
+    box-shadow: 0 0 0 2px hsl(var(--primary)), 2px 2px 0 hsl(var(--foreground));
+  }
+  .drug-cell--match {
+    outline: 2px dashed hsl(var(--primary));
+    outline-offset: 2px;
+  }
+
+  /* BUG CELL */
+  .bug-cell {
+    background: hsl(var(--background));
+    color: hsl(var(--foreground));
+    border-color: hsl(var(--foreground));
+    border-radius: 0;
+    padding: 4px;
+    font-family: var(--font-serif);
+    font-weight: 700;
+    font-size: 11px;
+    line-height: 1.1;
+    min-height: 0;
+  }
+  .bug-cell__cat {
+    font-family: var(--font-script);
+    font-weight: 500;
+    font-size: 9.5px;
+    color: hsl(var(--muted-foreground));
+    z-index: 5;
+    pointer-events: none;
+  }
+  .bug-cell__name {
+    font-family: var(--font-serif);
+    font-weight: 800;
+    font-size: 11.5px;
+    line-height: 1.05;
+    text-shadow: 0 0 6px hsl(var(--card) / 0.9), 0 0 3px hsl(var(--card) / 0.9);
+    white-space: normal;
+    word-break: break-word;
+    max-width: 100%;
+  }
+  .bug-cell.bug-tone-gp { background: color-mix(in oklab, hsl(var(--gram-pos)) 18%, hsl(var(--card))); }
+  .bug-cell.bug-tone-gn { background: color-mix(in oklab, hsl(var(--gram-neg)) 18%, hsl(var(--card))); }
+  .bug-cell.bug-tone-anae {
+    background: color-mix(in oklab, hsl(var(--anaerobe)) 22%, hsl(var(--card)));
+    border-style: double; border-width: 4px;
+  }
+  .bug-cell.bug-tone-atyp {
+    background: color-mix(in oklab, hsl(var(--atypical)) 22%, hsl(var(--card)));
+    border-style: double; border-width: 4px;
+  }
+  .bug-cell--primary {
+    background: hsl(var(--cov-primary-bg));
+    color: hsl(var(--cov-primary));
+    border-color: hsl(var(--cov-primary));
+  }
+  .bug-cell--alternate {
+    background: hsl(var(--cov-alternate-bg));
+    color: hsl(var(--cov-alternate));
+    border-color: hsl(var(--cov-alternate));
+  }
+  .bug-cell--active {
+    background: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+    box-shadow: 4px 4px 0 hsl(var(--foreground));
+  }
+  .bug-cell--pinned {
+    box-shadow: 0 0 0 3px hsl(var(--primary)), 3px 3px 0 hsl(var(--foreground));
+  }
+  .bug-cell--match { outline: 2px dashed hsl(var(--primary)); outline-offset: 2px; }
+
+  /* SYNDROME ROW */
+  .synd-row {
+    background: transparent;
+    color: hsl(var(--foreground));
+    border: none;
+    border-bottom: 1px dashed color-mix(in oklab, hsl(var(--muted-foreground)) 50%, transparent);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    padding-block: 3px !important;
+    padding-inline: 8px !important;
+    font-size: 11.5px !important;
+  }
+  .synd-row:hover {
+    background: hsl(var(--accent));
+    padding-left: 14px;
+  }
+  .synd-row__ico {
+    font-family: var(--font-script);
+    color: hsl(var(--muted-foreground));
+    font-weight: 700;
+    width: 16px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+  .synd-row--active {
+    background: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+  }
+  .synd-row--active .synd-row__ico { color: hsl(var(--primary-foreground)); }
+  .synd-row--primary {
+    background: hsl(var(--cov-primary-bg));
+    color: hsl(var(--cov-primary));
+  }
+  .synd-row--alternate {
+    background: hsl(var(--cov-alternate-bg));
+    color: hsl(var(--cov-alternate));
+  }
+  .synd-row--pinned {
+    box-shadow: inset 3px 0 0 hsl(var(--primary));
+  }
+  .synd-row--match {
+    outline: 2px dashed hsl(var(--primary));
+    outline-offset: -2px;
+  }
+}
+
+/* ============================================================
+   FLAVOR OVERRIDES — give each flavor its own cell personality
+   ============================================================ */
+
+/* Apothecary — warm, hand-drawn, dashed underlines */
+.flavor-apothecary .panel {
+  box-shadow: 4px 4px 0 hsl(var(--foreground));
+}
+.flavor-apothecary .drug-cell {
+  border-radius: 2px;
+}
+
+/* Editorial — NYT-style, thin rules, restrained */
+.flavor-editorial .panel {
+  border-width: 1px;
+  box-shadow: none;
+}
+.flavor-editorial .panel__header {
+  border-bottom-width: 3px;
+  border-bottom-style: double;
+}
+.flavor-editorial .panel__title {
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 14px;
+}
+.flavor-editorial .drug-cell { border-width: 1px; }
+.flavor-editorial .bug-cell { border-width: 1px; }
+.flavor-editorial .bug-cell.bug-tone-anae,
+.flavor-editorial .bug-cell.bug-tone-atyp { border-style: double; border-width: 3px; }
+.flavor-editorial .dclass__head {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+}
+.flavor-editorial .drug-cell .drug-gen {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.04em;
+}
+.flavor-editorial .bug-cell__cat {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.flavor-editorial .panel__count {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  border-radius: 0;
+}
+.flavor-editorial .synd-row { font-family: var(--font-sans); }
+.flavor-editorial .synd-row__ico { font-family: var(--font-mono); font-size: 10px; }
+
+/* Bauhaus — block, hard offset shadows, no rounding */
+.flavor-bauhaus .panel {
+  border-width: 3px;
+  box-shadow: 6px 6px 0 hsl(var(--foreground));
+}
+.flavor-bauhaus .panel__header { border-bottom-width: 3px; }
+.flavor-bauhaus .panel__title {
+  font-family: var(--font-block);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0;
+}
+.flavor-bauhaus .panel__count {
+  font-family: var(--font-mono);
+  border-radius: 0;
+  border-width: 2px;
+}
+.flavor-bauhaus .dclass__head {
+  font-family: var(--font-block);
+  font-weight: 400;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border-bottom-style: solid;
+}
+.flavor-bauhaus .drug-cell {
+  border-width: 2px;
+  font-family: var(--font-sans);
+  font-weight: 600;
+}
+.flavor-bauhaus .drug-cell .drug-gen {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 700;
+}
+.flavor-bauhaus .bug-cell {
+  border-width: 3px;
+  font-family: var(--font-block);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  font-size: 10px;
+}
+.flavor-bauhaus .bug-cell__name {
+  font-family: var(--font-block);
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 1.05;
+  text-transform: uppercase;
+  white-space: normal;
+  word-break: break-word;
+  hyphens: auto;
+  max-width: 100%;
+}
+.flavor-bauhaus .bug-cell__cat {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  text-transform: uppercase;
+}
+.flavor-bauhaus .bug-cell.bug-tone-anae,
+.flavor-bauhaus .bug-cell.bug-tone-atyp { border-style: solid; border-width: 3px; }
+.flavor-bauhaus .synd-row { font-family: var(--font-sans); font-weight: 500; }
+.flavor-bauhaus .synd-row__ico { font-family: var(--font-block); font-size: 11px; font-weight: 400; }
+
+/* Bauhaus interactive shadows — punchier */
+.flavor-bauhaus .drug-cell:hover { box-shadow: 3px 3px 0 hsl(var(--foreground)); }
+.flavor-bauhaus .bug-cell:hover { box-shadow: 4px 4px 0 hsl(var(--foreground)); }
+
+/* Apothecary stays subtle */
+.flavor-apothecary .drug-cell:hover { box-shadow: 2px 2px 0 hsl(var(--foreground)); }
+.flavor-apothecary .bug-cell:hover { box-shadow: 3px 3px 0 hsl(var(--foreground)); }
+
+/* Editorial — minimal hover */
+.flavor-editorial .drug-cell:hover { background: hsl(var(--accent)); transform: none; box-shadow: none; }
+.flavor-editorial .bug-cell:hover { box-shadow: 0 4px 12px hsl(var(--foreground) / 0.15); transform: translateY(-1px); }
+
+/* ============================================================
+   FEATURE CARD — bottom-right pinned card
+   ============================================================ */
+.feature-card {
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  border: 2px solid hsl(var(--foreground));
+  border-radius: 0;
+}
+.flavor-bauhaus .feature-card {
+  border-width: 3px;
+  box-shadow: 5px 5px 0 hsl(var(--foreground));
+}
+.flavor-apothecary .feature-card {
+  box-shadow: 3px 3px 0 hsl(var(--foreground));
+}
+.flavor-editorial .feature-card {
+  border-width: 1px;
+  box-shadow: none;
+}
+
+/* Theme switcher button */
+.theme-switcher {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border: 2px solid hsl(var(--foreground));
+  background: hsl(var(--card));
+  color: hsl(var(--foreground));
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: all .15s ease;
+  border-radius: 0;
+}
+.theme-switcher:hover {
+  background: hsl(var(--foreground));
+  color: hsl(var(--background));
+  transform: translate(-1px, -1px);
+  box-shadow: 2px 2px 0 hsl(var(--foreground));
+}
+.flavor-editorial .theme-switcher { border-width: 1px; }

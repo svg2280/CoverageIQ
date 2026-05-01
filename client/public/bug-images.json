@@ -1,0 +1,167 @@
+{
+  "mrsa": {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/6/64/MRSA_SEM_9994_lores.jpg",
+    "caption": "Methicillin-resistant Staphylococcus aureus (MRSA) — colorized scanning electron micrograph (SEM), magnified 20,000X (CDC/PHIL #9994)",
+    "license": "Public domain (CDC/PHIL)"
+  },
+  "mssa": {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/d/d3/Staphylococcus_aureus_VISA_2.jpg",
+    "caption": "Staphylococcus aureus — scanning electron micrograph (SEM), magnified 20,000X, vancomycin-intermediate resistant strain (CDC/PHIL #9997)",
+    "license": "Public domain (CDC/PHIL)"
+  },
+  "strep": {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/7/73/Streptococcuspneumoniae.jpg",
+    "caption": "Streptococcus pneumoniae bacteria (yellow) being phagocytosed by a white blood cell (red) — colorized SEM (NIAID, CC BY 2.0)",
+    "license": "CC BY 2.0 (NIAID)"
+  },
+  "pseudomonas": {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/b/b3/Pseudomonas.jpg",
+    "caption": "Pseudomonas aeruginosa — colorized scanning electron micrograph (SEM) (CDC/PHIL #232)",
+    "license": "Public domain (CDC/PHIL)"
+  },
+  "enterococcus": {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/b/b4/Enterococcus_faecalis_SEM_01.png",
+    "caption": "Enterococcus faecalis — scanning electron micrograph (SEM) (CDC/PHIL)",
+    "license": "Public domain (CDC/PHIL)"
+  },
+  "anaerobes": {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/6/6d/BacteroidesFragilis_Gram.jpg",
+    "caption": "Bacteroides fragilis — Gram stain micrograph showing Gram-negative anaerobic rods (CDC/PHIL)",
+    "license": "Public domain (CDC/PHIL)"
+  },
+  "gnrs": {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/b/bc/E_coli_at_10000x%2C_original.jpg",
+    "caption": "Escherichia coli — low-temperature electron micrograph cluster, magnified 10,000X (Rocky Mountain Laboratories/NIAID/NIH)",
+    "license": "Public domain"
+  },
+  "esbl": {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/b/bc/E_coli_at_10000x%2C_original.jpg",
+    "caption": "Escherichia coli (representative of ESBL-producing GNR) — electron micrograph cluster, magnified 10,000X (Rocky Mountain Laboratories/NIAID/NIH)",
+    "license": "Public domain"
+  },
+  "escappm": {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/d/db/Multidrug-resistant_Klebsiella_pneumoniaeand_neutrophil.jpg",
+    "caption": "Multidrug-resistant Klebsiella pneumoniae (orange/yellow) interacting with a human neutrophil (blue) — colorized SEM (CDC/NIAID)",
+    "license": "Public domain (CDC/PHIL)"
+  },
+  "atypicals": {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/1/13/Legionella_pneumophila_%28SEM%29_2.jpg",
+    "caption": "Legionella pneumophila — colorized scanning electron micrograph (SEM), magnified 5,000X (CDC/PHIL)",
+    "license": "Public domain (CDC/PHIL)"
+  },
+  "vre": {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/b/b4/Enterococcus_faecalis_SEM_01.png",
+    "caption": "Enterococcus faecalis (representative of VRE) — scanning electron micrograph (SEM) (CDC/PHIL)",
+    "license": "Public domain (CDC/PHIL)"
+  },
+  "listeria": {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/7/74/Listeria_monocytogenes_PHIL_2287_lores.jpg",
+    "caption": "Listeria monocytogenes — scanning electron micrograph (SEM) (CDC/PHIL #2287)",
+    "license": "Public domain (CDC/PHIL)"
+  },
+  "neisseria": {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/8/87/Neisseria_gonorrhoeae_PHIL_3693_lores.jpg",
+    "caption": "Neisseria gonorrhoeae — Gram stain of urethral exudate showing intracellular Gram-negative diplococci (CDC/PHIL #3693)",
+    "license": "Public domain (CDC/PHIL)"
+  },
+  "candida-albicans": {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/e/e8/Candida_albicans_%281000X_magnification%29_%286500725393%29.jpg",
+    "caption": "Candida albicans — 1000X magnification light micrograph showing yeast and hyphal forms (NIAID, CC BY 2.0)",
+    "license": "CC BY 2.0 (NIAID)"
+  },
+  "candida-glabrata": {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/e/e8/Candida_albicans_%281000X_magnification%29_%286500725393%29.jpg",
+    "caption": "Candida species (representative for C. glabrata) — 1000X magnification micrograph (NIAID, CC BY 2.0)",
+    "license": "CC BY 2.0 (NIAID)"
+  },
+  "candida-krusei": {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/e/e8/Candida_albicans_%281000X_magnification%29_%286500725393%29.jpg",
+    "caption": "Candida species (representative for C. krusei) — 1000X magnification micrograph (NIAID, CC BY 2.0)",
+    "license": "CC BY 2.0 (NIAID)"
+  },
+  "candida-auris": {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/7/7c/Drug-resistant_Candida_auris.jpg",
+    "caption": "Drug-resistant Candida auris — scanning electron micrograph (SEM) (CDC/Shawn Lockhart)",
+    "license": "Public domain (CDC/PHIL)"
+  },
+  "crypto": {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/6/6f/Cryptococcus_neoformans_using_a_light_India_ink_staining_preparation_PHIL_3771_lores.jpg",
+    "caption": "Cryptococcus neoformans — India ink light microscopy preparation showing encapsulated yeast cells (CDC/PHIL #3771)",
+    "license": "Public domain (CDC/PHIL)"
+  },
+  "aspergillus": {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/1/15/10523_Aspergillus_fumigatus.jpg",
+    "caption": "Aspergillus fumigatus — scanning electron micrograph (SEM) of conidiophores bearing conidia (CDC/PHIL #10523)",
+    "license": "Public domain (CDC/PHIL)"
+  },
+  "mucor": {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/f/fa/Mucor_Sporangium_and_Spore_1.jpg",
+    "caption": "Mucor species — light micrograph showing sporangium and spores (CC BY-SA 4.0)",
+    "license": "CC BY-SA 4.0"
+  },
+  "histo": {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/4/42/Histoplasmosis_capsulatum.jpg",
+    "caption": "Histoplasma capsulatum — methenamine silver stain showing typical yeast cells with budding (CDC/PHIL)",
+    "license": "Public domain (CDC/PHIL)"
+  },
+  "blasto": {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/a/a0/Blastomyces_dermatitidis_hyphae.png",
+    "caption": "Blastomyces dermatitidis — microscopic image of mycelial form showing hyphae and conidiophores (CDC/Dr Libero Ajello)",
+    "license": "Public domain (CDC/PHIL)"
+  },
+  "cocci": {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/c/c5/Arthroconidia_of_Coccidioides_immitis_39G0040_lores.jpg",
+    "caption": "Coccidioides immitis — arthroconidia (infectious spore form) micrograph (CDC/PHIL)",
+    "license": "Public domain (CDC/PHIL)"
+  },
+  "pjp": {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/1/12/Pneumocystis_carinii_PHIL_2998_lores.jpg",
+    "caption": "Pneumocystis jirovecii (formerly carinii) — light micrograph from bronchoalveolar lavage (CDC/PHIL #2998)",
+    "license": "Public domain (CDC/PHIL)"
+  },
+  "influenza": {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/0/0d/Colorized_transmission_electron_micrograph_of_Avian_influenza_A_H5N1_viruses.jpg",
+    "caption": "Influenza A (H5N1) virus particles — colorized transmission electron micrograph (CDC/PHIL)",
+    "license": "Public domain (CDC/PHIL)"
+  },
+  "covid": {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/7/76/Novel_Coronavirus_SARS-CoV-2.jpg",
+    "caption": "SARS-CoV-2 (COVID-19) — colorized transmission electron micrograph of virus particles emerging from cell surface, showing spike proteins (NIAID-RML, CC BY 2.0)",
+    "license": "CC BY 2.0 (NIAID)"
+  },
+  "rsv": {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/8/8f/Respiratory_Syncytial_Virus_%28RSV%29_EM_PHIL_2175_lores.jpg",
+    "caption": "Respiratory Syncytial Virus (RSV) — transmission electron micrograph (TEM) showing filamentous virions (CDC/PHIL #2175)",
+    "license": "Public domain (CDC/PHIL)"
+  },
+  "hsv": {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/4/4d/Herpesviridae_EM_PHIL_2171_lores.jpg",
+    "caption": "Herpes simplex virus (Herpesviridae) — transmission electron micrograph (TEM) showing enveloped virions (CDC/PHIL #2171)",
+    "license": "Public domain (CDC/PHIL)"
+  },
+  "vzv": {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/3/3e/Varicella-zoster_Virus_%285614251360%29.jpg",
+    "caption": "Varicella-zoster virus (VZV) — electron micrograph showing herpesvirus particles (NIAID/Flickr, CC BY 2.0)",
+    "license": "CC BY 2.0 (NIAID)"
+  },
+  "cmv": {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/6/6d/14429_lores.jpg",
+    "caption": "Cytomegalovirus (CMV) — transmission electron microscopic (TEM) image, magnified 49,200X, showing virions (CDC/PHIL #14429)",
+    "license": "Public domain (CDC/PHIL)"
+  },
+  "hbv": {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/e/e9/Hepatitis_B_Virus_%2852443792486%29.jpg",
+    "caption": "Hepatitis B virus (HBV) — colorized transmission electron micrograph (TEM) showing Dane particles (NIAID/CDC, CC BY 2.0)",
+    "license": "CC BY 2.0 (NIAID/CDC)"
+  },
+  "hcv": {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/d/dc/Em_flavavirus-HCV_samp1c.jpg",
+    "caption": "Hepatitis C virus (HCV) — transmission electron micrograph (TEM) showing flavivirus-like particles (CC BY-SA 3.0)",
+    "license": "CC BY-SA 3.0"
+  },
+  "hiv": {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/1/1a/HIV-budding-Color.jpg",
+    "caption": "HIV-1 budding from a cultured lymphocyte — colorized scanning electron micrograph (SEM), the iconic CDC image (CDC/PHIL #1197)",
+    "license": "Public domain (CDC/PHIL)"
+  }
+}
