@@ -740,25 +740,76 @@
     background: color-mix(in oklab, hsl(var(--atypical)) 22%, hsl(var(--card)));
     border-style: double; border-width: 4px;
   }
+  /* ===== COVERAGE HIGHLIGHTS — BugDrugDX-style flat color blocks =====
+     When a selection is active, every covered bug becomes a saturated
+     solid-color block (orange = primary, yellow = alternate). Non-covered
+     bugs dim. The bug image fades out behind covered cells so the color
+     reads like a flat fill. Strong borders + scale make hits pop. */
+
   .bug-cell--primary {
-    background: hsl(var(--cov-primary-bg));
-    color: hsl(var(--cov-primary));
-    border-color: hsl(var(--cov-primary));
+    background: hsl(var(--cov-primary)) !important;
+    color: #1a0f08 !important;
+    border-color: hsl(var(--foreground)) !important;
+    border-width: 3px !important;
+    box-shadow: 3px 3px 0 hsl(var(--foreground));
+    transform: translate(-1px, -1px) scale(1.015);
+    z-index: 4;
   }
   .bug-cell--alternate {
-    background: hsl(var(--cov-alternate-bg));
-    color: hsl(var(--cov-alternate));
-    border-color: hsl(var(--cov-alternate));
+    background: hsl(var(--cov-alternate)) !important;
+    color: #1a0f08 !important;
+    border-color: hsl(var(--foreground)) !important;
+    border-width: 3px !important;
+    box-shadow: 3px 3px 0 hsl(var(--foreground));
+    transform: translate(-1px, -1px) scale(1.015);
+    z-index: 3;
   }
   .bug-cell--active {
-    background: hsl(var(--primary));
-    color: hsl(var(--primary-foreground));
-    box-shadow: 4px 4px 0 hsl(var(--foreground));
+    background: hsl(var(--primary)) !important;
+    color: hsl(var(--primary-foreground)) !important;
+    border-color: hsl(var(--foreground)) !important;
+    border-width: 3px !important;
+    box-shadow: 5px 5px 0 hsl(var(--foreground));
+    transform: translate(-2px, -2px) scale(1.02);
+    z-index: 5;
   }
   .bug-cell--pinned {
-    box-shadow: 0 0 0 3px hsl(var(--primary)), 3px 3px 0 hsl(var(--foreground));
+    box-shadow: 0 0 0 3px hsl(var(--primary)), 4px 4px 0 hsl(var(--foreground));
+    z-index: 4;
   }
-  .bug-cell--match { outline: 2px dashed hsl(var(--primary)); outline-offset: 2px; }
+  .bug-cell--match { outline: 3px dashed hsl(var(--primary)); outline-offset: 3px; z-index: 5; }
+
+  /* When a covered bug has a flat color fill, mute the photo behind it so
+     the color reads cleanly (BugDrugDX is image-free; we keep a faint hint). */
+  .bug-cell--primary > img,
+  .bug-cell--alternate > img,
+  .bug-cell--active > img {
+    opacity: 0.12 !important;
+    mix-blend-mode: luminosity;
+  }
+  /* Make the name itself read clearly on the saturated fills */
+  .bug-cell--primary .bug-cell__name,
+  .bug-cell--alternate .bug-cell__name,
+  .bug-cell--active .bug-cell__name {
+    text-shadow: none;
+    color: inherit;
+    font-weight: 900;
+  }
+  .bug-cell--primary .bug-cell__cat,
+  .bug-cell--alternate .bug-cell__cat,
+  .bug-cell--active .bug-cell__cat {
+    color: rgba(0, 0, 0, 0.55);
+  }
+
+  /* When ANY selection is active, dim every bug cell that isn't part of the
+     coverage. This is the BugDrugDX dim-non-matches behavior. */
+  [data-selection="active"] .bug-cell:not(.bug-cell--primary):not(.bug-cell--alternate):not(.bug-cell--active):not(.bug-cell--pinned):not(.bug-cell--match) {
+    opacity: 0.32;
+    filter: saturate(0.4);
+  }
+  [data-selection="active"] .bug-cell:not(.bug-cell--primary):not(.bug-cell--alternate):not(.bug-cell--active):not(.bug-cell--pinned):not(.bug-cell--match) > img {
+    opacity: 0.18 !important;
+  }
 
   /* SYNDROME ROW */
   .synd-row {

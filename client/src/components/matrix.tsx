@@ -310,8 +310,13 @@ export function Matrix({
 
   const isAntibac = data.key === "antibacterials";
 
+  const selectionActive = !!active;
+
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)_minmax(0,0.85fr)] gap-2 lg:gap-2.5 items-stretch h-full min-h-0">
+    <div
+      className="grid grid-cols-1 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)_minmax(0,0.85fr)] gap-2 lg:gap-2.5 items-stretch h-full min-h-0"
+      data-selection={selectionActive ? "active" : "idle"}
+    >
       {/* DRUGS COLUMN */}
       <section className="panel flex flex-col min-h-0" data-testid="column-drugs">
         <header className="panel__header">
