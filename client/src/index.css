@@ -666,34 +666,64 @@
     flex-shrink: 0;
     line-height: 1;
   }
+  /* ===== DRUG COVERAGE HIGHLIGHTS — BugDrugDX legend =====
+     Orange = primary coverage / common association
+     Yellow = alternate / uncommon association
+     Green  = same antibiotic class as the hovered drug
+     White  = no coverage (default cell) */
   .drug-cell--primary {
-    background: hsl(var(--cov-primary-bg));
-    color: hsl(var(--cov-primary));
-    border-color: hsl(var(--cov-primary));
+    background: hsl(var(--cov-primary)) !important;
+    color: #1a0f08 !important;
+    border-color: hsl(var(--foreground)) !important;
+    border-width: 2px !important;
+    box-shadow: 2px 2px 0 hsl(var(--foreground));
+    transform: translate(-1px, -1px);
+    font-weight: 700;
+    z-index: 4;
   }
   .drug-cell--alternate {
-    background: hsl(var(--cov-alternate-bg));
-    color: hsl(var(--cov-alternate));
-    border-color: hsl(var(--cov-alternate));
+    background: hsl(var(--cov-alternate)) !important;
+    color: #1a0f08 !important;
+    border-color: hsl(var(--foreground)) !important;
+    border-width: 2px !important;
+    box-shadow: 2px 2px 0 hsl(var(--foreground));
+    transform: translate(-1px, -1px);
+    font-weight: 700;
+    z-index: 3;
   }
   .drug-cell--class {
-    background: hsl(var(--cov-class-bg));
-    color: hsl(var(--cov-class));
-    border-color: hsl(var(--cov-class));
+    background: hsl(var(--cov-class)) !important;
+    color: #07210d !important;
+    border-color: hsl(var(--foreground)) !important;
+    border-width: 2px !important;
+    box-shadow: 2px 2px 0 hsl(var(--foreground));
+    transform: translate(-1px, -1px);
+    font-weight: 700;
+    z-index: 2;
   }
   .drug-cell--active {
-    background: hsl(var(--primary));
-    color: hsl(var(--primary-foreground));
-    border-color: hsl(var(--foreground));
-    box-shadow: 3px 3px 0 hsl(var(--foreground));
-    transform: translate(-1px, -1px);
+    background: hsl(var(--primary)) !important;
+    color: hsl(var(--primary-foreground)) !important;
+    border-color: hsl(var(--foreground)) !important;
+    border-width: 3px !important;
+    box-shadow: 4px 4px 0 hsl(var(--foreground));
+    transform: translate(-2px, -2px) scale(1.02);
+    z-index: 5;
   }
+  .drug-cell--primary .drug-gen,
+  .drug-cell--alternate .drug-gen,
+  .drug-cell--class .drug-gen { color: rgba(0, 0, 0, 0.6); }
   .drug-cell--pinned {
     box-shadow: 0 0 0 2px hsl(var(--primary)), 2px 2px 0 hsl(var(--foreground));
   }
   .drug-cell--match {
     outline: 2px dashed hsl(var(--primary));
     outline-offset: 2px;
+  }
+  /* Dim drug cells with no relationship to the active selection */
+  [data-selection="active"] .drug-cell:not(.drug-cell--primary):not(.drug-cell--alternate):not(.drug-cell--class):not(.drug-cell--active):not(.drug-cell--pinned):not(.drug-cell--match) {
+    opacity: 0.32;
+    filter: saturate(0.4);
   }
 
   /* BUG CELL */
@@ -835,25 +865,45 @@
     text-align: center;
     flex-shrink: 0;
   }
+  /* ===== SYNDROME COVERAGE HIGHLIGHTS — BugDrugDX legend =====
+     Orange row = primary association (this bug commonly causes this syndrome,
+     or this drug is empiric for this syndrome). White = no association. */
   .synd-row--active {
-    background: hsl(var(--primary));
-    color: hsl(var(--primary-foreground));
+    background: hsl(var(--primary)) !important;
+    color: hsl(var(--primary-foreground)) !important;
+    border-left: 4px solid hsl(var(--foreground));
+    padding-left: 12px !important;
+    font-weight: 800;
+    box-shadow: 3px 0 0 hsl(var(--foreground));
   }
   .synd-row--active .synd-row__ico { color: hsl(var(--primary-foreground)); }
   .synd-row--primary {
-    background: hsl(var(--cov-primary-bg));
-    color: hsl(var(--cov-primary));
+    background: hsl(var(--cov-primary)) !important;
+    color: #1a0f08 !important;
+    border-left: 4px solid hsl(var(--foreground));
+    padding-left: 12px !important;
+    font-weight: 700;
   }
+  .synd-row--primary .synd-row__ico { color: rgba(0, 0, 0, 0.7); }
   .synd-row--alternate {
-    background: hsl(var(--cov-alternate-bg));
-    color: hsl(var(--cov-alternate));
+    background: hsl(var(--cov-alternate)) !important;
+    color: #1a0f08 !important;
+    border-left: 4px solid hsl(var(--foreground));
+    padding-left: 12px !important;
+    font-weight: 700;
   }
+  .synd-row--alternate .synd-row__ico { color: rgba(0, 0, 0, 0.7); }
   .synd-row--pinned {
-    box-shadow: inset 3px 0 0 hsl(var(--primary));
+    box-shadow: inset 4px 0 0 hsl(var(--primary)), 2px 2px 0 hsl(var(--foreground));
   }
   .synd-row--match {
     outline: 2px dashed hsl(var(--primary));
     outline-offset: -2px;
+  }
+  /* Dim syndromes that don't match the active selection */
+  [data-selection="active"] .synd-row:not(.synd-row--primary):not(.synd-row--alternate):not(.synd-row--active):not(.synd-row--pinned):not(.synd-row--match) {
+    opacity: 0.32;
+    filter: saturate(0.4);
   }
 }
 
