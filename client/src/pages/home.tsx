@@ -16,6 +16,7 @@ export default function Home() {
   const [hovered, setHovered] = useState<Selection>(null);
   const [pinned, setPinned] = useState<Selection>(null);
   const [search, setSearch] = useState("");
+  const [searchOpen, setSearchOpen] = useState(false);
   // Bug images are bundled into the JS at build time so they survive any
   // proxy that 404s static JSON files.
   const bugImages: Record<string, BugImage> = BUG_IMAGES;
@@ -30,6 +31,23 @@ export default function Home() {
   }
 
   const data = modules[activeModule];
+
+  // Search across drugs, bugs, syndromes in the active module
+  const searchResults = useMemo(() => {
+    const q = search.trim().toLowerCase();
+    if (!q) return [];
+    const results: Array<{ kind: "drug" | "bug" | "syndrome"; id: string; label: string }> = [];
+    for (const d of data.drugs) {
+      if (d.name.toLowerCase().includes(q)) results.push({ kind: "drug", id: d.id, label: d.name });
+    }
+    for (const b of data.bugs) {
+      if (b.name.toLowerCase().includes(q)) results.push({ kind: "bug", id: b.id, label: b.name });
+    }
+    for (const s of data.syndromes) {
+      if (s.name.toLowerCase().includes(q)) results.push({ kind: "syndrome", id: s.id, label: s.name });
+    }
+    return results;
+  }, [search, data]);
 
   function onPin(sel: Selection) {
     if (pinned && sel && pinned.kind === sel.kind && pinned.id === sel.id) {
@@ -112,10 +130,44 @@ export default function Home() {
               type="search"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
+              onFocus={() => setSearchOpen(true)}
+              onBlur={() => setTimeout(() => setSearchOpen(false), 150)}
               placeholder="Search drugs, bugs, syndromes…"
               className="pl-8 pr-3 py-1.5 w-56 lg:w-72 h-8 bg-card border-2 border-foreground text-[13px] font-mono outline-none focus:bg-background"
               data-testid="input-search"
             />
+            {searchOpen && search.trim() && searchResults.length > 0 && (
+              <div
+                className="absolute right-0 top-full mt-1 w-72 max-h-[60vh] overflow-y-auto bg-card border-2 border-foreground shadow-[3px_3px_0_hsl(var(--foreground))] z-50"
+                data-testid="search-results"
+              >
+                {searchResults.slice(0, 12).map((r) => (
+                  <button
+                    key={`${r.kind}-${r.id}`}
+                    onMouseDown={(e) => e.preventDefault()}
+                    onClick={() => {
+                      setPinned({ kind: r.kind, id: r.id } as Selection);
+                      setSearch("");
+                      setSearchOpen(false);
+                    }}
+                    className="w-full text-left px-2.5 py-1.5 flex items-center gap-2 border-b border-border last:border-b-0 hover:bg-accent transition-colors"
+                    data-testid={`search-result-${r.kind}-${r.id}`}
+                  >
+                    <span
+                      className="font-script text-[10px] uppercase tracking-wider px-1.5 py-0.5 border border-foreground bg-background"
+                    >
+                      {r.kind}
+                    </span>
+                    <span className="font-serif font-bold text-[12px] truncate">{r.label}</span>
+                  </button>
+                ))}
+              </div>
+            )}
+            {searchOpen && search.trim() && searchResults.length === 0 && (
+              <div className="absolute right-0 top-full mt-1 w-72 bg-card border-2 border-foreground shadow-[3px_3px_0_hsl(var(--foreground))] z-50 px-3 py-3 text-[12px] text-muted-foreground">
+                No matches in this module.
+              </div>
+            )}
           </div>
 
           {/* FLAVOR SWITCHER */}
@@ -141,7 +193,7 @@ export default function Home() {
           </button>
 
           <a
-            href="https://github.com/scottvangemert23/coverageiq"
+            href="https://github.com/svg2280/CoverageIQ"
             target="_blank"
             rel="noopener noreferrer"
             className="hidden sm:grid w-8 h-8 place-items-center border-2 border-foreground bg-card hover:bg-foreground hover:text-background transition-colors"
@@ -237,6 +289,15 @@ export default function Home() {
           <div className="flex items-center gap-2 font-mono uppercase tracking-wider">
             <Logo className="w-3.5 h-3.5" />
             <span>CoverageIQ · v0.1</span>
+            <a
+              href="mailto:scottvangemert23@gmail.com?subject=CoverageIQ%20feedback&body=What%20did%20you%20find%3F%20Suggestion%2C%20bug%2C%20missing%20bug%2Fdrug%2C%20or%20idea%3A%0A%0A%0A---%0A"
+              data-testid="button-feedback"
+              aria-label="Send feedback to Dr. Van Gemert"
+              className="ml-2 inline-flex items-center gap-1 px-1.5 py-0.5 rounded border border-foreground bg-primary text-primary-foreground hover:bg-primary/90 transition-colors text-[9.5px]"
+            >
+              <MessageSquare className="w-2.5 h-2.5" />
+              Feedback
+            </a>
           </div>
           <p className="hidden md:block flex-1 text-center text-muted-foreground max-w-3xl mx-auto leading-snug">
             <strong className="text-foreground">Educational reference only.</strong>{" "}
@@ -250,17 +311,6 @@ export default function Home() {
           </span>
         </div>
       </footer>
-
-      {/* FEEDBACK BUTTON — floats bottom-left, opens user's email client */}
-      <a
-        href="mailto:scottvangemert23@gmail.com?subject=CoverageIQ%20feedback&body=What%20did%20you%20find%3F%20Suggestion%2C%20bug%2C%20missing%20bug%2Fdrug%2C%20or%20idea%3A%0A%0A%0A---%0APage%3A%20"
-        data-testid="button-feedback"
-        aria-label="Send feedback to Dr. Van Gemert"
-        className="fixed bottom-12 left-4 z-40 flex items-center gap-2 px-3 py-2 rounded-md bg-primary text-primary-foreground border-2 border-foreground shadow-[3px_3px_0_hsl(var(--foreground))] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[4px_4px_0_hsl(var(--foreground))] transition-transform font-mono uppercase text-[11px] tracking-wider"
-      >
-        <MessageSquare className="w-3.5 h-3.5" />
-        Feedback
-      </a>
     </div>
   );
 }
