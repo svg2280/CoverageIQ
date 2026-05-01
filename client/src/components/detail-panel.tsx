@@ -22,34 +22,22 @@ export function DetailPanel({
   drugImages,
 }: DetailPanelProps) {
   if (!selection) {
+    // Empty state — keep slim and quiet so the bottom-right Feature Card is the
+    // primary call-to-action area. The Feature Card overlays the bottom of this
+    // column when nothing is selected.
     return (
       <aside
-        className="hidden xl:block sticky top-24 rounded-2xl border-2 border-dashed border-border bg-card/40 backdrop-blur-sm p-6 text-sm text-muted-foreground"
+        className="hidden xl:flex sticky top-24 rounded-2xl border-2 border-dashed border-border bg-card/30 backdrop-blur-sm p-6 text-sm text-muted-foreground items-center justify-center min-h-[180px]"
         data-testid="detail-panel-empty"
       >
-        <div className="text-center max-w-[260px] mx-auto py-8">
-          <div className="text-4xl mb-3 opacity-80">🔬</div>
-          <p className="font-display font-bold text-base text-foreground mb-1.5">
-            Hover. Click. Cover.
+        <div className="text-center max-w-[240px] mx-auto opacity-80">
+          <div className="text-3xl mb-2" aria-hidden>🦠</div>
+          <p className="font-mono uppercase tracking-[0.18em] text-[11px]">
+            Detail card
           </p>
-          <p className="leading-relaxed">
-            Hover any drug, bug, or syndrome to see what it covers. Click to pin
-            the detail card here.
+          <p className="text-[12px] leading-snug mt-1.5">
+            Hover or click anything in the matrix to load full coverage notes here.
           </p>
-          <div className="mt-5 pt-5 border-t border-border/60 space-y-2 text-xs text-left font-mono">
-            <div className="flex items-center justify-between">
-              <span className="text-muted-foreground">Hover</span>
-              <span className="text-foreground/80">preview coverage</span>
-            </div>
-            <div className="flex items-center justify-between">
-              <span className="text-muted-foreground">Click</span>
-              <span className="text-foreground/80">pin details</span>
-            </div>
-            <div className="flex items-center justify-between">
-              <span className="text-muted-foreground">Search</span>
-              <span className="text-foreground/80">jump anywhere</span>
-            </div>
-          </div>
         </div>
       </aside>
     );

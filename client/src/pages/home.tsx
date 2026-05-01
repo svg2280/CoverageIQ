@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo } from "react";
 import { modules, type ModuleKey } from "@/data";
 import { Matrix, type Selection } from "@/components/matrix";
 import { DetailPanel } from "@/components/detail-panel";
@@ -7,10 +7,7 @@ import { Legend } from "@/components/legend";
 import { useTheme, FLAVOR_META, type ThemeFlavor } from "@/components/theme-provider";
 import { Search, Sun, Moon, Github, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
-
-// Try to load bug images JSON if subagent has produced it
-// Vite handles the dynamic import gracefully — we'll fall back to empty.
-type BugImage = { url: string; caption?: string; license?: string };
+import { BUG_IMAGES, type BugImage } from "@/data/bug-images";
 
 const moduleOrder: ModuleKey[] = ["antibacterials", "antifungals", "antivirals"];
 
@@ -19,22 +16,10 @@ export default function Home() {
   const [hovered, setHovered] = useState<Selection>(null);
   const [pinned, setPinned] = useState<Selection>(null);
   const [search, setSearch] = useState("");
-  const [bugImages, setBugImages] = useState<Record<string, BugImage>>({});
+  // Bug images are bundled into the JS at build time so they survive any
+  // proxy that 404s static JSON files.
+  const bugImages: Record<string, BugImage> = BUG_IMAGES;
   const { theme, flavor, toggle: toggleTheme, cycleFlavor } = useTheme();
-
-  // Lazy-load bug images JSON. If absent, silently no-op.
-  useEffect(() => {
-    let cancelled = false;
-    fetch("/bug-images.json")
-      .then((r) => (r.ok ? r.json() : null))
-      .then((data) => {
-        if (!cancelled && data && typeof data === "object") setBugImages(data);
-      })
-      .catch(() => {});
-    return () => {
-      cancelled = true;
-    };
-  }, []);
 
   function changeModule(key: ModuleKey) {
     if (key === activeModule) return;

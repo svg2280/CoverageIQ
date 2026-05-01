@@ -720,12 +720,15 @@
   .bug-cell__name {
     font-family: var(--font-serif);
     font-weight: 800;
-    font-size: 11.5px;
-    line-height: 1.05;
-    text-shadow: 0 0 6px hsl(var(--card) / 0.9), 0 0 3px hsl(var(--card) / 0.9);
+    font-size: 10.5px;
+    line-height: 1.1;
+    text-shadow: 0 0 6px hsl(var(--card) / 0.95), 0 0 3px hsl(var(--card) / 0.95);
     white-space: normal;
-    word-break: break-word;
+    word-break: normal;
+    overflow-wrap: normal;
+    hyphens: auto;
     max-width: 100%;
+    text-wrap: balance;
   }
   .bug-cell.bug-tone-gp { background: color-mix(in oklab, hsl(var(--gram-pos)) 18%, hsl(var(--card))); }
   .bug-cell.bug-tone-gn { background: color-mix(in oklab, hsl(var(--gram-neg)) 18%, hsl(var(--card))); }

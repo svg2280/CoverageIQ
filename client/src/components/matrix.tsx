@@ -270,7 +270,7 @@ function BugCell({
           src={bugImage}
           alt=""
           aria-hidden
-          className="absolute inset-0 w-full h-full object-cover opacity-25 group-hover:opacity-40 transition-opacity"
+          className="absolute inset-0 w-full h-full object-cover opacity-45 group-hover:opacity-70 transition-opacity"
           loading="lazy"
         />
       )}
