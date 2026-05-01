@@ -4,6 +4,7 @@ import { Matrix, type Selection } from "@/components/matrix";
 import { DetailPanel } from "@/components/detail-panel";
 import { Logo } from "@/components/logo";
 import { Legend } from "@/components/legend";
+import { ClassRail, type ClassRailGroup } from "@/components/class-rail";
 import { useTheme, FLAVOR_META, type ThemeFlavor } from "@/components/theme-provider";
 import { Search, Sun, Moon, Github, Sparkles, MessageSquare } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -17,6 +18,8 @@ export default function Home() {
   const [pinned, setPinned] = useState<Selection>(null);
   const [search, setSearch] = useState("");
   const [searchOpen, setSearchOpen] = useState(false);
+  const [hoveredClassGroup, setHoveredClassGroup] = useState<string | null>(null);
+  const [pinnedClassGroup, setPinnedClassGroup] = useState<string | null>(null);
   // Bug images are bundled into the JS at build time so they survive any
   // proxy that 404s static JSON files.
   const bugImages: Record<string, BugImage> = BUG_IMAGES;
@@ -28,9 +31,63 @@ export default function Home() {
     setHovered(null);
     setPinned(null);
     setSearch("");
+    setHoveredClassGroup(null);
+    setPinnedClassGroup(null);
   }
 
   const data = modules[activeModule];
+
+  // Antibiotic class/group rail (only for antibacterials)
+  const classRailGroups: ClassRailGroup[] = useMemo(() => {
+    if (activeModule !== "antibacterials") return [];
+    const drugIdsByClassId = (classIds: string[]) => {
+      const set = new Set<string>();
+      for (const d of data.drugs) if (classIds.includes(d.classId)) set.add(d.id);
+      return set;
+    };
+    const drugIdsByPredicate = (pred: (d: typeof data.drugs[number]) => boolean) => {
+      const set = new Set<string>();
+      for (const d of data.drugs) if (pred(d)) set.add(d.id);
+      return set;
+    };
+    return [
+      { id: "penicillins", label: "Penicillins", drugIds: drugIdsByClassId(["penicillin"]) },
+      { id: "carbapenems", label: "Carbapenems", drugIds: drugIdsByClassId(["carbapenem"]) },
+      { id: "cephalosporins", label: "Cephalosporins", drugIds: drugIdsByClassId(["cephalosporin"]) },
+      { id: "aminoglycosides", label: "Aminoglycosides", drugIds: drugIdsByClassId(["aminoglycoside"]) },
+      { id: "macrolides", label: "Macrolides", drugIds: drugIdsByClassId(["macrolide"]) },
+      { id: "fluoroquinolones", label: "Fluoroquinolones", drugIds: drugIdsByClassId(["fluoroquinolone"]) },
+      { id: "tetracyclines", label: "Tetracyclines", drugIds: drugIdsByClassId(["tetracycline"]) },
+      {
+        id: "po",
+        label: "PO Options",
+        drugIds: drugIdsByPredicate((d) =>
+          (d.route ?? []).some((r) => r.toUpperCase().includes("PO")),
+        ),
+      },
+      {
+        id: "bacteriostatic",
+        label: "Bacteriostatic",
+        drugIds: drugIdsByPredicate((d) =>
+          [
+            "tetracycline",
+            "macrolide",
+            "oxazolidinone",
+            "sulfa",
+            "lincosamide",
+            "urinary",
+          ].includes(d.classId),
+        ),
+      },
+    ];
+  }, [activeModule, data]);
+
+  const activeClassGroupId = hoveredClassGroup ?? pinnedClassGroup;
+  const classFilter = useMemo<Set<string> | null>(() => {
+    if (!activeClassGroupId) return null;
+    const g = classRailGroups.find((x) => x.id === activeClassGroupId);
+    return g ? g.drugIds : null;
+  }, [activeClassGroupId, classRailGroups]);
 
   // Search across drugs, bugs, syndromes in the active module
   const searchResults = useMemo(() => {
@@ -244,6 +301,21 @@ export default function Home() {
         </div>
       </section>
 
+      {/* CLASS / GROUP RAIL — antibacterials only */}
+      {activeModule === "antibacterials" && classRailGroups.length > 0 && (
+        <section className="flex-shrink-0 max-w-[1700px] w-full mx-auto px-4 lg:px-6 pb-1.5">
+          <ClassRail
+            groups={classRailGroups}
+            hoveredId={hoveredClassGroup}
+            pinnedId={pinnedClassGroup}
+            onHover={setHoveredClassGroup}
+            onPin={(id) =>
+              setPinnedClassGroup((cur) => (cur === id ? null : id))
+            }
+          />
+        </section>
+      )}
+
       {/* MAIN MATRIX — fills all remaining vertical space */}
       <main className="flex-1 max-w-[1700px] w-full mx-auto px-4 lg:px-6 pb-2 min-h-0 flex">
         <div className="grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_320px] gap-3 w-full min-h-0">
@@ -258,6 +330,7 @@ export default function Home() {
                 onPin={onPin}
                 search={search}
                 bugImages={bugImageUrls}
+                classFilter={classFilter}
               />
             </div>
           </div>

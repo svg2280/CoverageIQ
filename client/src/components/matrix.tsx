@@ -16,6 +16,8 @@ interface MatrixProps {
   onPin: (sel: Selection) => void;
   search: string;
   bugImages: Record<string, string>;
+  /** Optional virtual class hover — set of drug IDs to highlight green (drug-cell--class). */
+  classFilter?: Set<string> | null;
 }
 
 // ---- Highlight logic (preserved from previous version) ----
@@ -289,9 +291,11 @@ export function Matrix({
   onPin,
   search,
   bugImages,
+  classFilter,
 }: MatrixProps) {
   const active: Selection = hovered ?? pinned;
   const searchLower = search.trim().toLowerCase();
+  const filterActive = !!classFilter && classFilter.size > 0 && !active;
 
   const drugsByClass = useMemo(() => {
     const map = new Map<string, Drug[]>();
@@ -310,7 +314,7 @@ export function Matrix({
 
   const isAntibac = data.key === "antibacterials";
 
-  const selectionActive = !!active;
+  const selectionActive = !!active || filterActive;
 
   return (
     <div
@@ -344,7 +348,10 @@ export function Matrix({
                 </div>
                 <div className="dclass__grid">
                   {list.map((drug) => {
-                    const hl = drugHighlight(drug.id, drug.classId, data, active);
+                    let hl = drugHighlight(drug.id, drug.classId, data, active);
+                    if (filterActive && !active && classFilter!.has(drug.id)) {
+                      hl = { classMatch: true };
+                    }
                     const isPinned = pinned?.kind === "drug" && pinned.id === drug.id;
                     const isMatch = matchesSearch(drug.name) || matchesSearch(drug.short ?? "");
                     return (
