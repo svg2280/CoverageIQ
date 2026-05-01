@@ -5,7 +5,7 @@ import { DetailPanel } from "@/components/detail-panel";
 import { Logo } from "@/components/logo";
 import { Legend } from "@/components/legend";
 import { useTheme, FLAVOR_META, type ThemeFlavor } from "@/components/theme-provider";
-import { Search, Sun, Moon, Github, Sparkles } from "lucide-react";
+import { Search, Sun, Moon, Github, Sparkles, MessageSquare } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { BUG_IMAGES, type BugImage } from "@/data/bug-images";
 
@@ -242,16 +242,25 @@ export default function Home() {
             <strong className="text-foreground">Educational reference only.</strong>{" "}
             Not a substitute for clinical judgment, local antibiogram, or ID consult.
           </p>
-          <a
-            href="https://bugdrugdx.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-script text-[12px] hover:text-primary"
+          <span
+            className="font-script text-[12px] text-muted-foreground whitespace-nowrap"
+            data-testid="text-copyright"
           >
-            inspired by BugDrugDX
-          </a>
+            Created by Scott A. Van Gemert, MD · 2026 · All rights reserved
+          </span>
         </div>
       </footer>
+
+      {/* FEEDBACK BUTTON — floats bottom-left, opens user's email client */}
+      <a
+        href="mailto:scottvangemert23@gmail.com?subject=CoverageIQ%20feedback&body=What%20did%20you%20find%3F%20Suggestion%2C%20bug%2C%20missing%20bug%2Fdrug%2C%20or%20idea%3A%0A%0A%0A---%0APage%3A%20"
+        data-testid="button-feedback"
+        aria-label="Send feedback to Dr. Van Gemert"
+        className="fixed bottom-12 left-4 z-40 flex items-center gap-2 px-3 py-2 rounded-md bg-primary text-primary-foreground border-2 border-foreground shadow-[3px_3px_0_hsl(var(--foreground))] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[4px_4px_0_hsl(var(--foreground))] transition-transform font-mono uppercase text-[11px] tracking-wider"
+      >
+        <MessageSquare className="w-3.5 h-3.5" />
+        Feedback
+      </a>
     </div>
   );
 }
