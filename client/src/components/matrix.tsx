@@ -231,7 +231,7 @@ export function Matrix({
                 onMouseLeave={() => onHover(null)}
                 onClick={() => onPin({ kind: "bug", id: bug.id })}
                 className={cn(
-                  "group relative overflow-hidden rounded-xl border border-border bg-card/80 backdrop-blur-sm p-2.5 text-left transition-all",
+                  "group relative overflow-hidden rounded-xl border border-border bg-card/80 backdrop-blur-sm p-2.5 pr-3 text-left transition-all",
                   "hover:scale-[1.02] hover:-translate-y-0.5 hover:shadow-lg",
                   span,
                   hl.isActive && "ring-2 ring-primary halo-primary",
@@ -268,14 +268,14 @@ export function Matrix({
                 >
                   {bugGlyph(bug.category)}
                 </div>
-                <div className="relative z-10 flex flex-col h-full justify-between min-h-[60px]">
+                <div className="relative z-10 flex flex-col gap-1.5 min-h-[60px]">
                   <div
                     className="text-[10px] uppercase tracking-wider font-mono font-bold"
                     style={{ color: `hsl(var(--${colorClass}))` }}
                   >
                     {categoryLabel(bug.category)}
                   </div>
-                  <div className="font-display font-bold text-sm leading-tight mt-1">
+                  <div className="font-display font-bold text-[13px] leading-[1.15] break-words hyphens-auto" lang="en">
                     {bug.name}
                   </div>
                 </div>
@@ -366,8 +366,8 @@ const bigBugSpans: Record<string, string> = {
   mrsa: "col-span-3 row-span-2",
   mssa: "col-span-3 row-span-2",
   strep: "col-span-6 row-span-1",
-  enterococcus: "col-span-3 row-span-1",
-  vre: "col-span-3 row-span-1",
+  enterococcus: "col-span-4 row-span-1",
+  vre: "col-span-2 row-span-1",
   anaerobes: "col-span-6 row-span-2",
   pseudomonas: "col-span-4 row-span-2",
   escappm: "col-span-4 row-span-1",

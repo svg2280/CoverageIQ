@@ -8,12 +8,8 @@ const ThemeContext = createContext<{
 }>({ theme: "dark", toggle: () => {} });
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  // Default to dark — that's the CoverageIQ vibe
-  const [theme, setTheme] = useState<Theme>(() => {
-    if (typeof window === "undefined") return "dark";
-    const prefers = window.matchMedia?.("(prefers-color-scheme: light)").matches;
-    return prefers ? "light" : "dark";
-  });
+  // Default to dark — that's the CoverageIQ vibe. Users can toggle to light.
+  const [theme, setTheme] = useState<Theme>("dark");
 
   useEffect(() => {
     const root = document.documentElement;
