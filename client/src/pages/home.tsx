@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { modules, type ModuleKey } from "@/data";
 import { Matrix, type Selection } from "@/components/matrix";
 import { DetailPanel } from "@/components/detail-panel";
@@ -6,7 +6,19 @@ import { Logo } from "@/components/logo";
 import { Legend } from "@/components/legend";
 import { ClassRail, type ClassRailGroup } from "@/components/class-rail";
 import { useTheme, FLAVOR_META, type ThemeFlavor } from "@/components/theme-provider";
-import { Search, Sun, Moon, Github, Sparkles, MessageSquare } from "lucide-react";
+import {
+  Search,
+  Sun,
+  Moon,
+  Github,
+  Sparkles,
+  MessageSquare,
+  Mail,
+  Link as LinkIcon,
+  Check,
+} from "lucide-react";
+import { SiX, SiWhatsapp } from "react-icons/si";
+import { FaLinkedinIn } from "react-icons/fa6";
 import { cn } from "@/lib/utils";
 import { BUG_IMAGES, type BugImage } from "@/data/bug-images";
 
@@ -356,34 +368,192 @@ export default function Home() {
         </div>
       </main>
 
-      {/* FOOTER */}
+      {/* FOOTER — 2 strips: meta row + sources/share/legal row */}
       <footer className="flex-shrink-0 border-t-2 border-foreground bg-card">
-        <div className="max-w-[1700px] mx-auto px-4 lg:px-6 py-1.5 flex items-center justify-between gap-3 text-[10.5px]">
-          <div className="flex items-center gap-2 font-mono uppercase tracking-wider">
-            <Logo className="w-3.5 h-3.5" />
-            <span>CoverageIQ · v0.1</span>
-            <a
-              href="mailto:scottvangemert23@gmail.com?subject=CoverageIQ%20feedback&body=What%20did%20you%20find%3F%20Suggestion%2C%20bug%2C%20missing%20bug%2Fdrug%2C%20or%20idea%3A%0A%0A%0A---%0A"
-              data-testid="button-feedback"
-              aria-label="Send feedback to Dr. Van Gemert"
-              className="ml-2 inline-flex items-center gap-1 px-1.5 py-0.5 rounded border border-foreground bg-primary text-primary-foreground hover:bg-primary/90 transition-colors text-[9.5px]"
+        <div className="max-w-[1700px] mx-auto px-4 lg:px-6">
+          {/* Row 1 — meta */}
+          <div className="footer-meta py-1.5">
+            <div className="flex items-center gap-2 font-mono uppercase tracking-wider">
+              <Logo className="w-3.5 h-3.5" />
+              <span>CoverageIQ · v0.1</span>
+              <a
+                href="mailto:scottvangemert23@gmail.com?subject=CoverageIQ%20feedback&body=What%20did%20you%20find%3F%20Suggestion%2C%20bug%2C%20missing%20bug%2Fdrug%2C%20or%20idea%3A%0A%0A%0A---%0A"
+                data-testid="button-feedback"
+                aria-label="Send feedback to Dr. Van Gemert"
+                className="ml-2 inline-flex items-center gap-1 px-1.5 py-0.5 rounded border border-foreground bg-primary text-primary-foreground hover:bg-primary/90 transition-colors text-[9.5px]"
+              >
+                <MessageSquare className="w-2.5 h-2.5" />
+                Feedback
+              </a>
+            </div>
+            <p className="hidden md:block flex-1 text-center text-muted-foreground max-w-3xl mx-auto leading-snug">
+              <strong className="text-foreground">Educational reference only.</strong>{" "}
+              Not a substitute for clinical judgment, local antibiogram, or ID consult.
+            </p>
+            <span
+              className="font-script text-[12px] text-muted-foreground whitespace-nowrap"
+              data-testid="text-copyright"
             >
-              <MessageSquare className="w-2.5 h-2.5" />
-              Feedback
-            </a>
+              © 2026 Scott A. Van Gemert, MD · All rights reserved
+            </span>
           </div>
-          <p className="hidden md:block flex-1 text-center text-muted-foreground max-w-3xl mx-auto leading-snug">
-            <strong className="text-foreground">Educational reference only.</strong>{" "}
-            Not a substitute for clinical judgment, local antibiogram, or ID consult.
-          </p>
-          <span
-            className="font-script text-[12px] text-muted-foreground whitespace-nowrap"
-            data-testid="text-copyright"
-          >
-            Created by Scott A. Van Gemert, MD · 2026 · All rights reserved
-          </span>
+
+          {/* Row 2 — sources, share, legal */}
+          <FooterExtras />
         </div>
       </footer>
+    </div>
+  );
+}
+
+function FooterExtras() {
+  const [copied, setCopied] = useState(false);
+  const shareUrl = typeof window !== "undefined" ? window.location.href : "https://coverageiq.net";
+  const shareText = "CoverageIQ — interactive antimicrobial spectrum atlas";
+
+  useEffect(() => {
+    if (!copied) return;
+    const t = setTimeout(() => setCopied(false), 1600);
+    return () => clearTimeout(t);
+  }, [copied]);
+
+  function copyLink() {
+    if (typeof navigator !== "undefined" && navigator.clipboard) {
+      navigator.clipboard
+        .writeText(shareUrl)
+        .then(() => setCopied(true))
+        .catch(() => setCopied(false));
+    }
+  }
+
+  const xUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+    shareText,
+  )}&url=${encodeURIComponent(shareUrl)}`;
+  const liUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
+    shareUrl,
+  )}`;
+  const waUrl = `https://wa.me/?text=${encodeURIComponent(
+    `${shareText} ${shareUrl}`,
+  )}`;
+  const mailUrl = `mailto:?subject=${encodeURIComponent(
+    shareText,
+  )}&body=${encodeURIComponent(`Check this out:\n\n${shareUrl}`)}`;
+
+  return (
+    <div className="footer-extras">
+      <div className="footer-source-strip" data-testid="footer-sources">
+        <span className="footer-source-strip__label">Sourced from</span>
+        <a
+          href="https://www.openevidence.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="source-pill"
+          aria-label="OpenEvidence"
+          data-testid="link-source-openevidence"
+        >
+          <span className="source-pill__dot" style={{ background: "#16a34a" }} aria-hidden />
+          OpenEvidence
+        </a>
+        <a
+          href="https://academic.oup.com/cid"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="source-pill"
+          aria-label="IDSA Clinical Infectious Diseases"
+          data-testid="link-source-idsa"
+        >
+          <span className="source-pill__dot" style={{ background: "#7c3aed" }} aria-hidden />
+          IDSA
+        </a>
+        <a
+          href="https://www.sanfordguide.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="source-pill"
+          aria-label="Sanford Guide"
+          data-testid="link-source-sanford"
+        >
+          <span className="source-pill__dot" style={{ background: "#dc2626" }} aria-hidden />
+          Sanford
+        </a>
+        <a
+          href="https://www.hopkinsguides.com/hopkins/ub"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="source-pill"
+          aria-label="Johns Hopkins Antibiotic Guide"
+          data-testid="link-source-hopkins"
+        >
+          <span className="source-pill__dot" style={{ background: "#1d4ed8" }} aria-hidden />
+          Hopkins ABX
+        </a>
+      </div>
+
+      <div className="footer-legal" data-testid="footer-legal">
+        <a href="#/disclaimer" data-testid="link-disclaimer">Disclaimer</a>
+        <span className="footer-legal__sep">·</span>
+        <a href="#/privacy" data-testid="link-privacy">Privacy</a>
+        <span className="footer-legal__sep">·</span>
+        <a href="#/terms" data-testid="link-terms">Terms</a>
+        <span className="footer-legal__sep">·</span>
+        <a href="#/contact" data-testid="link-contact">Contact</a>
+      </div>
+
+      <div className="share-strip" role="group" aria-label="Share CoverageIQ" data-testid="share-strip">
+        <a
+          href={xUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="share-btn"
+          title="Share on X (Twitter)"
+          aria-label="Share on X"
+          data-testid="share-x"
+        >
+          <SiX size={11} />
+        </a>
+        <a
+          href={liUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="share-btn"
+          title="Share on LinkedIn"
+          aria-label="Share on LinkedIn"
+          data-testid="share-linkedin"
+        >
+          <FaLinkedinIn size={11} />
+        </a>
+        <a
+          href={waUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="share-btn"
+          title="Share on WhatsApp"
+          aria-label="Share on WhatsApp"
+          data-testid="share-whatsapp"
+        >
+          <SiWhatsapp size={11} />
+        </a>
+        <a
+          href={mailUrl}
+          className="share-btn"
+          title="Email this link"
+          aria-label="Share via email"
+          data-testid="share-email"
+        >
+          <Mail size={11} />
+        </a>
+        <button
+          type="button"
+          onClick={copyLink}
+          className="share-btn"
+          title={copied ? "Link copied" : "Copy link"}
+          aria-label={copied ? "Link copied to clipboard" : "Copy link"}
+          data-testid="share-copy"
+          data-copied={copied ? "true" : "false"}
+        >
+          {copied ? <Check size={11} /> : <LinkIcon size={11} />}
+        </button>
+      </div>
     </div>
   );
 }

@@ -468,6 +468,15 @@ export function Matrix({
               >
                 <span className="synd-row__ico">§</span>
                 <span className="flex-1 truncate">{syn.short ?? syn.name}</span>
+                {syn.sourceIds && syn.sourceIds.length > 0 && (
+                  <span
+                    className="cite-badge cite-badge--row"
+                    aria-label={`${syn.sourceIds.length} source${syn.sourceIds.length > 1 ? "s" : ""} cited`}
+                    title={`${syn.sourceIds.length} guideline source${syn.sourceIds.length > 1 ? "s" : ""} — click for details`}
+                  >
+                    {syn.sourceIds.length}
+                  </span>
+                )}
               </button>
             );
           })}

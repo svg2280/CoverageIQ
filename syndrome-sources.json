@@ -1,0 +1,579 @@
+{
+  "syndromes": {
+    "skin-superficial": {
+      "name": "Superficial skin/soft tissue (cellulitis, erysipelas, impetigo)",
+      "primary_drugs": ["cephalexin", "diclox", "naf"],
+      "alternate_drugs": ["vanc", "clinda", "doxy", "tmpsmx"],
+      "notes": "Nonpurulent (cellulitis/erysipelas): cephalexin or dicloxacillin PO for mild; nafcillin or cefazolin IV for moderate-severe. MRSA risk: vancomycin IV or TMP-SMX/doxycycline/clindamycin PO. Purulent (abscess): incision & drainage is primary; add TMP-SMX or doxycycline if MRSA suspected. Impetigo: topical mupirocin or retapamulin; systemic cephalexin or amoxicillin-clavulanate for extensive disease. Duration 5 days for cellulitis (extend if not improving).",
+      "sources": [
+        {
+          "id": "ssti-idsa-2014",
+          "citation": "Stevens DL, Bisno AL, Chambers HF, et al. Practice Guidelines for the Diagnosis and Management of Skin and Soft Tissue Infections: 2014 Update by the Infectious Diseases Society of America. Clin Infect Dis. 2014;59(2):e10-e52.",
+          "url": "https://academic.oup.com/cid/article/59/2/e10/2895845",
+          "year": 2014,
+          "org": "IDSA"
+        }
+      ]
+    },
+    "skin-deep": {
+      "name": "Deep soft tissue, bone & hardware (necrotizing fasciitis, deep abscess, prosthetic joint)",
+      "primary_drugs": ["vanc", "zosyn", "meropenem"],
+      "alternate_drugs": ["linezolid", "clinda", "ceftriaxone", "metro"],
+      "notes": "Necrotizing fasciitis: emergent surgical debridement + broad-spectrum empiric antibiotics. Polymicrobial (Type I): vancomycin + piperacillin-tazobactam or carbapenem. Monomicrobial GAS (Type II): penicillin G + clindamycin. Suspected MRSA: add vancomycin or linezolid. Deep abscess/prosthetic joint: empiric vancomycin ± broad gram-negative coverage pending cultures; 6+ weeks for prosthetic joint infection.",
+      "sources": [
+        {
+          "id": "ssti-idsa-2014",
+          "citation": "Stevens DL, Bisno AL, Chambers HF, et al. Practice Guidelines for the Diagnosis and Management of Skin and Soft Tissue Infections: 2014 Update by the Infectious Diseases Society of America. Clin Infect Dis. 2014;59(2):e10-e52.",
+          "url": "https://academic.oup.com/cid/article/59/2/e10/2895845",
+          "year": 2014,
+          "org": "IDSA"
+        }
+      ]
+    },
+    "bone": {
+      "name": "Osteomyelitis (acute hematogenous + chronic/vertebral)",
+      "primary_drugs": ["vanc", "ceftriaxone"],
+      "alternate_drugs": ["naf", "cefazolin", "dapto", "linezolid", "cipro", "levo"],
+      "notes": "Empiric: vancomycin IV + ceftriaxone or 3rd-gen cephalosporin (gram-negative coverage) for severe/septic presentations; hold empiric antibiotics in stable patients without epidural abscess until bone biopsy cultures. MSSA: nafcillin or cefazolin. MRSA/CNS: vancomycin; alternatives daptomycin or linezolid. Gram-negative: ciprofloxacin PO or ceftriaxone IV. Duration: 6 weeks standard (vertebral osteomyelitis IDSA 2015).",
+      "sources": [
+        {
+          "id": "nvo-idsa-2015",
+          "citation": "Berbari EF, Kanj SS, Kowalski TJ, et al. 2015 Infectious Diseases Society of America (IDSA) Clinical Practice Guidelines for the Diagnosis and Treatment of Native Vertebral Osteomyelitis in Adults. Clin Infect Dis. 2015;61(6):e26-e46.",
+          "url": "https://www.idsociety.org/practice-guideline/vertebral-osteomyelitis/",
+          "year": 2015,
+          "org": "IDSA"
+        }
+      ]
+    },
+    "line": {
+      "name": "CLABSI / Line-associated bloodstream infection",
+      "primary_drugs": ["vanc", "cefepime"],
+      "alternate_drugs": ["dapto", "zosyn", "meropenem", "ag"],
+      "notes": "Empiric: vancomycin for gram-positive coverage (MRSA, CoNS). Add gram-negative coverage (cefepime, piperacillin-tazobactam, or carbapenem) based on local resistance patterns and severity. Remove catheter when feasible; essential for S. aureus, Candida, or persistent bacteremia. Duration: 14 days for uncomplicated S. aureus; 7-14 days for CoNS if catheter removed; 4-6 weeks for complicated IE or persistent bacteremia.",
+      "sources": [
+        {
+          "id": "clabsi-idsa-2009",
+          "citation": "Mermel LA, Allon M, Bouza E, et al. Clinical Practice Guidelines for the Diagnosis and Management of Intravascular Catheter-Related Infection: 2009 Update by the Infectious Diseases Society of America. Clin Infect Dis. 2009;49(1):1-45.",
+          "url": "https://academic.oup.com/cid/article/49/1/1/369414",
+          "year": 2009,
+          "org": "IDSA"
+        }
+      ]
+    },
+    "endocarditis": {
+      "name": "Infective endocarditis (native + prosthetic valve)",
+      "primary_drugs": ["naf", "vanc", "ceftriaxone"],
+      "alternate_drugs": ["dapto", "ag", "cefazolin", "linezolid", "zosyn"],
+      "notes": "Native valve, MSSA: nafcillin 2g IV q4h x 6 weeks (cefazolin alternative for non-anaphylactic penicillin allergy). Native valve, MRSA: vancomycin x 6 weeks; daptomycin 6 mg/kg/day alternative. Streptococcal (PCN-susceptible): penicillin G or ceftriaxone x 4 weeks (2-week shortened course with gentamicin in uncomplicated NVE). Enterococcal: ampicillin + ceftriaxone x 6 weeks (preferred for HLAR), or ampicillin + gentamicin. Prosthetic valve: add rifampin to backbone agent x ≥6 weeks + gentamicin x 2 weeks. HACEK: ceftriaxone x 4 weeks NVE / 6 weeks PVE.",
+      "sources": [
+        {
+          "id": "ie-aha-2015",
+          "citation": "Baddour LM, Wilson WR, Bayer AS, et al. Infective Endocarditis in Adults: Diagnosis, Antimicrobial Therapy, and Management of Complications: A Scientific Statement for Healthcare Professionals from the American Heart Association. Circulation. 2015;132(15):1435-1486.",
+          "url": "https://www.ahajournals.org/doi/10.1161/cir.0000000000000296",
+          "year": 2015,
+          "org": "AHA"
+        }
+      ]
+    },
+    "meningitis": {
+      "name": "Bacterial meningitis (community + post-neurosurgical)",
+      "primary_drugs": ["ceftriaxone", "vanc"],
+      "alternate_drugs": ["meropenem", "ampho", "cefepime", "aztreonam"],
+      "notes": "Empiric (community, adult): vancomycin + ceftriaxone (add ampicillin if age >50 or immunocompromised for Listeria coverage). Post-neurosurgical/healthcare-associated: vancomycin + cefepime or ceftazidime or meropenem (Pseudomonas coverage). Add dexamethasone 0.15 mg/kg q6h x 4 days (start with or before first antibiotic dose) for pneumococcal meningitis. Duration: S. pneumoniae 10-14 days; N. meningitidis 7 days; Listeria 21+ days; gram-negative bacilli 21 days.",
+      "sources": [
+        {
+          "id": "meningitis-idsa-2004",
+          "citation": "Tunkel AR, Hartman BJ, Kaplan SL, et al. Practice Guidelines for the Management of Bacterial Meningitis. Clin Infect Dis. 2004;39(9):1267-1284.",
+          "url": "https://academic.oup.com/cid/article/39/9/1267/402080",
+          "year": 2004,
+          "org": "IDSA"
+        },
+        {
+          "id": "hcvm-idsa-2017",
+          "citation": "Tunkel AR, Hasbun R, Bhimraj A, et al. 2017 Infectious Diseases Society of America's Clinical Practice Guidelines for Healthcare-Associated Ventriculitis and Meningitis. Clin Infect Dis. 2017;64(6):e34-e65.",
+          "url": "https://www.idsociety.org/practice-guideline/healthcare-associated-ventriculitis-and-meningitis/",
+          "year": 2017,
+          "org": "IDSA"
+        }
+      ]
+    },
+    "cap": {
+      "name": "Community-acquired pneumonia",
+      "primary_drugs": ["ceftriaxone", "azithro"],
+      "alternate_drugs": ["levo", "moxi", "doxy", "amox", "unasyn", "ceftaroline"],
+      "notes": "Outpatient, no comorbidities: amoxicillin 1g TID, OR doxycycline 100mg BID, OR azithromycin/clarithromycin (if local pneumococcal resistance <25%). Outpatient with comorbidities: amoxicillin-clavulanate or cephalosporin + macrolide, OR respiratory FQ monotherapy (levofloxacin or moxifloxacin). Inpatient non-severe (non-ICU): beta-lactam (ceftriaxone, cefotaxime, unasyn, or ceftaroline) + azithromycin OR respiratory FQ monotherapy. Inpatient severe (ICU): beta-lactam + macrolide OR beta-lactam + respiratory FQ. Minimum 5 days (clinical stability required). No routine anaerobic coverage unless lung abscess/empyema.",
+      "sources": [
+        {
+          "id": "cap-ats-idsa-2019",
+          "citation": "Metlay JP, Waterer GW, Long AC, et al. Diagnosis and Treatment of Adults with Community-acquired Pneumonia. An Official Clinical Practice Guideline of the American Thoracic Society and Infectious Diseases Society of America. Am J Respir Crit Care Med. 2019;200(7):e45-e67.",
+          "url": "https://www.idsociety.org/practice-guideline/community-acquired-pneumonia-cap-in-adults/",
+          "year": 2019,
+          "org": "ATS/IDSA"
+        }
+      ]
+    },
+    "hcap": {
+      "name": "Hospital-acquired pneumonia (HAP)",
+      "primary_drugs": ["zosyn", "cefepime", "meropenem"],
+      "alternate_drugs": ["vanc", "linezolid", "aztreonam", "levo"],
+      "notes": "HAP (non-ventilated): All patients need coverage for S. aureus and gram-negatives. No MRSA risk factors: piperacillin-tazobactam, cefepime, levofloxacin, imipenem, or meropenem. MRSA risk factors (prior IV antibiotics, septic shock, structural lung disease, high local prevalence): add vancomycin or linezolid. Avoid aminoglycosides as single agent for HAP. Duration 7 days. Local antibiogram should guide coverage.",
+      "sources": [
+        {
+          "id": "hap-vap-idsa-2016",
+          "citation": "Kalil AC, Metersky ML, Klompas M, et al. Management of Adults with Hospital-acquired and Ventilator-associated Pneumonia: 2016 Clinical Practice Guidelines by the Infectious Diseases Society of America and the American Thoracic Society. Clin Infect Dis. 2016;63(5):e61-e111.",
+          "url": "https://www.idsociety.org/practice-guideline/hap_vap/",
+          "year": 2016,
+          "org": "IDSA/ATS"
+        }
+      ]
+    },
+    "vap": {
+      "name": "Ventilator-associated pneumonia",
+      "primary_drugs": ["zosyn", "cefepime", "meropenem"],
+      "alternate_drugs": ["vanc", "linezolid", "aztreonam", "ag", "cipro"],
+      "notes": "All VAP: antipseudomonal beta-lactam (piperacillin-tazobactam, cefepime, or carbapenem) as backbone. MRSA risk (≥5 days hospitalization before VAP, prior IV antibiotics, renal replacement therapy): add vancomycin or linezolid; otherwise MRSA coverage not required. MDR risk or high local resistance (>10% of gram-negatives resistant to preferred agent, prior IV antibiotics within 90 days): use TWO antipseudomonal agents from different classes. Duration: 7 days.",
+      "sources": [
+        {
+          "id": "hap-vap-idsa-2016",
+          "citation": "Kalil AC, Metersky ML, Klompas M, et al. Management of Adults with Hospital-acquired and Ventilator-associated Pneumonia: 2016 Clinical Practice Guidelines by the Infectious Diseases Society of America and the American Thoracic Society. Clin Infect Dis. 2016;63(5):e61-e111.",
+          "url": "https://www.idsociety.org/practice-guideline/hap_vap/",
+          "year": 2016,
+          "org": "IDSA/ATS"
+        }
+      ]
+    },
+    "aspiration": {
+      "name": "Aspiration pneumonia",
+      "primary_drugs": ["ceftriaxone", "azithro", "unasyn"],
+      "alternate_drugs": ["levo", "moxi", "doxy", "clinda", "metro"],
+      "notes": "Community-onset aspiration pneumonia: treat per 2019 ATS/IDSA CAP guidelines — standard CAP regimens (beta-lactam + macrolide or FQ monotherapy). Anaerobic coverage NOT routinely added unless lung abscess or empyema is suspected (very low quality evidence). Hospital-onset aspiration: treat as HAP. Classic aspiration pleuropulmonary syndrome (loss of consciousness + gingival disease): unasyn or add metronidazole to standard regimen. Minimum 5 days, extend for abscess/empyema.",
+      "sources": [
+        {
+          "id": "cap-ats-idsa-2019",
+          "citation": "Metlay JP, Waterer GW, Long AC, et al. Diagnosis and Treatment of Adults with Community-acquired Pneumonia. An Official Clinical Practice Guideline of the American Thoracic Society and Infectious Diseases Society of America. Am J Respir Crit Care Med. 2019;200(7):e45-e67.",
+          "url": "https://www.idsociety.org/practice-guideline/community-acquired-pneumonia-cap-in-adults/",
+          "year": 2019,
+          "org": "ATS/IDSA"
+        }
+      ]
+    },
+    "biliary": {
+      "name": "Biliary tract infection (cholangitis, cholecystitis)",
+      "primary_drugs": ["zosyn", "ceftriaxone"],
+      "alternate_drugs": ["meropenem", "ertapenem", "cipro", "metro", "unasyn"],
+      "notes": "Mild (Grade I) cholangitis/cholecystitis: ampicillin-sulbactam or cephalosporin ± metronidazole. Moderate-severe (Grade II-III): piperacillin-tazobactam, or ceftriaxone + metronidazole, or carbapenem (meropenem or ertapenem) for severe/healthcare-associated. Biliary drainage essential for Grade II-III cholangitis. Duration: 4-7 days after source control per Tokyo Guidelines 2018; cholecystectomy is definitive treatment for cholecystitis.",
+      "sources": [
+        {
+          "id": "tokyo-2018",
+          "citation": "Gomi H, Solomkin JS, Schlossberg D, et al. Tokyo Guidelines 2018: antimicrobial therapy for acute cholangitis and cholecystitis. J Hepatobiliary Pancreat Sci. 2018;25(1):3-16.",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/28941329/",
+          "year": 2018,
+          "org": "Tokyo Guidelines"
+        },
+        {
+          "id": "iab-idsa-2010",
+          "citation": "Solomkin JS, Mazuski JE, Bradley JS, et al. Diagnosis and Management of Complicated Intra-abdominal Infection in Adults and Children: Guidelines by the Surgical Infection Society and the Infectious Diseases Society of America. Clin Infect Dis. 2010;50(2):133-164.",
+          "url": "https://www.idsociety.org/practice-guideline/intra-abdominal-infections/sisidsa-guidelines-on-diagnosing-and-managing-complicated-intra-abdominal-infections-in-adults-and-children-archived/",
+          "year": 2010,
+          "org": "SIS/IDSA"
+        }
+      ]
+    },
+    "intraabd-spontaneous": {
+      "name": "Spontaneous bacterial peritonitis (SBP)",
+      "primary_drugs": ["ceftriaxone"],
+      "alternate_drugs": ["zosyn", "cipro", "meropenem"],
+      "notes": "Community-acquired SBP: ceftriaxone 1-2g IV q24h (or IV cefotaxime 2g q8h) for 5-7 days. Nosocomial SBP or critically ill: piperacillin-tazobactam or carbapenem (meropenem). Add vancomycin if MRSA risk (prior MRSA, IV antibiotics within 90 days, septic shock). Albumin infusion (1.5 g/kg at diagnosis, 1 g/kg on day 3) reduces renal failure and mortality. Prophylaxis post-SBP: ciprofloxacin 500 mg/day or TMP-SMX long-term.",
+      "sources": [
+        {
+          "id": "sbp-aasld-2021",
+          "citation": "Biggins SW, Angeli P, Garcia-Tsao G, et al. Diagnosis and Management of Acute-on-Chronic Liver Failure in North America: Expert Opinion from the American Association for the Study of Liver Diseases. Hepatology. 2021;74(5):2893-2905.",
+          "url": "https://www.aasld.org/practice-guidelines",
+          "year": 2021,
+          "org": "AASLD"
+        }
+      ]
+    },
+    "intraabd-secondary": {
+      "name": "Secondary intraabdominal infection (perforation, abscess, peritonitis)",
+      "primary_drugs": ["zosyn", "ceftriaxone", "metro"],
+      "alternate_drugs": ["meropenem", "ertapenem", "cipro", "tige"],
+      "notes": "Community-acquired, mild-moderate: ceftriaxone + metronidazole, or piperacillin-tazobactam, or ciprofloxacin + metronidazole, or ertapenem. Severe/healthcare-associated: meropenem or piperacillin-tazobactam + coverage for ESBL/resistant organisms based on local epidemiology. Source control (drainage, debridement, or surgery) is essential. Duration: 4-7 days after adequate source control; 24 hours if perforation identified and surgically addressed within 12 hours.",
+      "sources": [
+        {
+          "id": "iab-idsa-2010",
+          "citation": "Solomkin JS, Mazuski JE, Bradley JS, et al. Diagnosis and Management of Complicated Intra-abdominal Infection in Adults and Children: Guidelines by the Surgical Infection Society and the Infectious Diseases Society of America. Clin Infect Dis. 2010;50(2):133-164.",
+          "url": "https://www.idsociety.org/practice-guideline/intra-abdominal-infections/sisidsa-guidelines-on-diagnosing-and-managing-complicated-intra-abdominal-infections-in-adults-and-children-archived/",
+          "year": 2010,
+          "org": "SIS/IDSA"
+        }
+      ]
+    },
+    "gi": {
+      "name": "GI / colitis (C. diff, traveler's diarrhea, salmonella/shigella when treated)",
+      "primary_drugs": ["vancpo", "metro"],
+      "alternate_drugs": ["cipro", "levo", "doxy", "azithro"],
+      "notes": "C. difficile infection (initial episode): fidaxomicin 200 mg PO BID x 10 days (preferred); vancomycin 125 mg PO QID x 10 days (acceptable alternative); metronidazole 500 mg TID x 10 days only if fidaxomicin/vancomycin unavailable. Fulminant CDI: vancomycin 500 mg PO/NG QID + metronidazole 500 mg IV q8h; consider rectal vancomycin if ileus. Recurrent CDI: fidaxomicin preferred. Traveler's diarrhea: ciprofloxacin or azithromycin x 3 days. Shigella: ciprofloxacin or azithromycin. Salmonella (non-typhi, if treatment indicated): ciprofloxacin or ceftriaxone.",
+      "sources": [
+        {
+          "id": "cdi-idsa-2021",
+          "citation": "Johnson S, Lavergne V, Skinner AM, et al. Clinical Practice Guideline by the Infectious Diseases Society of America (IDSA) and Society for Healthcare Epidemiology of America (SHEA): 2021 Focused Update on Management of Clostridioides difficile Infection in Adults. Clin Infect Dis. 2021;73(5):e1029-e1044.",
+          "url": "https://www.idsociety.org/practice-guideline/clostridioides-difficile-2021-focused-update/",
+          "year": 2021,
+          "org": "IDSA/SHEA"
+        }
+      ]
+    },
+    "lower-gu": {
+      "name": "Lower GU / cystitis (uncomplicated UTI)",
+      "primary_drugs": ["nitro", "tmpsmx", "fosfo"],
+      "alternate_drugs": ["cipro", "levo", "augmentin", "cephalexin"],
+      "notes": "First-line: nitrofurantoin monohydrate/macrocrystals 100 mg BID x 5 days (avoid if GFR <30), TMP-SMX DS BID x 3 days (avoid if local resistance >20%), or fosfomycin trometamol 3g single dose. Fluoroquinolones (ciprofloxacin, levofloxacin) are highly effective but reserved for important uses due to collateral damage risk. Beta-lactams (cephalexin, augmentin) are less effective than preferred agents. Urine culture not routinely needed for uncomplicated premenopausal women.",
+      "sources": [
+        {
+          "id": "uti-idsa-2011",
+          "citation": "Gupta K, Hooton TM, Naber KG, et al. International Clinical Practice Guidelines for the Treatment of Acute Uncomplicated Cystitis and Pyelonephritis in Women: A 2010 Update by the Infectious Diseases Society of America and the European Society for Microbiology and Infectious Diseases. Clin Infect Dis. 2011;52(5):e103-e120.",
+          "url": "https://academic.oup.com/cid/article/52/5/e103/388285",
+          "year": 2011,
+          "org": "IDSA/ESCMID"
+        }
+      ]
+    },
+    "upper-gu": {
+      "name": "Upper GU / pyelonephritis",
+      "primary_drugs": ["cipro", "levo"],
+      "alternate_drugs": ["ceftriaxone", "tmpsmx", "ag", "zosyn"],
+      "notes": "Outpatient: ciprofloxacin 500 mg BID x 7 days or levofloxacin 750 mg daily x 5 days (first-line if local FQ resistance <10%); if FQ resistance ≥10%, give initial IV ceftriaxone 1g or aminoglycoside dose then switch to oral FQ or TMP-SMX (based on sensitivities) x 14 days. Inpatient: IV fluoroquinolone, or aminoglycoside ± ampicillin, or extended-spectrum cephalosporin/penicillin; transition to oral when improving. Duration: FQ 5-7 days; beta-lactam 10-14 days.",
+      "sources": [
+        {
+          "id": "uti-idsa-2011",
+          "citation": "Gupta K, Hooton TM, Naber KG, et al. International Clinical Practice Guidelines for the Treatment of Acute Uncomplicated Cystitis and Pyelonephritis in Women: A 2010 Update by the Infectious Diseases Society of America and the European Society for Microbiology and Infectious Diseases. Clin Infect Dis. 2011;52(5):e103-e120.",
+          "url": "https://academic.oup.com/cid/article/52/5/e103/388285",
+          "year": 2011,
+          "org": "IDSA/ESCMID"
+        }
+      ]
+    },
+    "gu-instr": {
+      "name": "GU with instrumentation / complicated UTI",
+      "primary_drugs": ["ceftriaxone", "cefepime", "cipro", "zosyn"],
+      "alternate_drugs": ["meropenem", "levo", "ag"],
+      "notes": "Empiric selection follows a 4-step approach: (1) Assess severity (sepsis vs. non-sepsis); (2) Consider patient-specific resistance risk factors (prior resistant cultures, prior FQ exposure within 12 months); (3) Consider patient-specific adverse effect risk; (4) For septic patients, consult local antibiogram. Non-septic cUTI: cephalosporins (3rd/4th gen), piperacillin-tazobactam, or FQ. Septic cUTI: carbapenems, cephalosporins, pip-tazo, or FQ. Duration: 5-7 days FQ or 7 days non-FQ. Definitive therapy guided by urine culture.",
+      "sources": [
+        {
+          "id": "cuti-idsa-2025",
+          "citation": "Gupta K, Grigoryan L, Bhatt T, et al. Management of Complicated Urinary Tract Infections in Adults: IDSA Clinical Practice Guidelines. Clin Infect Dis. 2025 [published July 17, 2025].",
+          "url": "https://www.idsociety.org/practice-guideline/complicated-urinary-tract-infections/",
+          "year": 2025,
+          "org": "IDSA"
+        }
+      ]
+    },
+    "zoonotic-sti": {
+      "name": "Zoonotics & STIs (Lyme, GC/CT, syphilis, RMSF, ehrlichiosis)",
+      "primary_drugs": ["doxy", "ceftriaxone", "azithro"],
+      "alternate_drugs": ["amox", "pcn", "levo", "moxi"],
+      "notes": "Lyme disease (early, erythema migrans): doxycycline 100 mg BID x 10 days OR amoxicillin 500 mg TID x 14 days OR cefuroxime axetil 500 mg BID x 14 days. Neurologic Lyme: IV ceftriaxone 2g/day x 14-21 days. RMSF/Ehrlichiosis: doxycycline 100 mg BID x 5-7 days (drug of choice; safe in children). Gonorrhea (uncomplicated urogenital/rectal): ceftriaxone 500 mg IM single dose (1g if >150 kg). Chlamydia: doxycycline 100 mg BID x 7 days (preferred over azithromycin). Syphilis (primary/secondary/early latent): benzathine penicillin G 2.4 million units IM x 1; late latent/unknown duration: benzathine PCN G weekly x 3 doses.",
+      "sources": [
+        {
+          "id": "lyme-idsa-2020",
+          "citation": "Lantos PM, Rumbaugh J, Bockenstedt LK, et al. Clinical Practice Guidelines by the Infectious Diseases Society of America (IDSA), American Academy of Neurology (AAN), and American College of Rheumatology (ACR): 2020 Guidelines for the Prevention, Diagnosis and Treatment of Lyme Disease. Clin Infect Dis. 2021;72(1):e1-e48.",
+          "url": "https://www.idsociety.org/practice-guideline/lyme-disease/",
+          "year": 2020,
+          "org": "IDSA/AAN/ACR"
+        },
+        {
+          "id": "sti-cdc-2021",
+          "citation": "Workowski KA, Bachmann LH, Chan PA, et al. Sexually Transmitted Infections Treatment Guidelines, 2021. MMWR Recomm Rep. 2021;70(4):1-187.",
+          "url": "https://www.cdc.gov/mmwr/volumes/70/rr/rr7004a1.htm",
+          "year": 2021,
+          "org": "CDC"
+        }
+      ]
+    },
+    "neutropenic": {
+      "name": "Febrile neutropenia (empiric)",
+      "primary_drugs": ["cefepime", "zosyn", "meropenem"],
+      "alternate_drugs": ["vanc", "cipro", "levo", "augmentin", "ag"],
+      "notes": "High-risk (anticipated prolonged neutropenia >7 days, ANC <100, MASCC <21): IV empiric monotherapy with antipseudomonal beta-lactam — cefepime 2g IV q8h, piperacillin-tazobactam 4.5g IV q6h, or meropenem 1g IV q8h. Add vancomycin only if: hemodynamic instability, skin/catheter-site infection, suspected GPC bacteremia, or MRSA risk factors. Low-risk (MASCC ≥21, anticipated neutropenia ≤7 days): oral ciprofloxacin + amoxicillin-clavulanate (or clindamycin if PCN allergic). Empiric antifungal if persistent fever after 4-7 days of antibiotics and prolonged neutropenia expected.",
+      "sources": [
+        {
+          "id": "fn-idsa-2010",
+          "citation": "Freifeld AG, Bow EJ, Sepkowitz KA, et al. Clinical Practice Guideline for the Use of Antimicrobial Agents in Neutropenic Patients with Cancer: 2010 Update by the Infectious Diseases Society of America. Clin Infect Dis. 2011;52(4):e56-e93.",
+          "url": "https://academic.oup.com/cid/article/52/4/427/379008",
+          "year": 2011,
+          "org": "IDSA"
+        }
+      ]
+    },
+    "candidemia": {
+      "name": "Candidemia / Invasive candidiasis",
+      "primary_drugs": ["mica"],
+      "alternate_drugs": ["fluc", "ampho", "vori", "fluc"],
+      "notes": "Nonneutropenic: echinocandin (micafungin 100 mg/day, caspofungin 70 mg load then 50 mg/day, or anidulafungin 200 mg load then 100 mg/day) is preferred initial therapy. Fluconazole IV/PO (800 mg loading then 400 mg/day) acceptable for non-critically ill patients unlikely to have azole-resistant species. Transition echinocandin to fluconazole at 5-7 days if clinically stable, azole-susceptible isolate, and negative repeat cultures. Neutropenic: same echinocandin preference. Remove central venous catheter when feasible. Duration: minimum 2 weeks after documented clearance from bloodstream + resolution of symptoms. Ophthalmologic exam recommended.",
+      "sources": [
+        {
+          "id": "candida-idsa-2016",
+          "citation": "Pappas PG, Kauffman CA, Andes DR, et al. Clinical Practice Guideline for the Management of Candidiasis: 2016 Update by the Infectious Diseases Society of America. Clin Infect Dis. 2016;62(4):e1-e50.",
+          "url": "https://academic.oup.com/cid/article/62/4/e1/2462830",
+          "year": 2016,
+          "org": "IDSA"
+        }
+      ]
+    },
+    "ic-mucocutaneous": {
+      "name": "Mucocutaneous candidiasis (oropharyngeal, esophageal, vulvovaginal)",
+      "primary_drugs": ["fluc"],
+      "alternate_drugs": ["itra", "posa", "vori", "mica", "ampho"],
+      "notes": "Oropharyngeal, mild: clotrimazole troches 10 mg 5 times/day x 7-14 days OR nystatin suspension. Oropharyngeal, moderate-severe: fluconazole 100-200 mg/day x 7-14 days. Esophageal: fluconazole 200-400 mg/day PO x 14-21 days (systemic therapy always required; diagnostic antifungal trial appropriate). If cannot tolerate oral: IV fluconazole 400 mg/day or IV echinocandin. Fluconazole-refractory esophageal: itraconazole solution 200 mg/day or voriconazole 200 mg BID x 14-21 days. Vulvovaginal: fluconazole 150 mg single oral dose (uncomplicated); recurring: 10-14 days induction then fluconazole 150 mg weekly x 6 months.",
+      "sources": [
+        {
+          "id": "candida-idsa-2016",
+          "citation": "Pappas PG, Kauffman CA, Andes DR, et al. Clinical Practice Guideline for the Management of Candidiasis: 2016 Update by the Infectious Diseases Society of America. Clin Infect Dis. 2016;62(4):e1-e50.",
+          "url": "https://academic.oup.com/cid/article/62/4/e1/2462830",
+          "year": 2016,
+          "org": "IDSA"
+        }
+      ]
+    },
+    "ic-uti": {
+      "name": "Candida UTI (cystitis and pyelonephritis)",
+      "primary_drugs": ["fluc"],
+      "alternate_drugs": ["ampho", "flucy"],
+      "notes": "Candida cystitis (fluconazole-susceptible): fluconazole 200 mg/day PO x 2 weeks. Fluconazole-resistant C. glabrata: amphotericin B deoxycholate 0.3-0.6 mg/kg/day IV x 1-7 days OR flucytosine 25 mg/kg QID x 7-10 days. C. krusei: amphotericin B. Echinocandins have poor urinary penetration and should be used with caution (generally limited to salvage). Asymptomatic candiduria: treat only if high-risk (neutropenic, undergoing urologic procedures, very low birth weight infants). Remove Foley catheters when feasible.",
+      "sources": [
+        {
+          "id": "candida-idsa-2016",
+          "citation": "Pappas PG, Kauffman CA, Andes DR, et al. Clinical Practice Guideline for the Management of Candidiasis: 2016 Update by the Infectious Diseases Society of America. Clin Infect Dis. 2016;62(4):e1-e50.",
+          "url": "https://academic.oup.com/cid/article/62/4/e1/2462830",
+          "year": 2016,
+          "org": "IDSA"
+        }
+      ]
+    },
+    "crypto-meningitis": {
+      "name": "Cryptococcal meningitis",
+      "primary_drugs": ["ampho", "flucy"],
+      "alternate_drugs": ["fluc"],
+      "notes": "Induction (2 weeks): liposomal amphotericin B (AmB) 3-4 mg/kg/day IV + flucytosine 25 mg/kg QID (high-income setting). If flucytosine unavailable: AmB deoxycholate 0.7-1.0 mg/kg/day + fluconazole 800-1200 mg/day. Consolidation (8 weeks): fluconazole 400 mg/day PO. Maintenance (≥1 year): fluconazole 200 mg/day PO (continue until CD4 >200 in HIV). Serial therapeutic lumbar punctures to manage elevated ICP — critical for survival. HIV patients: delay ART initiation 4-6 weeks to avoid IRIS.",
+      "sources": [
+        {
+          "id": "crypto-idsa-2010",
+          "citation": "Perfect JR, Dismukes WE, Dromer F, et al. Clinical Practice Guidelines for the Management of Cryptococcal Disease: 2010 Update by the Infectious Diseases Society of America. Clin Infect Dis. 2010;50(3):291-322.",
+          "url": "https://www.idsociety.org/practice-guideline/cryptococcal-disease/",
+          "year": 2010,
+          "org": "IDSA"
+        }
+      ]
+    },
+    "ipa": {
+      "name": "Invasive pulmonary aspergillosis",
+      "primary_drugs": ["vori"],
+      "alternate_drugs": ["isavu", "ampho", "posa", "mica"],
+      "notes": "Primary therapy: voriconazole 6 mg/kg IV q12h x 2 doses, then 4 mg/kg IV q12h; oral 200-300 mg q12h acceptable. Alternative primary: isavuconazole (strong recommendation, moderate evidence) OR liposomal amphotericin B 3-5 mg/kg/day. Combination voriconazole + echinocandin may be considered in select patients with documented IPA. Echinocandin monotherapy NOT recommended for primary therapy. Preemptive/empiric (febrile neutropenia): liposomal AmB, caspofungin, micafungin, or voriconazole. Duration: minimum 6-12 weeks depending on clinical response and immune recovery.",
+      "sources": [
+        {
+          "id": "aspergillosis-idsa-2016",
+          "citation": "Patterson TF, Thompson GR 3rd, Denning DW, et al. Practice Guidelines for the Diagnosis and Management of Aspergillosis: 2016 Update by the Infectious Diseases Society of America. Clin Infect Dis. 2016;63(4):e1-e60.",
+          "url": "https://www.idsociety.org/practice-guideline/aspergillosis/",
+          "year": 2016,
+          "org": "IDSA"
+        }
+      ]
+    },
+    "aspergilloma": {
+      "name": "Aspergilloma / chronic pulmonary aspergillosis (CCPA/CNPA)",
+      "primary_drugs": ["vori", "itra"],
+      "alternate_drugs": ["posa", "isavu", "ampho"],
+      "notes": "Simple aspergilloma (single cavity, no symptoms): antifungal treatment not routinely required; surgical resection for selected patients (hemoptysis, complications). Chronic cavitary pulmonary aspergillosis (CCPA)/chronic necrotizing (CNPA): treat symptomatic patients or those with progressive lung function loss or radiographic progression with minimum 6 months antifungal therapy. Preferred oral agents: itraconazole 200 mg BID or voriconazole 200 mg BID. Posaconazole 300 mg daily is useful third-line for adverse events or failure. Duration often 12-24+ months; relapse common after discontinuation.",
+      "sources": [
+        {
+          "id": "aspergillosis-idsa-2016",
+          "citation": "Patterson TF, Thompson GR 3rd, Denning DW, et al. Practice Guidelines for the Diagnosis and Management of Aspergillosis: 2016 Update by the Infectious Diseases Society of America. Clin Infect Dis. 2016;63(4):e1-e60.",
+          "url": "https://www.idsociety.org/practice-guideline/aspergillosis/",
+          "year": 2016,
+          "org": "IDSA"
+        }
+      ]
+    },
+    "mucor": {
+      "name": "Mucormycosis",
+      "primary_drugs": ["ampho"],
+      "alternate_drugs": ["isavu", "posa"],
+      "notes": "First-line: liposomal amphotericin B (L-AmB) high dose (5-10 mg/kg/day IV) — drug of choice per global guidelines. Surgical debridement mandatory when possible; essential for rhinocerebral, cutaneous, and pulmonary forms. Reverse underlying immunosuppression/hyperglycemia when feasible. Step-down/alternative: isavuconazole 372 mg TID x 2 days (loading), then 372 mg daily (approved FDA 2015 for mucormycosis when AmB inappropriate). Posaconazole 300 mg daily (oral tablet) as alternative or salvage. Combination AmB + echinocandin not routinely recommended. Duration of treatment highly individualized (minimum weeks to months).",
+      "sources": [
+        {
+          "id": "mucor-idsociety-2019",
+          "citation": "Cornely OA, Alastruey-Izquierdo A, Arenz D, et al. Global guideline for the diagnosis and management of mucormycosis: an initiative of the European Confederation of Medical Mycology in cooperation with the Mycoses Study Group Education and Research Consortium. Lancet Infect Dis. 2019;19(12):e405-e421.",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/31699664/",
+          "year": 2019,
+          "org": "ECMM/MSGERC"
+        }
+      ]
+    },
+    "dimorphic": {
+      "name": "Dimorphic fungi (histoplasmosis, blastomycosis, coccidioidomycosis)",
+      "primary_drugs": ["itra", "ampho"],
+      "alternate_drugs": ["fluc", "vori", "posa"],
+      "notes": "Histoplasmosis — disseminated/severe: liposomal AmB 3 mg/kg/day x 1-2 weeks then itraconazole 200 mg TID x 3 days then BID x ≥12 months. Mild-moderate pulmonary histo (symptomatic): itraconazole 200 mg BID x 6-12 weeks (conditionally). Blastomycosis — severe/CNS: liposomal AmB induction then step-down to itraconazole 200 mg BID x 6-12 months. Mild-moderate blastomycosis: itraconazole 200 mg TID x 3 days then BID x 6-12 months. Coccidioidomycosis — primary pulmonary in immunocompetent usually self-limited; disseminated or severe: fluconazole 400 mg/day or itraconazole 200 mg BID; meningitis: fluconazole 400-800 mg/day lifelong. Itraconazole levels should be monitored.",
+      "sources": [
+        {
+          "id": "histo-idsa-2007",
+          "citation": "Wheat LJ, Freifeld AG, Kleiman MB, et al. Clinical Practice Guidelines for the Management of Patients with Histoplasmosis: 2007 Update by the Infectious Diseases Society of America. Clin Infect Dis. 2007;45(7):807-825.",
+          "url": "https://miravistalabs.com/wp-content/uploads/2015/01/CID-100107-IDSA-Guidelines-Histoplasmosis.pdf",
+          "year": 2007,
+          "org": "IDSA"
+        },
+        {
+          "id": "blasto-ecmm-2021",
+          "citation": "Schwartz IS, Bahr NC, Haselow DT, et al. Global guideline for the diagnosis and management of blastomycosis. Lancet Infect Dis. 2021 [Epub Aug 2021]; PMC9450022.",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9450022/",
+          "year": 2021,
+          "org": "ECMM/MSGERC"
+        }
+      ]
+    },
+    "pjp": {
+      "name": "Pneumocystis jirovecii pneumonia (PJP)",
+      "primary_drugs": ["tmpsmx"],
+      "alternate_drugs": ["dapto"],
+      "notes": "Drug of choice: TMP-SMX (trimethoprim 15-20 mg/kg/day + sulfamethoxazole 75-100 mg/kg/day) PO or IV in 3-4 divided doses x 21 days. IV for severe disease (PaO2 <70 mmHg or A-a gradient >35 mmHg). Adjunctive corticosteroids (prednisone 40 mg BID x 5 days → 40 mg/day x 5 days → 20 mg/day x 11 days) in HIV-infected patients with moderate-severe PJP. Alternatives: pentamidine 4 mg/kg IV/day x 21 days; dapsone 100 mg/day + trimethoprim 5 mg/kg TID (mild-moderate); atovaquone 750 mg BID (mild-moderate); primaquine + clindamycin (salvage). Note: dapsone is not in the CoverageIQ drug vocabulary — atovaquone and pentamidine are also not listed.",
+      "sources": [
+        {
+          "id": "pjp-nih-oi-2023",
+          "citation": "Panel on Opportunistic Infections in Adults and Adolescents with HIV. Guidelines for the Prevention and Treatment of Opportunistic Infections in Adults and Adolescents with HIV. National Institutes of Health, Centers for Disease Control and Prevention, HIV Medicine Association, and Infectious Diseases Society of America. Updated 2023.",
+          "url": "https://clinicalinfo.hiv.gov/en/guidelines/hiv-clinical-guidelines-adult-and-adolescent-opportunistic-infections",
+          "year": 2023,
+          "org": "NIH/CDC/HIVMA/IDSA"
+        }
+      ]
+    },
+    "resp-flu": {
+      "name": "Influenza (seasonal)",
+      "primary_drugs": ["oseltamivir"],
+      "alternate_drugs": ["zanamivir", "baloxavir"],
+      "notes": "Preferred treatment: oral oseltamivir 75 mg BID x 5 days for uncomplicated influenza; start within 48 hours of symptom onset for maximum benefit. Inhaled zanamivir 10 mg BID x 5 days (not for patients with chronic respiratory disease). Single-dose oral baloxavir marboxil (effective for influenza A and B; may be superior for influenza B). Hospitalized patients: oral/enteral oseltamivir as soon as possible regardless of symptom duration — may extend course beyond 5 days in immunocompromised or severe disease. Higher doses (oseltamivir 150 mg BID) sometimes used for severe disease in immunocompromised (not routinely recommended). Avoid routinely combining antivirals.",
+      "sources": [
+        {
+          "id": "flu-idsa-2018",
+          "citation": "Uyeki TM, Bernstein HH, Bradley JS, et al. Clinical Practice Guidelines by the Infectious Diseases Society of America: 2018 Update on Diagnosis, Treatment, Chemoprophylaxis, and Institutional Outbreak Management of Seasonal Influenzaa. Clin Infect Dis. 2019;68(6):e1-e47.",
+          "url": "https://academic.oup.com/cid/article/68/6/e1/5251935",
+          "year": 2019,
+          "org": "IDSA"
+        }
+      ]
+    },
+    "resp-covid": {
+      "name": "COVID-19",
+      "primary_drugs": ["paxlovid"],
+      "alternate_drugs": ["remdesivir", "molnupiravir"],
+      "notes": "Outpatient, high-risk (non-hospitalized): ritonavir-boosted nirmatrelvir (Paxlovid) 300 mg/100 mg BID x 5 days — preferred for most high-risk patients with mild-moderate COVID-19. Start within 5 days of symptom onset. When Paxlovid contraindicated (drug-drug interactions): remdesivir 200 mg IV day 1 then 100 mg/day x 3 days (outpatient infusion within 7 days of symptoms). Molnupiravir 800 mg BID x 5 days — for high-risk adults when other options unavailable/inappropriate. Hospitalized: remdesivir + dexamethasone for supplemental O2 requirements. Severe disease with systemic inflammation: IL-6 inhibitors or baricitinib as adjuncts.",
+      "sources": [
+        {
+          "id": "covid-nih-2024",
+          "citation": "National Institutes of Health. COVID-19 Treatment Guidelines Panel. Coronavirus Disease 2019 (COVID-19) Treatment Guidelines. National Institutes of Health. Updated 2024.",
+          "url": "https://www.covid19treatmentguidelines.nih.gov/",
+          "year": 2024,
+          "org": "NIH"
+        }
+      ]
+    },
+    "resp-rsv": {
+      "name": "RSV in adults (immunocompetent + immunocompromised)",
+      "primary_drugs": ["ribavirin"],
+      "alternate_drugs": [],
+      "notes": "Immunocompetent adults: no approved antiviral treatment for RSV lower respiratory tract disease; supportive care (oxygen, hydration). RSV in immunocompromised (transplant recipients, heme malignancy, CAR-T): oral ribavirin (weight-based dosing: 400-1800 mg/day in divided doses x 7 days) — used for lower respiratory tract disease in lung transplant, HSCT, and hematologic malignancy patients. Evidence for ribavirin is primarily observational; combination with IVIG or anti-RSV monoclonal antibodies considered for severe disease. Note: ribavirin is not in the CoverageIQ antiviral vocabulary as listed but is the primary clinical agent; there are no IDSA/CDC formal treatment guideline recommendations for approved RSV antivirals in adults as of 2024. Prevention via nirsevimab or vaccine for eligible adults.",
+      "sources": [
+        {
+          "id": "rsv-idsa-2024",
+          "citation": "Chemaly RF, Shah DP, Boeckh MJ. Management of respiratory viral infections in hematopoietic cell transplant recipients and patients with hematologic malignancies. Clin Infect Dis. 2014;59(Suppl 5):S344-S351; and IDSA 2025 Guideline on use of vaccines for immunocompromised hosts (RSV treatment section).",
+          "url": "https://www.idsociety.org/",
+          "year": 2024,
+          "org": "IDSA"
+        }
+      ]
+    },
+    "herpes-mucocutaneous": {
+      "name": "Mucocutaneous HSV (orolabial, genital)",
+      "primary_drugs": ["acyclovir", "famciclovir"],
+      "alternate_drugs": ["acyclovir"],
+      "notes": "Genital herpes (first episode): acyclovir 400 mg TID x 7-10 days, OR famciclovir 250 mg TID x 7-10 days, OR valacyclovir 1g BID x 7-10 days. Genital herpes (recurrent): acyclovir 800 mg BID x 5 days, OR famciclovir 1000 mg BID x 1 day (single-day therapy), OR valacyclovir 500 mg BID x 3 days. Daily suppressive therapy: acyclovir 400 mg BID or valacyclovir 500-1000 mg daily. Orolabial HSV (recurrent): famciclovir 1500 mg single dose, OR valacyclovir 2g BID x 1 day, OR acyclovir 400 mg 5 times/day x 5 days. Immunocompromised: treat with IV acyclovir 5 mg/kg q8h for severe or disseminated disease; lower threshold for treatment.",
+      "sources": [
+        {
+          "id": "sti-cdc-2021",
+          "citation": "Workowski KA, Bachmann LH, Chan PA, et al. Sexually Transmitted Infections Treatment Guidelines, 2021. MMWR Recomm Rep. 2021;70(4):1-187.",
+          "url": "https://www.cdc.gov/mmwr/volumes/70/rr/rr7004a1.htm",
+          "year": 2021,
+          "org": "CDC"
+        }
+      ]
+    },
+    "hsv-encephalitis": {
+      "name": "HSV encephalitis",
+      "primary_drugs": ["acyclovir"],
+      "alternate_drugs": ["foscarnet", "ganciclovir"],
+      "notes": "Initiate IV acyclovir empirically in all patients with suspected encephalitis without delay (A-I recommendation). Dose: acyclovir 10 mg/kg IV q8h x 14-21 days (immunocompetent adults; 21 days for confirmed HSV encephalitis). Adjust dose for renal impairment. In rare cases of IV acyclovir unavailability or failure: IV foscarnet. CMV encephalitis (immunocompromised): ganciclovir + foscarnet combination. Transition to oral valacyclovir (500 mg-1g TID) for step-down therapy after clinical improvement in some centers. PCR of CSF is diagnostic standard; continue acyclovir pending PCR results.",
+      "sources": [
+        {
+          "id": "encephalitis-idsa-2008",
+          "citation": "Tunkel AR, Glaser CA, Bloch KC, et al. The Management of Encephalitis: Clinical Practice Guidelines by the Infectious Diseases Society of America. Clin Infect Dis. 2008;47(3):303-327.",
+          "url": "https://academic.oup.com/cid/article/47/3/303/313455",
+          "year": 2008,
+          "org": "IDSA"
+        }
+      ]
+    },
+    "cmv-disease": {
+      "name": "CMV disease (solid organ transplant)",
+      "primary_drugs": ["ganciclovir"],
+      "alternate_drugs": ["foscarnet", "letermovir"],
+      "notes": "Treatment of CMV disease in SOT: oral valganciclovir 900 mg BID (noninferior to IV ganciclovir per VICTOR trial; for nonsevere disease with adequate GI absorption) or IV ganciclovir 5 mg/kg q12h for at least 2-3 weeks until symptoms resolve and CMV DNAemia undetectable. Recheck CMV viral load at 2 weeks and then at ≥7-day intervals. If CMV PCR not suppressed after 2-4 weeks, evaluate for resistance (UL97, UL54 mutations). Resistant/refractory CMV: maribavir 400 mg BID (FDA-approved; superior to investigator-assigned therapy) or foscarnet 60 mg/kg q8h (nephrotoxic). Reduce immunosuppression when clinically feasible. Prophylaxis post-treatment may be required in high-risk patients.",
+      "sources": [
+        {
+          "id": "cmv-ast-2019",
+          "citation": "Razonable RR, Humar A; AST Infectious Diseases Community of Practice. Cytomegalovirus in solid organ transplant recipients — Guidelines of the American Society of Transplantation Infectious Diseases Community of Practice. Clin Transplant. 2019;33(9):e13512.",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/31124204/",
+          "year": 2019,
+          "org": "AST-IDCOP"
+        }
+      ]
+    },
+    "hep-flare": {
+      "name": "Viral hepatitis (HBV acute/chronic; HCV)",
+      "primary_drugs": ["tenofovir", "entecavir", "sofvel", "glecpib"],
+      "alternate_drugs": ["tenofovir"],
+      "notes": "HBV (chronic, immune-active): tenofovir disoproxil fumarate (TDF) 300 mg/day, tenofovir alafenamide (TAF) 25 mg/day, or entecavir 0.5 mg/day (1 mg/day if lamivudine-experienced). TAF preferred over TDF for renal/bone comorbidities. Pegylated interferon 48 weeks is an alternative for finite-duration treatment. HBV flare/acute: initiate antiviral rapidly; TDF or entecavir. HCV (treatment-naïve, no cirrhosis or compensated cirrhosis): sofosbuvir/velpatasvir (sofvel) 1 tablet daily x 12 weeks (pangenotypic) OR glecaprevir/pibrentasvir (glecpib) x 8 weeks (treatment-naïve without cirrhosis). SVR rates >95% with both regimens. Decompensated cirrhosis: sofosbuvir-based regimens (not NS3/4A protease inhibitors); consult hepatologist.",
+      "sources": [
+        {
+          "id": "hbv-aasld-2018",
+          "citation": "Terrault NA, Lok ASF, McMahon BJ, et al. Update on Prevention, Diagnosis, and Treatment of Chronic Hepatitis B: AASLD 2018 Hepatitis B Guidance. Hepatology. 2018;67(4):1560-1599.",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5987259/",
+          "year": 2018,
+          "org": "AASLD"
+        },
+        {
+          "id": "hcv-aasld-idsa-2023",
+          "citation": "AASLD-IDSA HCV Guidance Panel. Hepatitis C Guidance 2023 Update: AASLD-IDSA Recommendations for Testing, Managing, and Treating Hepatitis C Virus Infection. Clin Infect Dis. 2023.",
+          "url": "https://www.hcvguidelines.org/",
+          "year": 2023,
+          "org": "AASLD/IDSA"
+        }
+      ]
+    },
+    "hiv-disease": {
+      "name": "HIV (ART initiation and maintenance)",
+      "primary_drugs": ["biktarvy", "dolutegravir"],
+      "alternate_drugs": ["dolutegravir"],
+      "notes": "ART recommended for all individuals with HIV regardless of CD4 count. Preferred initial regimens for most people: bictegravir/tenofovir alafenamide/emtricitabine (BIC/TAF/FTC = Biktarvy) once daily (evidence rating AIa) OR dolutegravir + tenofovir/emtricitabine (DTG + TAF/FTC or TDF/FTC) once daily (AIa). ABC/3TC/DTG (Triumeq) no longer a first-choice due to cardiovascular risk and need for HLA-B*5701 testing. Start ART as soon as possible after HIV diagnosis (same day if feasible) — obtain resistance genotype before start. Long-acting injectable cabotegravir + rilpivirine monthly or every 2 months for virologically suppressed patients without treatment failure history.",
+      "sources": [
+        {
+          "id": "hiv-dhhs-2024",
+          "citation": "Panel on Antiretroviral Guidelines for Adults and Adolescents. Guidelines for the Use of Antiretroviral Agents in Adults and Adolescents with HIV. Department of Health and Human Services. Updated 2024.",
+          "url": "https://clinicalinfo.hiv.gov/en/guidelines/adult-and-adolescent-arv",
+          "year": 2024,
+          "org": "DHHS"
+        }
+      ]
+    }
+  }
+}

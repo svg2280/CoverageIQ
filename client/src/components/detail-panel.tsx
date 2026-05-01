@@ -1,7 +1,8 @@
 import type { Selection } from "./matrix";
 import type { ModuleData } from "@/data";
+import { sources as sourceTable } from "@/data";
 import { Button } from "@/components/ui/button";
-import { X, Pill, Bug as BugIcon, Stethoscope } from "lucide-react";
+import { X, Pill, Bug as BugIcon, Stethoscope, ExternalLink, BookOpen } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface DetailPanelProps {
@@ -345,22 +346,61 @@ function SyndromeDetail({
 }) {
   const syn = data.syndromes.find((s) => s.id === synId);
   if (!syn) return null;
-  const empDrugs = syn.empiric.map((id) => data.drugs.find((d) => d.id === id)).filter(Boolean) as typeof data.drugs;
-  const bugList = syn.commonBugs.map((id) => data.bugs.find((b) => b.id === id)).filter(Boolean) as typeof data.bugs;
+
+  // Use the new primary/alternate split if available, else fall back to flat empiric.
+  const primaryIds = syn.empiricPrimary ?? syn.empiric;
+  const alternateIds = syn.empiricAlternate ?? [];
+  const primaryDrugs = primaryIds
+    .map((id) => data.drugs.find((d) => d.id === id))
+    .filter(Boolean) as typeof data.drugs;
+  const alternateDrugs = alternateIds
+    .map((id) => data.drugs.find((d) => d.id === id))
+    .filter(Boolean) as typeof data.drugs;
+  const bugList = syn.commonBugs
+    .map((id) => data.bugs.find((b) => b.id === id))
+    .filter(Boolean) as typeof data.bugs;
+
+  const sourceIds = syn.sourceIds ?? [];
+  const refs = sourceIds
+    .map((id) => sourceTable[id])
+    .filter(Boolean);
+  // Re-query OpenEvidence link
+  const oeQuery = encodeURIComponent(`${syn.name} empiric antibiotic regimen guidelines`);
+  const oeUrl = `https://www.openevidence.com/search?q=${oeQuery}`;
 
   return (
     <>
-      <h3 className="font-display font-bold text-xl leading-tight">{syn.name}</h3>
+      <div className="flex items-start gap-2">
+        <h3 className="font-display font-bold text-xl leading-tight flex-1">{syn.name}</h3>
+        {refs.length > 0 && (
+          <a
+            href="#sources-block"
+            onClick={(e) => {
+              e.preventDefault();
+              const el = document.getElementById("sources-block");
+              el?.scrollIntoView({ behavior: "smooth", block: "start" });
+            }}
+            className="cite-badge cite-badge--inline shrink-0"
+            title={`${refs.length} guideline source${refs.length > 1 ? "s" : ""}—jump to references`}
+            data-testid="button-jump-sources"
+            aria-label={`${refs.length} guideline references`}
+          >
+            {refs.map((_, i) => (
+              <span key={i} className="cite-badge__num">[{i + 1}]</span>
+            ))}
+          </a>
+        )}
+      </div>
       <div className="text-xs uppercase tracking-wider text-muted-foreground font-mono mt-1">
         {syn.category}
       </div>
 
       <p className="text-sm mt-3 text-foreground/85 leading-relaxed">{syn.blurb}</p>
 
-      {empDrugs.length > 0 && (
-        <Section title="Empiric regimen">
-          <div className="flex flex-wrap gap-1.5">
-            {empDrugs.map((d) => (
+      {primaryDrugs.length > 0 && (
+        <Section title={`Primary regimen${refs.length > 0 ? " \u2014 first-line per guideline" : ""}`}>
+          <div className="flex flex-wrap gap-1.5 items-center">
+            {primaryDrugs.map((d) => (
               <Chip
                 key={d.id}
                 label={d.short ?? d.name}
@@ -369,7 +409,46 @@ function SyndromeDetail({
                 testId={`chip-drug-${d.id}`}
               />
             ))}
+            {refs.map((_, i) => (
+              <a
+                key={`ref-${i}`}
+                href="#sources-block"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.getElementById("sources-block")?.scrollIntoView({ behavior: "smooth" });
+                }}
+                className="cite-badge cite-badge--ref"
+                title="Jump to source citation"
+                aria-label={`Citation ${i + 1}`}
+              >
+                [{i + 1}]
+              </a>
+            ))}
           </div>
+        </Section>
+      )}
+
+      {alternateDrugs.length > 0 && (
+        <Section title="Alternate regimen">
+          <div className="flex flex-wrap gap-1.5">
+            {alternateDrugs.map((d) => (
+              <Chip
+                key={d.id}
+                label={d.short ?? d.name}
+                variant="alternate"
+                onClick={() => onSelect({ kind: "drug", id: d.id })}
+                testId={`chip-drug-${d.id}`}
+              />
+            ))}
+          </div>
+        </Section>
+      )}
+
+      {syn.guidelineNotes && (
+        <Section title="Guideline notes">
+          <p className="text-[12.5px] leading-relaxed text-foreground/80">
+            {syn.guidelineNotes}
+          </p>
         </Section>
       )}
 
@@ -386,6 +465,48 @@ function SyndromeDetail({
             ))}
           </div>
         </Section>
+      )}
+
+      {refs.length > 0 && (
+        <div id="sources-block" className="mt-4 pt-3 border-t border-border">
+          <div className="flex items-center gap-1.5 text-[10px] uppercase tracking-widest text-muted-foreground font-mono mb-2">
+            <BookOpen className="w-3 h-3" />
+            Sources
+          </div>
+          <ol className="space-y-2">
+            {refs.map((ref, i) => (
+              <li key={ref.id} className="text-[11px] leading-snug flex gap-2" data-testid={`source-${ref.id}`}>
+                <span className="cite-badge__num shrink-0 mt-0.5">[{i + 1}]</span>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-1.5 mb-0.5">
+                    <span className="text-[9.5px] uppercase font-mono tracking-wider px-1.5 py-0.5 border border-border bg-background text-foreground">
+                      {ref.org} · {ref.year}
+                    </span>
+                  </div>
+                  <a
+                    href={ref.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-foreground/85 hover:text-primary hover:underline decoration-dotted underline-offset-2"
+                  >
+                    {ref.citation}
+                    <ExternalLink className="inline-block w-2.5 h-2.5 ml-1 align-baseline opacity-60" />
+                  </a>
+                </div>
+              </li>
+            ))}
+          </ol>
+          <a
+            href={oeUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-3 inline-flex items-center gap-1.5 text-[10px] uppercase tracking-wider font-mono text-muted-foreground hover:text-foreground transition-colors"
+            data-testid="link-openevidence-requery"
+          >
+            <span>Re-query in OpenEvidence</span>
+            <ExternalLink className="w-3 h-3" />
+          </a>
+        </div>
       )}
     </>
   );

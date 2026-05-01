@@ -3,8 +3,11 @@ import * as antibac from "./antibacterials";
 import * as antifun from "./antifungals";
 import * as antivir from "./antivirals";
 import type { Coverage, Drug, DrugClass, Bug, Syndrome } from "./antibacterials";
+import { sources, getSource } from "./sources";
+import type { SourceRef } from "./sources";
 
-export type { Coverage, Drug, DrugClass, Bug, Syndrome };
+export type { Coverage, Drug, DrugClass, Bug, Syndrome, SourceRef };
+export { sources, getSource };
 
 export type ModuleKey = "antibacterials" | "antifungals" | "antivirals";
 
