@@ -1,3 +1,8 @@
 name = "coverageiq"
 compatibility_date = "2025-05-01"
-pages_build_output_dir = "dist/public"
+
+# Static-only deployment via Workers Assets.
+# The Vite build outputs the SPA to dist/public; Workers serves it directly.
+[assets]
+directory = "./dist/public"
+not_found_handling = "single-page-application"
