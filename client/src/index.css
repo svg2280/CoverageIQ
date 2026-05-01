@@ -1,0 +1,343 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* CoverageIQ palette
+   Inspired by petri dishes, biology textbooks, and slightly irreverent clinical art.
+   Dark mode is the default vibe — deep indigo canvas with bright bug/drug accents.
+*/
+
+/* LIGHT MODE — clean exam-room white with playful pops */
+:root {
+  --button-outline: rgba(0, 0, 0, 0.1);
+  --badge-outline: rgba(0, 0, 0, 0.05);
+  --opaque-button-border-intensity: -8;
+  --elevate-1: rgba(0, 0, 0, 0.04);
+  --elevate-2: rgba(0, 0, 0, 0.09);
+
+  --background: 220 30% 98%;
+  --foreground: 230 30% 12%;
+  --border: 230 14% 88%;
+  --card: 0 0% 100%;
+  --card-foreground: 230 30% 12%;
+  --card-border: 230 14% 90%;
+  --sidebar: 230 25% 96%;
+  --sidebar-foreground: 230 30% 12%;
+  --sidebar-border: 230 14% 88%;
+  --sidebar-primary: 270 70% 55%;
+  --sidebar-primary-foreground: 0 0% 100%;
+  --sidebar-accent: 230 14% 90%;
+  --sidebar-accent-foreground: 230 30% 12%;
+  --sidebar-ring: 270 70% 55%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 230 30% 12%;
+  --popover-border: 230 14% 88%;
+
+  /* Brand: vivid violet primary — feels both modern and slightly irreverent */
+  --primary: 270 70% 55%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 230 20% 92%;
+  --secondary-foreground: 230 30% 12%;
+  --muted: 230 20% 94%;
+  --muted-foreground: 230 14% 42%;
+  --accent: 270 60% 95%;
+  --accent-foreground: 270 70% 30%;
+  --destructive: 350 80% 50%;
+  --destructive-foreground: 0 0% 100%;
+  --input: 230 14% 82%;
+  --ring: 270 70% 55%;
+
+  /* Coverage colors — borrowed from BugDrugDX, bumped for vibrancy */
+  --cov-primary: 28 95% 58%;     /* orange = primary therapy */
+  --cov-primary-bg: 28 100% 92%;
+  --cov-alternate: 48 96% 60%;   /* yellow = possible */
+  --cov-alternate-bg: 48 100% 92%;
+  --cov-class: 150 60% 55%;      /* green = class group */
+  --cov-class-bg: 150 60% 92%;
+
+  /* Module accents — bacteria/fungi/virus */
+  --bacteria: 175 75% 45%;       /* electric teal */
+  --bacteria-glow: 175 75% 70%;
+  --fungi: 38 95% 55%;           /* mustard / amber */
+  --fungi-glow: 38 95% 75%;
+  --virus: 320 75% 60%;          /* magenta */
+  --virus-glow: 320 75% 80%;
+
+  /* Bug-category colors */
+  --gram-pos: 200 75% 55%;       /* sky blue */
+  --gram-neg: 10 80% 60%;        /* coral red */
+  --atypical: 280 60% 60%;       /* lavender */
+  --anaerobe: 130 50% 50%;       /* moss green */
+
+  --chart-1: 270 70% 55%;
+  --chart-2: 175 75% 45%;
+  --chart-3: 28 95% 58%;
+  --chart-4: 320 75% 60%;
+  --chart-5: 38 95% 55%;
+
+  --font-sans: 'Inter', sans-serif;
+  --font-display: 'Space Grotesk', 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --radius: 0.625rem;
+
+  --shadow-2xs: 0px 1px 0px 0px hsl(0 0% 0% / 0.04);
+  --shadow-xs: 0px 1px 2px 0px hsl(0 0% 0% / 0.06);
+  --shadow-sm: 0px 1px 3px 0px hsl(0 0% 0% / 0.08), 0px 1px 2px -1px hsl(0 0% 0% / 0.06);
+  --shadow: 0px 2px 6px 0px hsl(0 0% 0% / 0.08), 0px 2px 4px -1px hsl(0 0% 0% / 0.06);
+  --shadow-md: 0px 4px 12px 0px hsl(0 0% 0% / 0.1), 0px 2px 4px -1px hsl(0 0% 0% / 0.06);
+  --shadow-lg: 0px 12px 32px 0px hsl(0 0% 0% / 0.14);
+  --shadow-xl: 0px 20px 48px 0px hsl(0 0% 0% / 0.18);
+  --shadow-2xl: 0px 28px 64px 0px hsl(0 0% 0% / 0.22);
+  --tracking-normal: 0em;
+  --spacing: 0.25rem;
+
+  --primary-border: hsl(var(--primary));
+  --primary-border: hsl(from hsl(var(--primary)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
+  --secondary-border: hsl(var(--secondary));
+  --secondary-border: hsl(from hsl(var(--secondary)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
+  --muted-border: hsl(var(--muted));
+  --muted-border: hsl(from hsl(var(--muted)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
+  --accent-border: hsl(var(--accent));
+  --accent-border: hsl(from hsl(var(--accent)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
+  --destructive-border: hsl(var(--destructive));
+  --destructive-border: hsl(from hsl(var(--destructive)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
+  --sidebar-primary-border: hsl(var(--sidebar-primary));
+  --sidebar-primary-border: hsl(from hsl(var(--sidebar-primary)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
+  --sidebar-accent-border: hsl(var(--sidebar-accent));
+  --sidebar-accent-border: hsl(from hsl(var(--sidebar-accent)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
+}
+
+/* DARK MODE — deep indigo lab terminal */
+.dark {
+  --button-outline: rgba(255, 255, 255, 0.1);
+  --badge-outline: rgba(255, 255, 255, 0.05);
+  --opaque-button-border-intensity: 9;
+  --elevate-1: rgba(255, 255, 255, 0.05);
+  --elevate-2: rgba(255, 255, 255, 0.1);
+
+  --background: 235 35% 8%;        /* deep indigo-black */
+  --foreground: 230 30% 92%;
+  --border: 235 25% 18%;
+  --card: 235 30% 11%;
+  --card-foreground: 230 30% 92%;
+  --card-border: 235 25% 18%;
+  --sidebar: 235 30% 10%;
+  --sidebar-foreground: 230 30% 92%;
+  --sidebar-border: 235 25% 18%;
+  --sidebar-primary: 270 80% 70%;
+  --sidebar-primary-foreground: 235 35% 8%;
+  --sidebar-accent: 235 25% 16%;
+  --sidebar-accent-foreground: 230 30% 92%;
+  --sidebar-ring: 270 80% 70%;
+  --popover: 235 30% 12%;
+  --popover-foreground: 230 30% 92%;
+  --popover-border: 235 25% 20%;
+
+  --primary: 270 80% 70%;
+  --primary-foreground: 235 35% 8%;
+  --secondary: 235 25% 16%;
+  --secondary-foreground: 230 30% 92%;
+  --muted: 235 25% 14%;
+  --muted-foreground: 230 14% 65%;
+  --accent: 270 30% 22%;
+  --accent-foreground: 270 80% 80%;
+  --destructive: 350 80% 60%;
+  --destructive-foreground: 0 0% 100%;
+  --input: 235 25% 22%;
+  --ring: 270 80% 70%;
+
+  /* Coverage colors in dark mode — keep saturation high */
+  --cov-primary: 28 100% 65%;
+  --cov-primary-bg: 28 60% 22%;
+  --cov-alternate: 48 100% 65%;
+  --cov-alternate-bg: 48 50% 22%;
+  --cov-class: 150 60% 55%;
+  --cov-class-bg: 150 40% 18%;
+
+  --bacteria: 175 80% 60%;
+  --bacteria-glow: 175 90% 75%;
+  --fungi: 38 100% 65%;
+  --fungi-glow: 38 100% 80%;
+  --virus: 320 85% 70%;
+  --virus-glow: 320 90% 85%;
+
+  --gram-pos: 200 85% 65%;
+  --gram-neg: 10 90% 70%;
+  --atypical: 280 70% 75%;
+  --anaerobe: 130 60% 60%;
+
+  --chart-1: 270 80% 70%;
+  --chart-2: 175 80% 60%;
+  --chart-3: 28 100% 65%;
+  --chart-4: 320 85% 70%;
+  --chart-5: 38 100% 65%;
+
+  --shadow-2xs: 0px 1px 0px 0px hsl(0 0% 0% / 0.3);
+  --shadow-xs: 0px 1px 2px 0px hsl(0 0% 0% / 0.4);
+  --shadow-sm: 0px 1px 3px 0px hsl(0 0% 0% / 0.5);
+  --shadow: 0px 2px 6px 0px hsl(0 0% 0% / 0.5);
+  --shadow-md: 0px 4px 12px 0px hsl(0 0% 0% / 0.55);
+  --shadow-lg: 0px 12px 32px 0px hsl(0 0% 0% / 0.6);
+  --shadow-xl: 0px 20px 48px 0px hsl(0 0% 0% / 0.7);
+  --shadow-2xl: 0px 28px 64px 0px hsl(0 0% 0% / 0.8);
+
+  --primary-border: hsl(var(--primary));
+  --primary-border: hsl(from hsl(var(--primary)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
+  --secondary-border: hsl(var(--secondary));
+  --secondary-border: hsl(from hsl(var(--secondary)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
+  --muted-border: hsl(var(--muted));
+  --muted-border: hsl(from hsl(var(--muted)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
+  --accent-border: hsl(var(--accent));
+  --accent-border: hsl(from hsl(var(--accent)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
+  --destructive-border: hsl(var(--destructive));
+  --destructive-border: hsl(from hsl(var(--destructive)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
+  --sidebar-primary-border: hsl(var(--sidebar-primary));
+  --sidebar-primary-border: hsl(from hsl(var(--sidebar-primary)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
+  --sidebar-accent-border: hsl(var(--sidebar-accent));
+  --sidebar-accent-border: hsl(from hsl(var(--sidebar-accent)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+    background-image:
+      radial-gradient(circle at 20% 0%, hsl(var(--primary) / 0.06), transparent 50%),
+      radial-gradient(circle at 80% 100%, hsl(var(--bacteria) / 0.06), transparent 50%);
+    background-attachment: fixed;
+  }
+
+  .dark body {
+    background-image:
+      radial-gradient(circle at 20% 0%, hsl(var(--primary) / 0.12), transparent 50%),
+      radial-gradient(circle at 80% 100%, hsl(var(--bacteria) / 0.08), transparent 50%);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+  }
+
+  .font-display { font-family: var(--font-display); }
+  .font-mono { font-family: var(--font-mono); }
+}
+
+@layer utilities {
+  /* Coverage cell colors */
+  .cov-primary {
+    background: hsl(var(--cov-primary-bg));
+    color: hsl(var(--cov-primary));
+    border-color: hsl(var(--cov-primary) / 0.4);
+  }
+  .cov-alternate {
+    background: hsl(var(--cov-alternate-bg));
+    color: hsl(var(--cov-alternate));
+    border-color: hsl(var(--cov-alternate) / 0.4);
+  }
+  .cov-class {
+    background: hsl(var(--cov-class-bg));
+    color: hsl(var(--cov-class));
+    border-color: hsl(var(--cov-class) / 0.4);
+  }
+
+  /* Halo glow on hover/active */
+  .halo-bacteria { box-shadow: 0 0 0 2px hsl(var(--bacteria) / 0.4), 0 0 20px hsl(var(--bacteria-glow) / 0.5); }
+  .halo-fungi { box-shadow: 0 0 0 2px hsl(var(--fungi) / 0.4), 0 0 20px hsl(var(--fungi-glow) / 0.5); }
+  .halo-virus { box-shadow: 0 0 0 2px hsl(var(--virus) / 0.4), 0 0 20px hsl(var(--virus-glow) / 0.5); }
+
+  .halo-primary { box-shadow: 0 0 0 2px hsl(var(--cov-primary) / 0.5), 0 0 16px hsl(var(--cov-primary) / 0.6); }
+  .halo-alternate { box-shadow: 0 0 0 2px hsl(var(--cov-alternate) / 0.5), 0 0 16px hsl(var(--cov-alternate) / 0.5); }
+
+  /* Subtle dot grid background for matrix area */
+  .grid-bg {
+    background-image:
+      radial-gradient(circle, hsl(var(--foreground) / 0.05) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+  .dark .grid-bg {
+    background-image:
+      radial-gradient(circle, hsl(var(--foreground) / 0.08) 1px, transparent 1px);
+  }
+
+  /* Hide ugly search cancel button */
+  input[type='search']::-webkit-search-cancel-button {
+    @apply hidden;
+  }
+
+  /* Custom scrollbar — subtle */
+  .nice-scroll::-webkit-scrollbar { width: 8px; height: 8px; }
+  .nice-scroll::-webkit-scrollbar-track { background: transparent; }
+  .nice-scroll::-webkit-scrollbar-thumb {
+    background: hsl(var(--border));
+    border-radius: 4px;
+  }
+  .nice-scroll::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground) / 0.5);
+  }
+
+  /* Pulse animation for "active" hovered items */
+  @keyframes pulse-glow {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.85; }
+  }
+  .pulse-glow {
+    animation: pulse-glow 2.4s ease-in-out infinite;
+  }
+
+  /* Rise animation for tooltips */
+  @keyframes rise-in {
+    from { opacity: 0; transform: translateY(8px) scale(0.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  .rise-in {
+    animation: rise-in 0.18s ease-out;
+  }
+
+  /* Elevate utility (kept from template) */
+  .toggle-elevate::before,
+  .toggle-elevate-2::before {
+    content: '';
+    pointer-events: none;
+    position: absolute;
+    inset: 0px;
+    border-radius: inherit;
+    z-index: -1;
+  }
+  .toggle-elevate.toggle-elevated::before {
+    background-color: var(--elevate-2);
+  }
+  .border.toggle-elevate::before { inset: -1px; }
+  .hover-elevate:not(.no-default-hover-elevate),
+  .active-elevate:not(.no-default-active-elevate),
+  .hover-elevate-2:not(.no-default-hover-elevate),
+  .active-elevate-2:not(.no-default-active-elevate) {
+    position: relative;
+    z-index: 0;
+  }
+  .hover-elevate:not(.no-default-hover-elevate)::after,
+  .active-elevate:not(.no-default-active-elevate)::after,
+  .hover-elevate-2:not(.no-default-hover-elevate)::after,
+  .active-elevate-2:not(.no-default-active-elevate)::after {
+    content: '';
+    pointer-events: none;
+    position: absolute;
+    inset: 0px;
+    border-radius: inherit;
+    z-index: 999;
+  }
+  .hover-elevate:hover:not(.no-default-hover-elevate)::after,
+  .active-elevate:active:not(.no-default-active-elevate)::after {
+    background-color: var(--elevate-1);
+  }
+  .hover-elevate-2:hover:not(.no-default-hover-elevate)::after,
+  .active-elevate-2:active:not(.no-default-active-elevate)::after {
+    background-color: var(--elevate-2);
+  }
+  .border.hover-elevate::after,
+  .border.active-elevate::after,
+  .border.hover-elevate-2::after,
+  .border.active-elevate-2::after { inset: -1px; }
+}
