@@ -366,7 +366,7 @@ function SyndromeDetail({
     .filter(Boolean);
   // Re-query OpenEvidence link
   const oeQuery = encodeURIComponent(`${syn.name} empiric antibiotic regimen guidelines`);
-  const oeUrl = `https://www.openevidence.com/search?q=${oeQuery}`;
+  const oeUrl = `https://www.openevidence.com/ask?q=${oeQuery}`;
 
   return (
     <>
