@@ -98,7 +98,7 @@ export const sources: Record<string, SourceRef> = {
   "flu-idsa-2018": {
     id: "flu-idsa-2018",
     citation: "Uyeki TM, Bernstein HH, Bradley JS, et al. Clinical Practice Guidelines by the Infectious Diseases Society of America: 2018 Update on Diagnosis, Treatment, Chemoprophylaxis, and Institutional Outbreak Management of Seasonal Influenzaa. Clin Infect Dis. 2019;68(6):e1-e47.",
-    url: "https://academic.oup.com/cid/article/68/6/e1/5251935",
+    url: "https://pubmed.ncbi.nlm.nih.gov/30566567/",
     year: 2019,
     org: "IDSA"
   },
@@ -112,7 +112,7 @@ export const sources: Record<string, SourceRef> = {
   "candida-idsa-2016": {
     id: "candida-idsa-2016",
     citation: "Pappas PG, Kauffman CA, Andes DR, et al. Clinical Practice Guideline for the Management of Candidiasis: 2016 Update by the Infectious Diseases Society of America. Clin Infect Dis. 2016;62(4):e1-e50.",
-    url: "https://academic.oup.com/cid/article/62/4/e1/2462830",
+    url: "https://pubmed.ncbi.nlm.nih.gov/26679628/",
     year: 2016,
     org: "IDSA"
   },
@@ -133,14 +133,14 @@ export const sources: Record<string, SourceRef> = {
   "ssti-idsa-2014": {
     id: "ssti-idsa-2014",
     citation: "Stevens DL, Bisno AL, Chambers HF, et al. Practice Guidelines for the Diagnosis and Management of Skin and Soft Tissue Infections: 2014 Update by the Infectious Diseases Society of America. Clin Infect Dis. 2014;59(2):e10-e52.",
-    url: "https://academic.oup.com/cid/article/59/2/e10/2895845",
+    url: "https://pubmed.ncbi.nlm.nih.gov/24973422/",
     year: 2014,
     org: "IDSA"
   },
   "fn-idsa-2010": {
     id: "fn-idsa-2010",
     citation: "Freifeld AG, Bow EJ, Sepkowitz KA, et al. Clinical Practice Guideline for the Use of Antimicrobial Agents in Neutropenic Patients with Cancer: 2010 Update by the Infectious Diseases Society of America. Clin Infect Dis. 2011;52(4):e56-e93.",
-    url: "https://academic.oup.com/cid/article/52/4/427/379008",
+    url: "https://pubmed.ncbi.nlm.nih.gov/21258094/",
     year: 2011,
     org: "IDSA"
   },
@@ -154,14 +154,14 @@ export const sources: Record<string, SourceRef> = {
   "clabsi-idsa-2009": {
     id: "clabsi-idsa-2009",
     citation: "Mermel LA, Allon M, Bouza E, et al. Clinical Practice Guidelines for the Diagnosis and Management of Intravascular Catheter-Related Infection: 2009 Update by the Infectious Diseases Society of America. Clin Infect Dis. 2009;49(1):1-45.",
-    url: "https://academic.oup.com/cid/article/49/1/1/369414",
+    url: "https://pubmed.ncbi.nlm.nih.gov/19489710/",
     year: 2009,
     org: "IDSA"
   },
   "encephalitis-idsa-2008": {
     id: "encephalitis-idsa-2008",
     citation: "Tunkel AR, Glaser CA, Bloch KC, et al. The Management of Encephalitis: Clinical Practice Guidelines by the Infectious Diseases Society of America. Clin Infect Dis. 2008;47(3):303-327.",
-    url: "https://academic.oup.com/cid/article/47/3/303/313455",
+    url: "https://pubmed.ncbi.nlm.nih.gov/18582201/",
     year: 2008,
     org: "IDSA"
   },
@@ -175,7 +175,7 @@ export const sources: Record<string, SourceRef> = {
   "meningitis-idsa-2004": {
     id: "meningitis-idsa-2004",
     citation: "Tunkel AR, Hartman BJ, Kaplan SL, et al. Practice Guidelines for the Management of Bacterial Meningitis. Clin Infect Dis. 2004;39(9):1267-1284.",
-    url: "https://academic.oup.com/cid/article/39/9/1267/402080",
+    url: "https://pubmed.ncbi.nlm.nih.gov/15494903/",
     year: 2004,
     org: "IDSA"
   },
@@ -196,7 +196,7 @@ export const sources: Record<string, SourceRef> = {
   "uti-idsa-2011": {
     id: "uti-idsa-2011",
     citation: "Gupta K, Hooton TM, Naber KG, et al. International Clinical Practice Guidelines for the Treatment of Acute Uncomplicated Cystitis and Pyelonephritis in Women: A 2010 Update by the Infectious Diseases Society of America and the European Society for Microbiology and Infectious Diseases. Clin Infect Dis. 2011;52(5):e103-e120.",
-    url: "https://academic.oup.com/cid/article/52/5/e103/388285",
+    url: "https://pubmed.ncbi.nlm.nih.gov/21292654/",
     year: 2011,
     org: "IDSA/ESCMID"
   },
@@ -287,7 +287,7 @@ export const sources: Record<string, SourceRef> = {
   "leish-idsa-astmh-2017": {
     id: "leish-idsa-astmh-2017",
     citation: "Aronson N, Herwaldt BL, Libman M, et al. Diagnosis and Treatment of Leishmaniasis: Clinical Practice Guidelines by the IDSA and the ASTMH. Clin Infect Dis. 2016;63(12):e202-e264.",
-    url: "https://academic.oup.com/cid/article/63/12/e202/2645609",
+    url: "https://pubmed.ncbi.nlm.nih.gov/27941151/",
     year: 2017,
     org: "IDSA/ASTMH"
   },
@@ -336,7 +336,7 @@ export const sources: Record<string, SourceRef> = {
   "ncc-idsa-astmh-2018": {
     id: "ncc-idsa-astmh-2018",
     citation: "White AC Jr, Coyle CM, Rajshekhar V, et al. Diagnosis and Treatment of Neurocysticercosis: 2017 Clinical Practice Guidelines by IDSA and ASTMH. Clin Infect Dis. 2018;66(8):e49-e75.",
-    url: "https://academic.oup.com/cid/article/66/8/e49/4885412",
+    url: "https://pubmed.ncbi.nlm.nih.gov/29481580/",
     year: 2018,
     org: "IDSA/ASTMH"
   },

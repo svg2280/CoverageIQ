@@ -364,9 +364,10 @@ function SyndromeDetail({
   const refs = sourceIds
     .map((id) => sourceTable[id])
     .filter(Boolean);
-  // Re-query OpenEvidence link
+  // Re-query OpenEvidence link — use Google site-search to land on a public OE page,
+  // since OpenEvidence's /ask path generates private per-user conversations.
   const oeQuery = encodeURIComponent(`${syn.name} empiric antibiotic regimen guidelines`);
-  const oeUrl = `https://www.openevidence.com/ask?q=${oeQuery}`;
+  const oeUrl = `https://www.google.com/search?q=site%3Aopenevidence.com+${oeQuery}`;
 
   return (
     <>
