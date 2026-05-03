@@ -1,8 +1,12 @@
 name = "coverageiq"
 compatibility_date = "2025-05-01"
+main = "./worker.ts"
 
-# Static-only deployment via Workers Assets.
-# The Vite build outputs the SPA to dist/public; Workers serves it directly.
+# SPA assets + Worker for /api/rss proxy.
+# The Vite build outputs the SPA to dist/public; Workers serves it directly
+# unless the request matches a route handled by worker.ts (currently /api/rss
+# and /api/health).
 [assets]
 directory = "./dist/public"
 not_found_handling = "single-page-application"
+binding = "ASSETS"

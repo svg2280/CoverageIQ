@@ -6,6 +6,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/home";
+import JournalWatch from "@/pages/journal-watch";
 import {
   ContactPage,
   DisclaimerPage,
@@ -22,6 +23,7 @@ function AppRouter() {
       <Route path="/privacy" component={PrivacyPage} />
       <Route path="/terms" component={TermsPage} />
       <Route path="/disclaimer" component={DisclaimerPage} />
+      <Route path="/journal-watch" component={JournalWatch} />
       <Route component={NotFound} />
     </Switch>
   );

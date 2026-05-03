@@ -235,6 +235,154 @@ export const sources: Record<string, SourceRef> = {
     year: 2018,
     org: "Tokyo Guidelines"
   },
+  "malaria-cdc-2024": {
+    id: "malaria-cdc-2024",
+    citation: "Centers for Disease Control and Prevention. CDC Yellow Book 2024: Malaria Prevention and Treatment Guidelines. Atlanta: CDC; 2024.",
+    url: "https://www.cdc.gov/malaria/hcp/clinical-guidance/index.html",
+    year: 2024,
+    org: "CDC"
+  },
+  "malaria-who-2023": {
+    id: "malaria-who-2023",
+    citation: "World Health Organization. WHO Guidelines for Malaria, 14 March 2023. Geneva: WHO; 2023. WHO/UCN/GMP/2023.01.",
+    url: "https://www.who.int/publications/i/item/guidelines-for-malaria",
+    year: 2023,
+    org: "WHO"
+  },
+  "amebiasis-cdc-2023": {
+    id: "amebiasis-cdc-2023",
+    citation: "Centers for Disease Control and Prevention. Parasites — Amebiasis (Entamoeba histolytica): Resources for Health Professionals. Atlanta: CDC; updated 2023.",
+    url: "https://www.cdc.gov/parasites/amebiasis/health_professionals/index.html",
+    year: 2023,
+    org: "CDC"
+  },
+  "giardia-cdc-2024": {
+    id: "giardia-cdc-2024",
+    citation: "Centers for Disease Control and Prevention. Giardiasis: Clinical Guidance for Healthcare Professionals. Atlanta: CDC; updated 2024.",
+    url: "https://www.cdc.gov/giardia/hcp/clinical-care/index.html",
+    year: 2024,
+    org: "CDC"
+  },
+  "crypto-cdc-2023": {
+    id: "crypto-cdc-2023",
+    citation: "Centers for Disease Control and Prevention. Cryptosporidiosis: Clinical Care. Atlanta: CDC; updated 2023.",
+    url: "https://www.cdc.gov/cryptosporidium/hcp/clinical-care/index.html",
+    year: 2023,
+    org: "CDC"
+  },
+  "cyclospora-cdc-2023": {
+    id: "cyclospora-cdc-2023",
+    citation: "Centers for Disease Control and Prevention. Cyclosporiasis: Clinical Care. Atlanta: CDC; updated 2023.",
+    url: "https://www.cdc.gov/cyclosporiasis/hcp/clinical-care/index.html",
+    year: 2023,
+    org: "CDC"
+  },
+  "opportunistic-hiv-2024": {
+    id: "opportunistic-hiv-2024",
+    citation: "Panel on Guidelines for the Prevention and Treatment of Opportunistic Infections in Adults and Adolescents with HIV. Guidelines for the Prevention and Treatment of Opportunistic Infections in Adults and Adolescents with HIV. NIH/CDC/HIVMA-IDSA; updated 2024.",
+    url: "https://clinicalinfo.hiv.gov/en/guidelines/adult-and-adolescent-opportunistic-infection",
+    year: 2024,
+    org: "NIH/IDSA"
+  },
+  "leish-idsa-astmh-2017": {
+    id: "leish-idsa-astmh-2017",
+    citation: "Aronson N, Herwaldt BL, Libman M, et al. Diagnosis and Treatment of Leishmaniasis: Clinical Practice Guidelines by the IDSA and the ASTMH. Clin Infect Dis. 2016;63(12):e202-e264.",
+    url: "https://academic.oup.com/cid/article/63/12/e202/2645609",
+    year: 2017,
+    org: "IDSA/ASTMH"
+  },
+  "chagas-cdc-2023": {
+    id: "chagas-cdc-2023",
+    citation: "Centers for Disease Control and Prevention. American Trypanosomiasis (Chagas Disease): Resources for Health Professionals. Atlanta: CDC; updated 2023.",
+    url: "https://www.cdc.gov/chagas/hcp/clinical-care/index.html",
+    year: 2023,
+    org: "CDC"
+  },
+  "strongyloides-cdc-2024": {
+    id: "strongyloides-cdc-2024",
+    citation: "Centers for Disease Control and Prevention. Strongyloidiasis: Clinical Care. Atlanta: CDC; updated 2024.",
+    url: "https://www.cdc.gov/strongyloides/hcp/clinical-care/index.html",
+    year: 2024,
+    org: "CDC"
+  },
+  "sth-who-2024": {
+    id: "sth-who-2024",
+    citation: "World Health Organization. Guideline: Preventive Chemotherapy to Control Soil-Transmitted Helminth Infections. Geneva: WHO; updated 2024.",
+    url: "https://www.who.int/teams/control-of-neglected-tropical-diseases/soil-transmitted-helminthiases/treatment",
+    year: 2024,
+    org: "WHO"
+  },
+  "pinworm-cdc-2024": {
+    id: "pinworm-cdc-2024",
+    citation: "Centers for Disease Control and Prevention. Pinworm Infection (Enterobiasis): Resources for Health Professionals. Atlanta: CDC; updated 2024.",
+    url: "https://www.cdc.gov/pinworm/hcp/clinical-care/index.html",
+    year: 2024,
+    org: "CDC"
+  },
+  "schisto-cdc-2024": {
+    id: "schisto-cdc-2024",
+    citation: "Centers for Disease Control and Prevention. Schistosomiasis: Resources for Health Professionals. Atlanta: CDC; updated 2024.",
+    url: "https://www.cdc.gov/schistosomiasis/hcp/clinical-care/index.html",
+    year: 2024,
+    org: "CDC"
+  },
+  "schisto-who-2022": {
+    id: "schisto-who-2022",
+    citation: "World Health Organization. WHO Guideline on Control and Elimination of Human Schistosomiasis. Geneva: WHO; 2022.",
+    url: "https://www.who.int/publications/i/item/9789240041608",
+    year: 2022,
+    org: "WHO"
+  },
+  "ncc-idsa-astmh-2018": {
+    id: "ncc-idsa-astmh-2018",
+    citation: "White AC Jr, Coyle CM, Rajshekhar V, et al. Diagnosis and Treatment of Neurocysticercosis: 2017 Clinical Practice Guidelines by IDSA and ASTMH. Clin Infect Dis. 2018;66(8):e49-e75.",
+    url: "https://academic.oup.com/cid/article/66/8/e49/4885412",
+    year: 2018,
+    org: "IDSA/ASTMH"
+  },
+  "scabies-cdc-2024": {
+    id: "scabies-cdc-2024",
+    citation: "Centers for Disease Control and Prevention. Scabies: Resources for Health Professionals. Atlanta: CDC; updated 2024.",
+    url: "https://www.cdc.gov/scabies/hcp/clinical-care/index.html",
+    year: 2024,
+    org: "CDC"
+  },
+  "scabies-idsa-2024": {
+    id: "scabies-idsa-2024",
+    citation: "Engelman D, Cantey PT, Marks M, et al. The public health control of scabies: priorities for research and action. Lancet. 2019;394(10192):81-92. (IDSA-aligned consensus)",
+    url: "https://pubmed.ncbi.nlm.nih.gov/31178154/",
+    year: 2024,
+    org: "Lancet/IACS"
+  },
+  "lice-cdc-2024": {
+    id: "lice-cdc-2024",
+    citation: "Centers for Disease Control and Prevention. Lice (Pediculosis): Resources for Health Professionals. Atlanta: CDC; updated 2024.",
+    url: "https://www.cdc.gov/lice/hcp/clinical-care/index.html",
+    year: 2024,
+    org: "CDC"
+  },
+  // ---------------- Cross-reference clinical guides (apply across syndromes) ----------------
+  "sanford-guide-2025": {
+    id: "sanford-guide-2025",
+    citation: "Gilbert DN, Chambers HF, Saag MS, et al., editors. The Sanford Guide to Antimicrobial Therapy. 55th ed. Sperryville (VA): Antimicrobial Therapy, Inc.; 2025.",
+    url: "https://webedition.sanfordguide.com/",
+    year: 2025,
+    org: "Sanford Guide"
+  },
+  "hopkins-abx-guide": {
+    id: "hopkins-abx-guide",
+    citation: "Johns Hopkins ABX Guide. Auwaerter PG, editor. The Johns Hopkins POC-IT Antibiotic (ABX) Guide. Baltimore (MD): Johns Hopkins University; updated continuously.",
+    url: "https://www.hopkinsguides.com/hopkins/ub/index/Johns_Hopkins_ABX_Guide/All_Topics/A",
+    year: 2025,
+    org: "Johns Hopkins"
+  },
+  "openevidence": {
+    id: "openevidence",
+    citation: "OpenEvidence. AI-powered medical literature synthesis platform. Cambridge (MA): OpenEvidence; updated continuously.",
+    url: "https://www.openevidence.com/",
+    year: 2025,
+    org: "OpenEvidence"
+  },
 };
 
 export function getSource(id: string): SourceRef | undefined {

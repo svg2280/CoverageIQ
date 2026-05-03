@@ -172,6 +172,9 @@ function categoryLabel(cat: string): string {
     case "dimorphic": return "Dimorphic";
     case "atypical-fungus": return "Fungus";
     case "virus": return "Virus";
+    case "parasite-protozoa": return "Protozoan";
+    case "parasite-helminth": return "Helminth";
+    case "parasite-ectoparasite": return "Ectoparasite";
     default: return cat;
   }
 }

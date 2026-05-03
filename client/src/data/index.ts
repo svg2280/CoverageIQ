@@ -2,6 +2,7 @@
 import * as antibac from "./antibacterials";
 import * as antifun from "./antifungals";
 import * as antivir from "./antivirals";
+import * as antipar from "./antiparasitics";
 import type { Coverage, Drug, DrugClass, Bug, Syndrome } from "./antibacterials";
 import { sources, getSource } from "./sources";
 import type { SourceRef } from "./sources";
@@ -9,7 +10,7 @@ import type { SourceRef } from "./sources";
 export type { Coverage, Drug, DrugClass, Bug, Syndrome, SourceRef };
 export { sources, getSource };
 
-export type ModuleKey = "antibacterials" | "antifungals" | "antivirals";
+export type ModuleKey = "antibacterials" | "antifungals" | "antivirals" | "antiparasitics";
 
 export interface ModuleData {
   key: ModuleKey;
@@ -57,6 +58,17 @@ export const modules: Record<ModuleKey, ModuleData> = {
     syndromes: antivir.syndromes,
     getCoverage: antivir.getCoverage,
   },
+  antiparasitics: {
+    key: "antiparasitics",
+    label: "Antiparasitics",
+    emoji: "🪱",
+    accent: "parasite",
+    drugs: antipar.drugs,
+    drugClasses: antipar.drugClasses,
+    bugs: antipar.bugs,
+    syndromes: antipar.syndromes,
+    getCoverage: antipar.getCoverage,
+  },
 };
 
 // Helper for bug category styling — returns CSS variable name (without --)
@@ -71,6 +83,9 @@ export function bugCategoryColor(category: string): string {
     case "dimorphic": return "fungi";
     case "atypical-fungus": return "fungi";
     case "virus": return "virus";
+    case "parasite-protozoa": return "parasite";
+    case "parasite-helminth": return "parasite";
+    case "parasite-ectoparasite": return "parasite";
     default: return "gram-pos";
   }
 }

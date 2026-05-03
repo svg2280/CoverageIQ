@@ -22,7 +22,7 @@ import { FaLinkedinIn } from "react-icons/fa6";
 import { cn } from "@/lib/utils";
 import { BUG_IMAGES, type BugImage } from "@/data/bug-images";
 
-const moduleOrder: ModuleKey[] = ["antibacterials", "antifungals", "antivirals"];
+const moduleOrder: ModuleKey[] = ["antibacterials", "antifungals", "antivirals", "antiparasitics"];
 
 export default function Home() {
   const [activeModule, setActiveModule] = useState<ModuleKey>("antibacterials");
@@ -191,6 +191,16 @@ export default function Home() {
           </nav>
 
           <div className="flex-1" />
+
+          {/* JOURNAL WATCH LINK */}
+          <a
+            href="#/journal-watch"
+            className="hidden md:inline-flex items-center px-3 py-1.5 mr-2 font-serif font-bold text-[12px] tracking-tight uppercase border-2 border-foreground bg-card text-foreground hover:bg-foreground hover:text-background transition-colors"
+            data-testid="link-journal-watch"
+            title="Journal Watch — latest ID research feeds"
+          >
+            Journal Watch
+          </a>
 
           {/* SEARCH */}
           <div className="relative hidden sm:block">
@@ -490,6 +500,8 @@ function FooterExtras() {
       </div>
 
       <div className="footer-legal" data-testid="footer-legal">
+        <a href="#/journal-watch" data-testid="link-journal-watch-footer">Journal Watch</a>
+        <span className="footer-legal__sep">·</span>
         <a href="#/disclaimer" data-testid="link-disclaimer">Disclaimer</a>
         <span className="footer-legal__sep">·</span>
         <a href="#/privacy" data-testid="link-privacy">Privacy</a>
