@@ -204,7 +204,7 @@ function DrugCell({
       onClick={() => onPin({ kind: "drug", id: drug.id })}
       data-testid={`drug-${drug.id}`}
       className={cn(
-        "drug-cell group flex items-center justify-between gap-1 px-2 py-[5px] text-[11.5px] font-medium leading-[1.15] text-left transition-all",
+        "drug-cell group flex items-center justify-between gap-1 font-medium text-left transition-all",
         "border-2 hover:-translate-x-px hover:-translate-y-px hover:shadow-block-sm",
         cov === "primary" && "drug-cell--primary",
         cov === "alternate" && "drug-cell--alternate",
@@ -330,7 +330,7 @@ export function Matrix({
           <h2 className="panel__title">Drugs</h2>
           <span className="panel__count">{data.drugs.length}</span>
         </header>
-        <div className="flex-1 overflow-hidden p-1.5 space-y-1 min-h-0">
+        <div className="flex-1 overflow-hidden p-1.5 space-y-0.5 min-h-0">
           {data.drugClasses.map((dc) => {
             const list = drugsByClass.get(dc.id) ?? [];
             if (list.length === 0) return null;
