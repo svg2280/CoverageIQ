@@ -1,3 +1,4 @@
+import { useState } from "react";
 import type { Selection } from "./matrix";
 import type { ModuleData } from "@/data";
 import { sources as sourceTable } from "@/data";
@@ -344,6 +345,7 @@ function SyndromeDetail({
   synId: string;
   onSelect: (sel: Selection) => void;
 }) {
+  const [oeCopied, setOeCopied] = useState(false);
   const syn = data.syndromes.find((s) => s.id === synId);
   if (!syn) return null;
 
@@ -364,10 +366,17 @@ function SyndromeDetail({
   const refs = sourceIds
     .map((id) => sourceTable[id])
     .filter(Boolean);
-  // Re-query OpenEvidence link — use Google site-search to land on a public OE page,
-  // since OpenEvidence's /ask path generates private per-user conversations.
-  const oeQuery = encodeURIComponent(`${syn.name} empiric antibiotic regimen guidelines`);
-  const oeUrl = `https://www.google.com/search?q=site%3Aopenevidence.com+${oeQuery}`;
+  // Re-query OpenEvidence: open OpenEvidence homepage in a new tab AND copy the query
+  // to the clipboard so the user can paste into OE's search box. We can't deep-link
+  // because OpenEvidence's /ask path generates private per-user conversations.
+  const oeQueryText = `${syn.name} empiric antibiotic regimen guidelines`;
+  const handleOeRequery = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (typeof navigator !== "undefined" && navigator.clipboard) {
+      navigator.clipboard.writeText(oeQueryText).catch(() => {});
+      setOeCopied(true);
+      window.setTimeout(() => setOeCopied(false), 2500);
+    }
+  };
 
   return (
     <>
@@ -498,13 +507,15 @@ function SyndromeDetail({
             ))}
           </ol>
           <a
-            href={oeUrl}
+            href="https://www.openevidence.com/"
             target="_blank"
             rel="noopener noreferrer"
+            onClick={handleOeRequery}
             className="mt-3 inline-flex items-center gap-1.5 text-[10px] uppercase tracking-wider font-mono text-muted-foreground hover:text-foreground transition-colors"
             data-testid="link-openevidence-requery"
+            title={`Copies query to clipboard, opens OpenEvidence — paste with Cmd/Ctrl+V`}
           >
-            <span>Re-query in OpenEvidence</span>
+            <span>{oeCopied ? "Query copied — paste into OpenEvidence" : "Re-query in OpenEvidence"}</span>
             <ExternalLink className="w-3 h-3" />
           </a>
         </div>
