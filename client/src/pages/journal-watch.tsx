@@ -59,15 +59,6 @@ const FEEDS: FeedDef[] = [
     accent: "alternate",
   },
   {
-    id: "lancet-id",
-    title: "Lancet Infectious Diseases",
-    short: "Lancet ID",
-    org: "The Lancet",
-    url: "https://www.thelancet.com/action/showFeed?type=etoc&feed=rss&jc=laninf",
-    homepage: "https://www.thelancet.com/journals/laninf",
-    accent: "class",
-  },
-  {
     id: "ofid",
     title: "Open Forum Infectious Diseases",
     short: "OFID",

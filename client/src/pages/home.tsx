@@ -12,7 +12,6 @@ import {
   Moon,
   Github,
   Sparkles,
-  MessageSquare,
   Mail,
   Link as LinkIcon,
   Check,
@@ -386,15 +385,6 @@ export default function Home() {
             <div className="flex items-center gap-2 font-mono uppercase tracking-wider">
               <Logo className="w-3.5 h-3.5" />
               <span>CoverageIQ · v0.1</span>
-              <a
-                href="mailto:scottvangemert23@gmail.com?subject=CoverageIQ%20feedback&body=What%20did%20you%20find%3F%20Suggestion%2C%20bug%2C%20missing%20bug%2Fdrug%2C%20or%20idea%3A%0A%0A%0A---%0A"
-                data-testid="button-feedback"
-                aria-label="Send feedback to Dr. Van Gemert"
-                className="ml-2 inline-flex items-center gap-1 px-1.5 py-0.5 rounded border border-foreground bg-primary text-primary-foreground hover:bg-primary/90 transition-colors text-[9.5px]"
-              >
-                <MessageSquare className="w-2.5 h-2.5" />
-                Feedback
-              </a>
             </div>
             <p className="hidden md:block flex-1 text-center text-muted-foreground max-w-3xl mx-auto leading-snug">
               <strong className="text-foreground">Educational reference only.</strong>{" "}

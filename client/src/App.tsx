@@ -14,6 +14,7 @@ import {
   TermsPage,
 } from "@/pages/legal";
 import { ThemeProvider } from "@/components/theme-provider";
+import { FeedbackWidget } from "@/components/feedback-widget";
 
 function AppRouter() {
   return (
@@ -38,6 +39,7 @@ function App() {
           <Router hook={useHashLocation}>
             <AppRouter />
           </Router>
+          <FeedbackWidget />
         </TooltipProvider>
       </ThemeProvider>
     </QueryClientProvider>
