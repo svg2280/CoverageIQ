@@ -516,6 +516,31 @@
   }
   .rise-in { animation: rise-in 0.18s ease-out; }
 
+  /* Marquee — continuous left-scroll for headline ticker.
+     Content must be duplicated; we translate by -50% so the second copy seamlessly
+     replaces the first. Pause on hover for usability. */
+  @keyframes marquee-x {
+    from { transform: translate3d(0, 0, 0); }
+    to   { transform: translate3d(-50%, 0, 0); }
+  }
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee-x 60s linear infinite;
+    will-change: transform;
+  }
+  .marquee-mask {
+    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 28px, #000 calc(100% - 28px), transparent 100%);
+            mask-image: linear-gradient(to right, transparent 0, #000 28px, #000 calc(100% - 28px), transparent 100%);
+  }
+  .marquee-pause:hover .marquee-track,
+  .marquee-pause:focus-within .marquee-track {
+    animation-play-state: paused;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track { animation: none; transform: none; }
+  }
+
   /* Bauhaus offset shadows */
   .shadow-block {
     box-shadow: 4px 4px 0 hsl(var(--foreground));

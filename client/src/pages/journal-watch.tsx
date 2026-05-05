@@ -125,6 +125,20 @@ function accentClass(a: FeedDef["accent"]): string {
   }
 }
 
+// Smaller pill used inside the marquee ticker.
+function accentChip(a: FeedDef["accent"]): string {
+  switch (a) {
+    case "primary":
+      return "bg-primary text-primary-foreground";
+    case "alternate":
+      return "bg-accent text-foreground";
+    case "class":
+      return "bg-muted text-foreground";
+    default:
+      return "bg-card text-foreground";
+  }
+}
+
 export default function JournalWatchPage() {
   const [feeds, setFeeds] = useState<Record<string, FeedState>>(() =>
     Object.fromEntries(FEEDS.map((f) => [f.id, { status: "idle", items: [] }])),
@@ -186,7 +200,7 @@ export default function JournalWatchPage() {
     FEEDS.forEach((f) => {
       const st = feeds[f.id];
       if (!st) return;
-      st.items.slice(0, 2).forEach((it) => all.push({ feed: f, item: it }));
+      st.items.slice(0, 5).forEach((it) => all.push({ feed: f, item: it }));
     });
     return all
       .filter(({ item }) => item.pubDate)
@@ -195,7 +209,7 @@ export default function JournalWatchPage() {
           (new Date(b.item.pubDate).getTime() || 0) -
           (new Date(a.item.pubDate).getTime() || 0),
       )
-      .slice(0, 6);
+      .slice(0, 24);
   }, [feeds]);
 
   const activeFeed = active ? FEEDS.find((f) => f.id === active) : null;
@@ -258,41 +272,66 @@ export default function JournalWatchPage() {
 
       <main className="flex-1 overflow-hidden">
         <div className="max-w-[1700px] mx-auto px-4 lg:px-6 py-3 h-full flex flex-col gap-3">
-          {/* Hero strip — most-recent across all feeds */}
+          {/* Hero strip — marquee ticker of latest headlines across all journals */}
           <section
             aria-label="Latest across all journals"
-            className="border-2 border-foreground bg-card px-3 py-2 flex items-center gap-3 overflow-hidden"
+            className="border-2 border-foreground bg-card flex items-stretch overflow-hidden"
             data-testid="latest-strip"
           >
-            <div className="font-serif font-black text-[13px] tracking-tight uppercase shrink-0">
-              Latest
+            {/* Fixed label (sticky-style, not part of the moving track) */}
+            <div className="shrink-0 flex items-center gap-2 px-3 py-2 border-r-2 border-foreground bg-foreground text-background">
+              <span className="font-serif font-black text-[13px] tracking-tight uppercase">
+                Latest
+              </span>
+              <span className="hidden md:inline font-mono text-[9.5px] uppercase tracking-wider opacity-80">
+                {total} headlines
+              </span>
             </div>
-            <div className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground shrink-0 hidden md:block">
-              {total} headlines · refreshed hourly
-            </div>
-            <div className="flex-1 overflow-x-auto whitespace-nowrap text-[12px] flex items-center gap-3 [&_a]:underline-offset-2">
+
+            {/* Marquee */}
+            <div
+              className="relative flex-1 min-w-0 overflow-hidden marquee-mask marquee-pause"
+              role="marquee"
+              aria-label="Scrolling headlines"
+            >
               {latest.length === 0 ? (
-                <span className="text-muted-foreground">Loading current issues…</span>
+                <div className="px-3 py-2 text-[12px] text-muted-foreground">
+                  Loading current issues…
+                </div>
               ) : (
-                latest.map(({ feed, item }, i) => (
-                  <span key={i} className="inline-flex items-center gap-1.5">
-                    <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
-                      {feed.short}
-                    </span>
-                    <a
-                      href={item.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="hover:underline truncate max-w-[480px] inline-block align-middle"
-                    >
-                      {item.title}
-                    </a>
-                    <span className="font-mono text-[10px] text-muted-foreground">
-                      {relativeTime(item.pubDate)}
-                    </span>
-                    {i < latest.length - 1 && <span className="text-muted-foreground">·</span>}
-                  </span>
-                ))
+                <div className="marquee-track" aria-hidden={false}>
+                  {[0, 1].map((copy) => (
+                    <div key={copy} className="flex items-center gap-0" aria-hidden={copy === 1}>
+                      {latest.map(({ feed, item }, i) => (
+                        <a
+                          key={`${copy}-${i}`}
+                          href={item.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="group flex items-center gap-2 px-3 py-2 border-r border-foreground/20 hover:bg-accent/50 transition-colors"
+                          tabIndex={copy === 1 ? -1 : 0}
+                          data-testid={copy === 0 ? `ticker-item-${i}` : undefined}
+                        >
+                          <span
+                            className={cn(
+                              "shrink-0 inline-flex items-center justify-center px-1.5 py-0.5 border border-foreground font-mono text-[9.5px] uppercase tracking-wider",
+                              accentChip(feed.accent),
+                            )}
+                            title={feed.org}
+                          >
+                            {feed.short}
+                          </span>
+                          <span className="text-[12px] leading-tight max-w-[460px] truncate group-hover:underline underline-offset-2">
+                            {item.title}
+                          </span>
+                          <span className="shrink-0 font-mono text-[9.5px] text-muted-foreground">
+                            {relativeTime(item.pubDate)}
+                          </span>
+                        </a>
+                      ))}
+                    </div>
+                  ))}
+                </div>
               )}
             </div>
           </section>
