@@ -383,6 +383,99 @@ export const sources: Record<string, SourceRef> = {
     year: 2025,
     org: "OpenEvidence"
   },
+  // ---- Mycobacterial / TB sources ----
+  "ats-cdc-idsa-tb-2016": {
+    id: "ats-cdc-idsa-tb-2016",
+    citation: "ATS/CDC/IDSA Drug-Susceptible TB Treatment Guidelines (2016)",
+    url: "https://www.cdc.gov/tb/publications/guidelines/pdf/clin-infect-dis.-2016-nahid-cid_ciw376.pdf",
+    year: 2016,
+    org: "American Thoracic Society / CDC / IDSA — Clinical Infectious Diseases"
+  },
+  "cdc-rpt-mox-2022": {
+    id: "cdc-rpt-mox-2022",
+    citation: "CDC MMWR: Interim Guidance for 4-Month Rifapentine-Moxifloxacin Regimen (2022)",
+    url: "https://www.cdc.gov/mmwr/volumes/71/wr/mm7108a1.htm",
+    year: 2022,
+    org: "CDC Morbidity and Mortality Weekly Report"
+  },
+  "who-tb-2022": {
+    id: "who-tb-2022",
+    citation: "WHO Consolidated Guidelines on Tuberculosis — Module 4: Treatment (2022)",
+    url: "https://www.who.int/publications/i/item/9789240107243",
+    year: 2022,
+    org: "World Health Organization"
+  },
+  "who-bpalm-2022": {
+    id: "who-bpalm-2022",
+    citation: "WHO Consolidated Guidelines on Tuberculosis — Module 4: DR-TB Treatment, BPaLM/BPaL (2022)",
+    url: "https://www.who.int/publications/i/item/9789240063129",
+    year: 2022,
+    org: "World Health Organization"
+  },
+  "ats-idsa-ntm-2020": {
+    id: "ats-idsa-ntm-2020",
+    citation: "ATS/ERS/ESCMID/IDSA NTM Pulmonary Disease Clinical Practice Guideline (2020)",
+    url: "https://pubmed.ncbi.nlm.nih.gov/32628747/",
+    year: 2020,
+    org: "American Thoracic Society / ERS / ESCMID / IDSA — Clinical Infectious Diseases"
+  },
+  "ats-cdc-idsa-ltbi-2020": {
+    id: "ats-cdc-idsa-ltbi-2020",
+    citation: "NTCA and CDC Guidelines for Treatment of Latent TB Infection (2020)",
+    url: "https://www.cdc.gov/mmwr/volumes/69/rr/rr6901a1.htm",
+    year: 2020,
+    org: "National Tuberculosis Controllers Association / CDC — MMWR Recommendations and Reports"
+  },
+  "who-leprosy-2018": {
+    id: "who-leprosy-2018",
+    citation: "WHO Guidelines for the Diagnosis, Treatment and Prevention of Leprosy (2018)",
+    url: "https://cdn.who.int/media/docs/default-source/ntds/leprosy/recommended-treatment-regimens-for-leprosy.pdf",
+    year: 2018,
+    org: "World Health Organization — Control of Neglected Tropical Diseases"
+  },
+  "curry-mdr-tb": {
+    id: "curry-mdr-tb",
+    citation: "Curry International Tuberculosis Center — BPaL/BPaLM Guidance (2024)",
+    url: "https://www.currytbcenter.ucsf.edu/sites/default/files/2024-10/343-203_BPaL%20Guidance.pdf",
+    year: 2024,
+    org: "Curry International Tuberculosis Center, UCSF"
+  },
+  "sanford-tb": {
+    id: "sanford-tb",
+    citation: "Sanford Guide — TB Chapter (paywall; use publisher root URL)",
+    url: "https://webedition.sanfordguide.com",
+    year: 2024,
+    org: "Sanford Guide / Antimicrobial Therapy Inc."
+  },
+  "hopkins-abx-tb": {
+    id: "hopkins-abx-tb",
+    citation: "Johns Hopkins ABX Guide — M. tuberculosis Entry (subscription required)",
+    url: "https://www.hopkinsguides.com",
+    year: 2024,
+    org: "Johns Hopkins Medicine"
+  },
+  "openevidence-tb": {
+    id: "openevidence-tb",
+    citation: "OpenEvidence — TB References",
+    url: "https://www.openevidence.com",
+    year: 2024,
+    org: "OpenEvidence"
+  },
+  "ats-cdc-idsa-2025": {
+    id: "ats-cdc-idsa-2025",
+    citation: "ATS/CDC/ERS/IDSA Updated Clinical Practice Guideline: DS-TB and DR-TB Treatment (2025)",
+    url: "https://www.idsociety.org/practice-guideline/treatment-of-drug-susceptible-tb/treatment-of-drug-resistant-and-drug-susceptible-tb-2025-update/",
+    year: 2025,
+    org: "American Thoracic Society / CDC / ERS / IDSA — American Journal of Respiratory and Critical Care Medicine"
+  },
+  "who-ksp-dr-tb": {
+    id: "who-ksp-dr-tb",
+    citation: "WHO Tuberculosis Knowledge Sharing Platform — DR-TB Treatment Sections",
+    url: "https://tbksp.who.int/en/node/3033",
+    year: 2022,
+    org: "World Health Organization"
+  },
+
 };
 
 export function getSource(id: string): SourceRef | undefined {
