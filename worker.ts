@@ -10,7 +10,7 @@ interface Env {
 const FEEDBACK_TO = "scottvg@oneMDmedical.com";
 // Resend's default sender domain — works without DNS verification.
 // Switch to "feedback@coverageiq.net" once the domain is verified in Resend.
-const FEEDBACK_FROM = "CoverageIQ Feedback <onboarding@resend.dev>";
+const FEEDBACK_FROM = "CoverageIQ Feedback <feedback@coverageiq.net>";
 
 // Domains we are willing to fetch RSS from. Any other URL is rejected.
 const ALLOWED_HOSTS = new Set<string>([
