@@ -1388,6 +1388,17 @@
 
 /* Reserve space at the bottom-right of the footer for the floating Feedback widget
    so its pill never visually covers footer legal/share links on small screens. */
+/* Reserve space on the right edge of footer rows so the floating
+   feedback button never visually covers links/logos. The pill is
+   ~110px wide on desktop and ~36px (icon-only) on small screens. */
+@media (max-width: 1440px) {
+  .footer-extras {
+    padding-right: 130px;
+  }
+  .footer-meta {
+    padding-right: 130px;
+  }
+}
 @media (max-width: 768px) {
   .footer-extras {
     padding-right: 56px;
