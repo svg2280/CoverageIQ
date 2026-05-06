@@ -15,6 +15,7 @@ import {
 } from "@/pages/legal";
 import { ThemeProvider } from "@/components/theme-provider";
 import { FeedbackWidget } from "@/components/feedback-widget";
+import { I18nProvider } from "@/lib/i18n";
 
 function AppRouter() {
   return (
@@ -33,15 +34,17 @@ function AppRouter() {
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider>
-        <TooltipProvider delayDuration={150}>
-          <Toaster />
-          <Router hook={useHashLocation}>
-            <AppRouter />
-          </Router>
-          <FeedbackWidget />
-        </TooltipProvider>
-      </ThemeProvider>
+      <I18nProvider>
+        <ThemeProvider>
+          <TooltipProvider delayDuration={150}>
+            <Toaster />
+            <Router hook={useHashLocation}>
+              <AppRouter />
+            </Router>
+            <FeedbackWidget />
+          </TooltipProvider>
+        </ThemeProvider>
+      </I18nProvider>
     </QueryClientProvider>
   );
 }

@@ -3,7 +3,14 @@
 
 interface Env {
   ASSETS: { fetch: (req: Request) => Promise<Response> };
+  RESEND_API_KEY?: string;
 }
+
+// Where feedback emails land
+const FEEDBACK_TO = "scottvg@oneMDmedical.com";
+// Resend's default sender domain — works without DNS verification.
+// Switch to "feedback@coverageiq.net" once the domain is verified in Resend.
+const FEEDBACK_FROM = "CoverageIQ Feedback <onboarding@resend.dev>";
 
 // Domains we are willing to fetch RSS from. Any other URL is rejected.
 const ALLOWED_HOSTS = new Set<string>([
@@ -186,10 +193,157 @@ async function handleRss(req: Request): Promise<Response> {
   return resp;
 }
 
+// ---- Feedback handler --------------------------------------------------
+
+function stripTags(s: string, max = 4000): string {
+  return String(s ?? "")
+    .replace(/<[^>]+>/g, "")
+    .replace(/[\r\n]+/g, "\n")
+    .slice(0, max)
+    .trim();
+}
+
+function escapeHtml(s: string): string {
+  return String(s ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function isValidEmail(s: string): boolean {
+  if (!s) return false;
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s) && s.length <= 254;
+}
+
+async function handleFeedback(req: Request, env: Env): Promise<Response> {
+  // CORS preflight (same-origin in practice, but be tolerant)
+  if (req.method === "OPTIONS") {
+    return new Response(null, {
+      status: 204,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "POST, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type",
+        "Access-Control-Max-Age": "86400",
+      },
+    });
+  }
+
+  if (req.method !== "POST") {
+    return new Response(JSON.stringify({ error: "method not allowed" }), {
+      status: 405,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+
+  if (!env.RESEND_API_KEY) {
+    return new Response(JSON.stringify({ error: "email service not configured" }), {
+      status: 503,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+
+  let body: any;
+  try {
+    body = await req.json();
+  } catch {
+    return new Response(JSON.stringify({ error: "invalid json" }), {
+      status: 400,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+
+  const message = stripTags(body?.message ?? "", 4000);
+  if (!message) {
+    return new Response(JSON.stringify({ error: "message required" }), {
+      status: 400,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+
+  const replyToRaw = stripTags(body?.replyTo ?? "", 254);
+  const replyTo = isValidEmail(replyToRaw) ? replyToRaw : "";
+  const page = stripTags(body?.page ?? "", 500);
+  const userAgent = stripTags(body?.userAgent ?? req.headers.get("user-agent") ?? "", 500);
+  const cf = (req as any).cf ?? {};
+  const country = stripTags(cf?.country ?? "", 8);
+
+  const text = [
+    message,
+    "",
+    "---",
+    `Page: ${page || "(unknown)"}`,
+    `Reply-To: ${replyTo || "(none provided)"}`,
+    `Country: ${country || "(unknown)"}`,
+    `UA: ${userAgent || "(unknown)"}`,
+    `Sent: ${new Date().toISOString()}`,
+  ].join("\n");
+
+  const html = `
+    <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:14px;color:#1a1a1a;">
+      <div style="white-space:pre-wrap;font-size:15px;line-height:1.55;border-left:3px solid #111;padding:8px 14px;background:#fafafa;">${escapeHtml(message)}</div>
+      <hr style="border:none;border-top:1px solid #e5e5e5;margin:18px 0;" />
+      <table style="font-size:12px;color:#555;border-collapse:collapse;">
+        <tr><td style="padding:2px 10px 2px 0;"><b>Page</b></td><td>${escapeHtml(page || "(unknown)")}</td></tr>
+        <tr><td style="padding:2px 10px 2px 0;"><b>Reply-To</b></td><td>${escapeHtml(replyTo || "(none provided)")}</td></tr>
+        <tr><td style="padding:2px 10px 2px 0;"><b>Country</b></td><td>${escapeHtml(country || "(unknown)")}</td></tr>
+        <tr><td style="padding:2px 10px 2px 0;"><b>UA</b></td><td>${escapeHtml(userAgent || "(unknown)")}</td></tr>
+        <tr><td style="padding:2px 10px 2px 0;"><b>Sent</b></td><td>${new Date().toISOString()}</td></tr>
+      </table>
+    </div>
+  `;
+
+  const payload: Record<string, unknown> = {
+    from: FEEDBACK_FROM,
+    to: [FEEDBACK_TO],
+    subject: `CoverageIQ feedback${replyTo ? ` — from ${replyTo}` : ""}`,
+    text,
+    html,
+  };
+  if (replyTo) payload.reply_to = replyTo;
+
+  let r: Response;
+  try {
+    r = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${env.RESEND_API_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+  } catch (e: any) {
+    return new Response(
+      JSON.stringify({ error: "network error", detail: String(e?.message || e) }),
+      { status: 502, headers: { "Content-Type": "application/json" } }
+    );
+  }
+
+  if (!r.ok) {
+    const detail = await r.text().catch(() => "");
+    return new Response(
+      JSON.stringify({ error: "resend error", status: r.status, detail: detail.slice(0, 500) }),
+      { status: 502, headers: { "Content-Type": "application/json" } }
+    );
+  }
+
+  const data = await r.json().catch(() => ({}));
+  return new Response(JSON.stringify({ ok: true, id: (data as any)?.id ?? null }), {
+    status: 200,
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    },
+  });
+}
+
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {
     const url = new URL(req.url);
     if (url.pathname === "/api/rss") return handleRss(req);
+    if (url.pathname === "/api/feedback") return handleFeedback(req, env);
     if (url.pathname === "/api/health") {
       return new Response(JSON.stringify({ ok: true, ts: Date.now() }), {
         headers: { "Content-Type": "application/json" },

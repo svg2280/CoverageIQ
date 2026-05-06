@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { MessageSquare, X } from "lucide-react";
+import { useI18n } from "@/lib/i18n";
 
 /**
  * Floating bottom-right feedback widget — modeled on getdesign.md.
@@ -10,10 +11,14 @@ import { MessageSquare, X } from "lucide-react";
  * Send composes a mailto: with the user's message pre-filled, so the user
  * dispatches it from their own client (no backend required).
  */
+type SendStatus = "idle" | "sending" | "sent" | "error";
+
 export function FeedbackWidget() {
+  const { t } = useI18n();
   const [open, setOpen] = useState(false);
   const [note, setNote] = useState("");
   const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<SendStatus>("idle");
   const panelRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -50,49 +55,85 @@ export function FeedbackWidget() {
     }
   }, [open]);
 
-  const send = (e: React.FormEvent) => {
+  const send = async (e: React.FormEvent) => {
     e.preventDefault();
     const trimmed = note.trim();
     if (!trimmed) {
       textareaRef.current?.focus();
       return;
     }
-    const lines = [
+
+    const payload = {
+      message: trimmed,
+      replyTo: email.trim() || null,
+      page: typeof window !== "undefined" ? window.location.href : "",
+      userAgent: typeof navigator !== "undefined" ? navigator.userAgent : "",
+    };
+
+    setStatus("sending");
+
+    // Try Worker → Resend backend first.
+    try {
+      const res = await fetch("/api/feedback", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      if (res.ok) {
+        setStatus("sent");
+        setTimeout(() => {
+          setNote("");
+          setEmail("");
+          setStatus("idle");
+          setOpen(false);
+        }, 1600);
+        return;
+      }
+      // Non-OK status → fall through to mailto fallback
+    } catch {
+      // Network/CORS error → fall through to mailto fallback
+    }
+
+    // Fallback: open user's mail client with content pre-filled.
+    const subject = "CoverageIQ feedback";
+    const body = [
       trimmed,
       "",
       "---",
-      email.trim() ? `Reply-to: ${email.trim()}` : "Reply-to: (not provided)",
-      `Page: ${typeof window !== "undefined" ? window.location.href : ""}`,
-      `UA: ${typeof navigator !== "undefined" ? navigator.userAgent : ""}`,
-    ];
-    const subject = "CoverageIQ feedback";
-    const body = lines.join("\n");
-    const url = `mailto:scottvangemert23@gmail.com?subject=${encodeURIComponent(
+      payload.replyTo ? `Reply-to: ${payload.replyTo}` : "Reply-to: (not provided)",
+      `Page: ${payload.page}`,
+      `UA: ${payload.userAgent}`,
+    ].join("\n");
+    const url = `mailto:scottvg@oneMDmedical.com?subject=${encodeURIComponent(
       subject,
     )}&body=${encodeURIComponent(body)}`;
     window.location.href = url;
-    // Reset + close on next tick so the mailto fires first
+    setStatus("sent");
     setTimeout(() => {
       setNote("");
       setEmail("");
+      setStatus("idle");
       setOpen(false);
-    }, 50);
+    }, 250);
   };
 
   return (
     <>
-      {/* TRIGGER — fixed bottom-right pill */}
+      {/* TRIGGER — fixed bottom-right pill.
+          On phones (≤sm) we drop the label so the icon doesn't cover footer links;
+          on tablets+ we show the full pill. The page reserves bottom-padding
+          via the .has-feedback-widget body class so footer copy never collides. */}
       <button
         ref={triggerRef}
         type="button"
         onClick={() => setOpen((v) => !v)}
-        aria-label={open ? "Close feedback panel" : "Open feedback panel"}
+        aria-label={open ? t("fb.close") : t("fb.open")}
         aria-expanded={open}
         data-testid="button-feedback"
-        className="fixed bottom-4 right-4 z-[60] inline-flex items-center gap-1.5 rounded-full border-2 border-foreground bg-primary text-primary-foreground px-3 py-2 text-[12px] font-mono uppercase tracking-wider shadow-block-sm hover:shadow-block-md hover:-translate-x-px hover:-translate-y-px transition-all"
+        className="fixed bottom-3 right-3 sm:bottom-4 sm:right-4 z-[60] inline-flex items-center gap-1.5 rounded-full border-2 border-foreground bg-primary text-primary-foreground shadow-block-sm hover:shadow-block-md hover:-translate-x-px hover:-translate-y-px transition-all p-2 sm:px-3 sm:py-2 text-[12px] font-mono uppercase tracking-wider"
       >
         <MessageSquare className="w-3.5 h-3.5" />
-        Feedback
+        <span className="hidden sm:inline">{t("nav.feedback")}</span>
       </button>
 
       {/* PANEL */}
@@ -101,19 +142,19 @@ export function FeedbackWidget() {
           ref={panelRef}
           role="dialog"
           aria-modal="false"
-          aria-label="Send feedback"
+          aria-label={t("fb.title")}
           data-testid="panel-feedback"
           className="fixed bottom-16 right-4 z-[60] w-[min(360px,calc(100vw-2rem))] rounded-lg border-2 border-foreground bg-card text-card-foreground shadow-block-md p-4"
           style={{ animation: "fb-pop 140ms ease-out" }}
         >
           <div className="flex items-start justify-between gap-2 mb-3">
             <div className="text-[13px] font-semibold leading-tight">
-              Send us a note
+              {t("fb.title")}
             </div>
             <button
               type="button"
               onClick={() => setOpen(false)}
-              aria-label="Close"
+              aria-label={t("fb.close")}
               data-testid="button-feedback-close"
               className="p-0.5 rounded hover:bg-muted transition-colors"
             >
@@ -127,7 +168,7 @@ export function FeedbackWidget() {
               value={note}
               onChange={(e) => setNote(e.target.value)}
               rows={4}
-              placeholder="Share feedback or report a bug. Repro steps help."
+              placeholder={t("fb.notePlaceholder")}
               data-testid="textarea-feedback"
               className="w-full resize-none rounded-md border border-foreground/40 bg-background px-2.5 py-2 text-[12.5px] leading-snug placeholder:text-muted-foreground focus:outline-none focus:border-foreground"
             />
@@ -135,7 +176,7 @@ export function FeedbackWidget() {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="Email (optional, if you'd like a reply)"
+              placeholder={t("fb.emailPlaceholder")}
               autoComplete="email"
               data-testid="input-feedback-email"
               className="w-full rounded-md border border-foreground/40 bg-background px-2.5 py-1.5 text-[12px] placeholder:text-muted-foreground focus:outline-none focus:border-foreground"
@@ -143,11 +184,11 @@ export function FeedbackWidget() {
             <div className="flex justify-end pt-1">
               <button
                 type="submit"
-                disabled={!note.trim()}
+                disabled={!note.trim() || status === "sending"}
                 data-testid="button-feedback-send"
                 className="inline-flex items-center rounded-full border-2 border-foreground bg-primary text-primary-foreground px-3.5 py-1 text-[11.5px] font-mono uppercase tracking-wider disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-block-sm hover:-translate-x-px hover:-translate-y-px transition-all"
               >
-                Send
+                {status === "sending" ? t("fb.sending") : status === "sent" ? t("fb.sent") : t("fb.send")}
               </button>
             </div>
           </form>

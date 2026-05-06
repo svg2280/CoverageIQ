@@ -5,7 +5,7 @@ import { ChevronLeft } from "lucide-react";
 import { Logo } from "@/components/logo";
 
 const LAST_UPDATED = "May 2026";
-const CONTACT_EMAIL = "scottvangemert23@gmail.com";
+const CONTACT_EMAIL = "scottvg@oneMDmedical.com";
 
 function PageShell({
   title,

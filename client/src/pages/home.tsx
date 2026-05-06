@@ -20,6 +20,7 @@ import { SiX, SiWhatsapp } from "react-icons/si";
 import { FaLinkedinIn } from "react-icons/fa6";
 import { cn } from "@/lib/utils";
 import { BUG_IMAGES, type BugImage } from "@/data/bug-images";
+import { useI18n } from "@/lib/i18n";
 
 const moduleOrder: ModuleKey[] = ["antibacterials", "antifungals", "antivirals", "antiparasitics"];
 
@@ -35,6 +36,7 @@ export default function Home() {
   // proxy that 404s static JSON files.
   const bugImages: Record<string, BugImage> = BUG_IMAGES;
   const { theme, flavor, toggle: toggleTheme, cycleFlavor } = useTheme();
+  const { lang, setLang, t } = useI18n();
 
   function changeModule(key: ModuleKey) {
     if (key === activeModule) return;
@@ -196,9 +198,9 @@ export default function Home() {
             href="#/journal-watch"
             className="hidden md:inline-flex items-center px-3 py-1.5 mr-2 font-serif font-bold text-[12px] tracking-tight uppercase border-2 border-foreground bg-card text-foreground hover:bg-foreground hover:text-background transition-colors"
             data-testid="link-journal-watch"
-            title="Journal Watch — latest ID research feeds"
+            title={t("nav.journalWatch")}
           >
-            Journal Watch
+            {t("nav.journalWatch")}
           </a>
 
           {/* SEARCH */}
@@ -210,7 +212,7 @@ export default function Home() {
               onChange={(e) => setSearch(e.target.value)}
               onFocus={() => setSearchOpen(true)}
               onBlur={() => setTimeout(() => setSearchOpen(false), 150)}
-              placeholder="Search drugs, bugs, syndromes…"
+              placeholder={t("search.placeholder")}
               className="pl-8 pr-3 py-1.5 w-56 lg:w-72 h-8 bg-card border-2 border-foreground text-[13px] font-mono outline-none focus:bg-background"
               data-testid="input-search"
             />
@@ -260,6 +262,17 @@ export default function Home() {
             <span>{flavorMeta.label}</span>
           </button>
 
+          {/* LANGUAGE TOGGLE */}
+          <button
+            onClick={() => setLang(lang === "en" ? "es" : "en")}
+            aria-label={lang === "en" ? "Cambiar a espa\u00f1ol" : "Switch to English"}
+            title={lang === "en" ? "Espa\u00f1ol" : "English"}
+            data-testid="button-lang"
+            className="px-2 h-8 inline-flex items-center justify-center border-2 border-foreground bg-card hover:bg-foreground hover:text-background transition-colors font-mono text-[11px] font-bold tracking-wider uppercase"
+          >
+            {lang === "en" ? "ES" : "EN"}
+          </button>
+
           {/* DARK / LIGHT */}
           <button
             onClick={toggleTheme}
@@ -297,7 +310,7 @@ export default function Home() {
                 )}
               >
                 <span aria-hidden>{m.emoji}</span>
-                {m.label}
+                {t(`tab.${key}`)}
               </button>
             );
           })}
@@ -314,7 +327,7 @@ export default function Home() {
               <span>{data.label}</span>
             </div>
             <h1 className="font-serif font-black text-[17px] leading-tight tracking-tight truncate">
-              The interactive antimicrobial spectrum atlas.
+              {t(`subtitle.${activeModule}`)}
             </h1>
           </div>
 
@@ -384,17 +397,17 @@ export default function Home() {
           <div className="footer-meta py-1.5">
             <div className="flex items-center gap-2 font-mono uppercase tracking-wider">
               <Logo className="w-3.5 h-3.5" />
-              <span>CoverageIQ · v0.1</span>
+              <span>CoverageIQ · v1.2</span>
             </div>
             <p className="hidden md:block flex-1 text-center text-muted-foreground max-w-3xl mx-auto leading-snug">
-              <strong className="text-foreground">Educational reference only.</strong>{" "}
-              Not a substitute for clinical judgment, local antibiogram, or ID consult.
+              <strong className="text-foreground">{t("footer.disclaimerStrong")}</strong>{" "}
+              {t("footer.disclaimerRest")}
             </p>
             <span
               className="font-script text-[12px] text-muted-foreground whitespace-nowrap"
               data-testid="text-copyright"
             >
-              © 2026 Scott A. Van Gemert, MD · All rights reserved
+              {t("footer.copyright")}
             </span>
           </div>
 
@@ -407,6 +420,7 @@ export default function Home() {
 }
 
 function FooterExtras() {
+  const { t } = useI18n();
   const [copied, setCopied] = useState(false);
   const shareUrl = typeof window !== "undefined" ? window.location.href : "https://coverageiq.net";
   const shareText = "CoverageIQ — interactive antimicrobial spectrum atlas";
@@ -442,63 +456,95 @@ function FooterExtras() {
   return (
     <div className="footer-extras">
       <div className="footer-source-strip" data-testid="footer-sources">
-        <span className="footer-source-strip__label">Sourced from</span>
+        <span className="footer-source-strip__label">{t("footer.sourcedFrom")}</span>
         <a
           href="https://www.openevidence.com/"
           target="_blank"
           rel="noopener noreferrer"
-          className="source-pill"
+          className="source-logo"
           aria-label="OpenEvidence"
+          title="OpenEvidence"
           data-testid="link-source-openevidence"
         >
-          <span className="source-pill__dot" style={{ background: "#16a34a" }} aria-hidden />
-          OpenEvidence
+          <img
+            src="/sources/openevidence.png"
+            alt="OpenEvidence"
+            width={18}
+            height={18}
+            className="source-logo__img"
+            loading="lazy"
+          />
+          <span className="source-logo__name">OpenEvidence</span>
         </a>
         <a
-          href="https://academic.oup.com/cid"
+          href="https://www.idsociety.org/practice-guideline/alphabetical-guidelines/"
           target="_blank"
           rel="noopener noreferrer"
-          className="source-pill"
-          aria-label="IDSA Clinical Infectious Diseases"
+          className="source-logo"
+          aria-label="IDSA Practice Guidelines"
+          title="IDSA Practice Guidelines"
           data-testid="link-source-idsa"
         >
-          <span className="source-pill__dot" style={{ background: "#7c3aed" }} aria-hidden />
-          IDSA
+          <img
+            src="/sources/idsa.png"
+            alt="IDSA"
+            width={18}
+            height={18}
+            className="source-logo__img"
+            loading="lazy"
+          />
+          <span className="source-logo__name">IDSA</span>
         </a>
         <a
           href="https://www.sanfordguide.com/"
           target="_blank"
           rel="noopener noreferrer"
-          className="source-pill"
+          className="source-logo"
           aria-label="Sanford Guide"
+          title="Sanford Guide"
           data-testid="link-source-sanford"
         >
-          <span className="source-pill__dot" style={{ background: "#dc2626" }} aria-hidden />
-          Sanford
+          <img
+            src="/sources/sanford.png"
+            alt="Sanford Guide"
+            width={18}
+            height={18}
+            className="source-logo__img"
+            loading="lazy"
+          />
+          <span className="source-logo__name">Sanford</span>
         </a>
         <a
           href="https://www.hopkinsguides.com/hopkins/ub"
           target="_blank"
           rel="noopener noreferrer"
-          className="source-pill"
+          className="source-logo"
           aria-label="Johns Hopkins Antibiotic Guide"
+          title="Johns Hopkins Antibiotic Guide"
           data-testid="link-source-hopkins"
         >
-          <span className="source-pill__dot" style={{ background: "#1d4ed8" }} aria-hidden />
-          Hopkins ABX
+          <img
+            src="/sources/hopkins.png"
+            alt="Johns Hopkins ABX"
+            width={18}
+            height={18}
+            className="source-logo__img"
+            loading="lazy"
+          />
+          <span className="source-logo__name">Hopkins ABX</span>
         </a>
       </div>
 
       <div className="footer-legal" data-testid="footer-legal">
-        <a href="#/journal-watch" data-testid="link-journal-watch-footer">Journal Watch</a>
+        <a href="#/journal-watch" data-testid="link-journal-watch-footer">{t("footer.journalWatch")}</a>
         <span className="footer-legal__sep">·</span>
-        <a href="#/disclaimer" data-testid="link-disclaimer">Disclaimer</a>
+        <a href="#/disclaimer" data-testid="link-disclaimer">{t("footer.disclaimer")}</a>
         <span className="footer-legal__sep">·</span>
-        <a href="#/privacy" data-testid="link-privacy">Privacy</a>
+        <a href="#/privacy" data-testid="link-privacy">{t("footer.privacy")}</a>
         <span className="footer-legal__sep">·</span>
-        <a href="#/terms" data-testid="link-terms">Terms</a>
+        <a href="#/terms" data-testid="link-terms">{t("footer.terms")}</a>
         <span className="footer-legal__sep">·</span>
-        <a href="#/contact" data-testid="link-contact">Contact</a>
+        <a href="#/contact" data-testid="link-contact">{t("footer.contact")}</a>
       </div>
 
       <div className="share-strip" role="group" aria-label="Share CoverageIQ" data-testid="share-strip">

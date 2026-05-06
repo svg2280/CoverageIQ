@@ -1290,6 +1290,48 @@
   display: inline-block;
 }
 
+/* Source logos — hyperlinked brand favicons + small wordmark.
+   Replaces the older dot+text source-pill. */
+.source-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 8px 2px 4px;
+  border: 1px solid hsl(var(--border));
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+  border-radius: 4px;
+  text-decoration: none;
+  transition: all .12s ease;
+  line-height: 1;
+}
+.source-logo:hover {
+  border-color: hsl(var(--primary));
+  background: hsl(var(--primary) / 0.06);
+  transform: translateY(-1px);
+  box-shadow: 0 1px 0 hsl(var(--primary) / 0.25);
+}
+.source-logo__img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  border-radius: 3px;
+  flex-shrink: 0;
+  background: hsl(var(--background));
+}
+.source-logo__name {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+@media (max-width: 640px) {
+  .source-logo__name { display: none; }
+  .source-logo { padding: 2px; }
+}
+
 .footer-legal {
   display: inline-flex;
   align-items: center;
@@ -1342,6 +1384,30 @@
   background: hsl(var(--cov-primary));
   border-color: hsl(var(--cov-primary));
   color: #1a0f08;
+}
+
+/* Reserve space at the bottom-right of the footer for the floating Feedback widget
+   so its pill never visually covers footer legal/share links on small screens. */
+@media (max-width: 768px) {
+  .footer-extras {
+    padding-right: 56px;
+  }
+  .footer-meta {
+    padding-right: 56px;
+  }
+}
+@media (max-width: 480px) {
+  .footer-extras {
+    padding-right: 44px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+  .footer-source-strip,
+  .footer-legal,
+  .share-strip {
+    flex-wrap: wrap;
+  }
 }
 
 /* ============================================================

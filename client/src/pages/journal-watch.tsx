@@ -6,6 +6,7 @@ import { useEffect, useMemo, useState } from "react";
 import { ChevronLeft, ExternalLink, Newspaper, Rss, RefreshCw } from "lucide-react";
 import { Logo } from "@/components/logo";
 import { cn } from "@/lib/utils";
+import { useI18n } from "@/lib/i18n";
 
 // ---- WordPress blog (replace via env or update here when finalized) ----
 export const BLOG_URL = "https://blog.coverageiq.net";
@@ -140,6 +141,7 @@ function accentChip(a: FeedDef["accent"]): string {
 }
 
 export default function JournalWatchPage() {
+  const { t } = useI18n();
   const [feeds, setFeeds] = useState<Record<string, FeedState>>(() =>
     Object.fromEntries(FEEDS.map((f) => [f.id, { status: "idle", items: [] }])),
   );
@@ -236,11 +238,11 @@ export default function JournalWatchPage() {
               data-testid="link-back-atlas"
             >
               <ChevronLeft className="inline w-3.5 h-3.5 -mt-0.5 mr-0.5" />
-              Atlas
+              {t("nav.atlas")}
             </a>
             <span className="px-3 py-1.5 font-serif font-bold text-[13px] tracking-tight border-2 border-foreground bg-foreground text-background">
               <Newspaper className="inline w-3.5 h-3.5 -mt-0.5 mr-1" />
-              Journal Watch
+              {t("nav.journalWatch")}
             </span>
           </div>
 
@@ -261,11 +263,11 @@ export default function JournalWatchPage() {
           <button
             onClick={() => setBumpKey((k) => k + 1)}
             className="px-2 py-1.5 font-mono text-[10px] uppercase tracking-wider border-2 border-foreground bg-card hover:bg-accent transition-colors flex items-center gap-1"
-            title="Refresh all feeds"
+            title={t("nav.refresh")}
             data-testid="btn-refresh"
           >
             <RefreshCw className="w-3 h-3" />
-            <span className="hidden sm:inline">Refresh</span>
+            <span className="hidden sm:inline">{t("nav.refresh")}</span>
           </button>
         </div>
       </header>
@@ -490,12 +492,12 @@ export default function JournalWatchPage() {
             ))}
           </span>
           <span>
-            <a href="#/" className="hover:underline">Atlas</a>
+            <a href="#/" className="hover:underline">{t("nav.atlas")}</a>
             {" · "}
-            <a href="#/disclaimer" className="hover:underline">Disclaimer</a>
+            <a href="#/disclaimer" className="hover:underline">{t("footer.disclaimer")}</a>
             {" · "}
             <a href={BLOG_URL} target="_blank" rel="noopener noreferrer" className="hover:underline">
-              Blog
+              {t("nav.openBlog")}
             </a>
           </span>
         </div>
