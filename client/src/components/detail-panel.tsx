@@ -5,6 +5,7 @@ import { sources as sourceTable } from "@/data";
 import { Button } from "@/components/ui/button";
 import { X, Pill, Bug as BugIcon, Stethoscope, ExternalLink, BookOpen } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useI18n } from "@/lib/i18n";
 
 interface DetailPanelProps {
   data: ModuleData;
@@ -26,6 +27,7 @@ export function DetailPanel({
   drugImages,
   embedded = false,
 }: DetailPanelProps) {
+  const { t } = useI18n();
   if (!selection) {
     if (embedded) return null;
     // Empty state — keep slim and quiet so the bottom-right Feature Card is the
@@ -39,10 +41,10 @@ export function DetailPanel({
         <div className="text-center max-w-[240px] mx-auto opacity-80">
           <div className="text-3xl mb-2" aria-hidden>🦠</div>
           <p className="font-mono uppercase tracking-[0.18em] text-[11px]">
-            Detail card
+            {t("detail.title")}
           </p>
           <p className="text-[12px] leading-snug mt-1.5">
-            Hover or click anything in the matrix to load full coverage notes here.
+            {t("detail.placeholder")}
           </p>
         </div>
       </aside>

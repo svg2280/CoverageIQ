@@ -23,6 +23,9 @@ const en: Dict = {
   "nav.refresh": "Refresh",
   "nav.feedback": "Feedback",
 
+  // Breadcrumb
+  "breadcrumb.module": "Module",
+
   // Tabs (modules)
   "tab.antibacterials": "Antibacterials",
   "tab.antifungals": "Antifungals / Anti-TB",
@@ -98,6 +101,8 @@ const es: Dict = {
   "nav.openBlog": "Blog CoverageIQ",
   "nav.refresh": "Actualizar",
   "nav.feedback": "Comentarios",
+
+  "breadcrumb.module": "Módulo",
 
   // Tabs
   "tab.antibacterials": "Antibacterianos",

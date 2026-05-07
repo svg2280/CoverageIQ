@@ -184,7 +184,7 @@ export function MobileLayout() {
         {/* MODULE SUBTITLE */}
         <div className="px-3 py-2 border-t border-border">
           <div className="text-[10px] uppercase tracking-[0.2em] font-mono text-muted-foreground mb-0.5">
-            {data.label}
+            {t(`tab.${activeModule}`)}
           </div>
           <h1 className="font-serif font-black text-[17px] leading-tight tracking-tight">
             {t(`subtitle.${activeModule}`)}
@@ -195,7 +195,7 @@ export function MobileLayout() {
       {/* CONTENT — three accordions */}
       <main className="px-3 py-3 space-y-2 pb-24">
         <SectionAccordion
-          title="Syndromes"
+          title={t("col.syndromes")}
           icon={<Stethoscope className="w-5 h-5" />}
           count={data.syndromes.length}
           isOpen={openSection === "syndromes"}
@@ -232,7 +232,7 @@ export function MobileLayout() {
         </SectionAccordion>
 
         <SectionAccordion
-          title="Drugs"
+          title={t("col.drugs")}
           icon={<Pill className="w-5 h-5" />}
           count={data.drugs.length}
           isOpen={openSection === "drugs"}
@@ -287,7 +287,7 @@ export function MobileLayout() {
         </SectionAccordion>
 
         <SectionAccordion
-          title="Bugs"
+          title={t("col.bugs")}
           icon={<BugIcon className="w-5 h-5" />}
           count={data.bugs.length}
           isOpen={openSection === "bugs"}
@@ -405,7 +405,7 @@ export function MobileLayout() {
             </button>
 
             <button
-              onClick={() => setLang(lang === "en" ? "es" : "en")}
+              onClick={() => { setLang(lang === "en" ? "es" : "en"); setMenuOpen(false); }}
               className="w-full min-h-[52px] flex items-center gap-3 px-3 border-2 border-foreground bg-card active:bg-accent"
               data-testid="mbtn-lang"
             >
@@ -452,10 +452,10 @@ export function MobileLayout() {
             </button>
 
             <div className="pt-3 border-t border-border space-y-2">
-              <a href="#/disclaimer" onClick={() => setMenuOpen(false)} className="block text-[13px] text-muted-foreground py-2">Disclaimer</a>
-              <a href="#/privacy" onClick={() => setMenuOpen(false)} className="block text-[13px] text-muted-foreground py-2">Privacy</a>
-              <a href="#/terms" onClick={() => setMenuOpen(false)} className="block text-[13px] text-muted-foreground py-2">Terms</a>
-              <a href="#/contact" onClick={() => setMenuOpen(false)} className="block text-[13px] text-muted-foreground py-2">Contact</a>
+              <a href="#/disclaimer" onClick={() => setMenuOpen(false)} className="block text-[13px] text-muted-foreground py-2">{t("footer.disclaimer")}</a>
+              <a href="#/privacy" onClick={() => setMenuOpen(false)} className="block text-[13px] text-muted-foreground py-2">{t("footer.privacy")}</a>
+              <a href="#/terms" onClick={() => setMenuOpen(false)} className="block text-[13px] text-muted-foreground py-2">{t("footer.terms")}</a>
+              <a href="#/contact" onClick={() => setMenuOpen(false)} className="block text-[13px] text-muted-foreground py-2">{t("footer.contact")}</a>
             </div>
           </div>
         </div>

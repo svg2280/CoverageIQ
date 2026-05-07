@@ -207,7 +207,7 @@ export default function Home() {
                   )}
                 >
                   <span aria-hidden className="mr-1">{m.emoji}</span>
-                  {m.label}
+                  {t(`tab.${key}`)}
                 </button>
               );
             })}
@@ -349,8 +349,8 @@ export default function Home() {
           <div className="flex items-baseline gap-3 min-w-0">
             <div className="flex items-center gap-1.5 text-[10px] uppercase tracking-[0.25em] font-mono text-muted-foreground">
               <Sparkles className="w-3 h-3" style={{ color: `hsl(var(--${data.accent}))` }} />
-              <span className="hidden sm:inline">Module · </span>
-              <span>{data.label}</span>
+              <span className="hidden sm:inline">{t("breadcrumb.module")} · </span>
+              <span>{t(`tab.${activeModule}`)}</span>
             </div>
             <h1 className="font-serif font-black text-[17px] leading-tight tracking-tight truncate">
               {t(`subtitle.${activeModule}`)}

@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import type { Coverage, Drug, Bug, ModuleData } from "@/data";
 import { cn } from "@/lib/utils";
+import { useI18n } from "@/lib/i18n";
 
 export type Selection =
   | { kind: "drug"; id: string }
@@ -296,6 +297,7 @@ export function Matrix({
   bugImages,
   classFilter,
 }: MatrixProps) {
+  const { t } = useI18n();
   const active: Selection = hovered ?? pinned;
   const searchLower = search.trim().toLowerCase();
   const filterActive = !!classFilter && classFilter.size > 0 && !active;
@@ -327,7 +329,7 @@ export function Matrix({
       {/* DRUGS COLUMN */}
       <section className="panel flex flex-col min-h-0" data-testid="column-drugs">
         <header className="panel__header">
-          <h2 className="panel__title">Drugs</h2>
+          <h2 className="panel__title">{t("col.drugs")}</h2>
           <span className="panel__count">{data.drugs.length}</span>
         </header>
         <div className="flex-1 overflow-hidden p-1.5 space-y-0.5 min-h-0">
@@ -379,7 +381,7 @@ export function Matrix({
       {/* BUGS COLUMN */}
       <section className="panel flex flex-col min-h-0" data-testid="column-bugs">
         <header className="panel__header">
-          <h2 className="panel__title">Bugs</h2>
+          <h2 className="panel__title">{t("col.bugs")}</h2>
           <span className="panel__count">{data.bugs.length}</span>
         </header>
         <div className="flex-1 overflow-hidden p-2 min-h-0">
@@ -445,7 +447,7 @@ export function Matrix({
       {/* SYNDROMES COLUMN */}
       <section className="panel flex flex-col min-h-0" data-testid="column-syndromes">
         <header className="panel__header">
-          <h2 className="panel__title">Syndromes</h2>
+          <h2 className="panel__title">{t("col.syndromes")}</h2>
           <span className="panel__count">{data.syndromes.length}</span>
         </header>
         <div className="flex-1 overflow-y-auto nice-scroll px-1.5 py-1 min-h-0">
