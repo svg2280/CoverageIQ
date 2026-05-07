@@ -479,18 +479,57 @@ export default function JournalWatchPage() {
       )}
 
       <footer className="flex-shrink-0 border-t-2 border-foreground bg-card">
+        {/* Journal logo strip — clickable favicons that link to each journal homepage */}
+        <div className="max-w-[1700px] mx-auto px-4 lg:px-6 py-2 border-b border-foreground/30">
+          <div className="flex items-center gap-3 flex-wrap">
+            <span className="font-mono text-[9.5px] uppercase tracking-wider text-muted-foreground shrink-0">
+              Sourced from
+            </span>
+            <div className="flex items-center gap-2 flex-wrap">
+              {FEEDS.filter((f, i, arr) => arr.findIndex(x => new URL(x.homepage).hostname === new URL(f.homepage).hostname) === i).map((f) => {
+                const host = new URL(f.homepage).hostname;
+                return (
+                  <a
+                    key={f.id}
+                    href={f.homepage}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title={`${f.org} — open ${f.short}`}
+                    className="group inline-flex items-center gap-1.5 px-2 py-1 border-2 border-foreground bg-background hover:bg-accent hover:shadow-[3px_3px_0_0_var(--foreground)] hover:-translate-x-px hover:-translate-y-px transition-all"
+                    data-testid={`logo-${f.id}`}
+                  >
+                    <img
+                      src={`https://www.google.com/s2/favicons?domain=${host}&sz=64`}
+                      alt={`${f.org} logo`}
+                      width={20}
+                      height={20}
+                      loading="lazy"
+                      className="w-5 h-5 object-contain"
+                      onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }}
+                    />
+                    <span className="font-serif font-bold text-[12px] tracking-tight">{f.short}</span>
+                    <ExternalLink className="w-3 h-3 opacity-50 group-hover:opacity-90 transition-opacity" />
+                  </a>
+                );
+              })}
+              <a
+                href={BLOG_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                title={`${BLOG_LABEL} — open blog`}
+                className="group inline-flex items-center gap-1.5 px-2 py-1 border-2 border-foreground bg-primary text-primary-foreground hover:shadow-[3px_3px_0_0_var(--foreground)] hover:-translate-x-px hover:-translate-y-px transition-all"
+                data-testid="logo-blog"
+              >
+                <Rss className="w-4 h-4" />
+                <span className="font-serif font-bold text-[12px] tracking-tight">{BLOG_LABEL}</span>
+                <ExternalLink className="w-3 h-3 opacity-70 group-hover:opacity-100 transition-opacity" />
+              </a>
+            </div>
+          </div>
+        </div>
+
         <div className="max-w-[1700px] mx-auto px-4 lg:px-6 py-2 text-[10px] font-mono uppercase tracking-wider text-muted-foreground flex items-center justify-between flex-wrap gap-2">
-          <span>
-            Journal Watch · feeds proxied via worker · cached 1h · sources:{" "}
-            {FEEDS.map((f, i) => (
-              <span key={f.id}>
-                <a href={f.homepage} target="_blank" rel="noopener noreferrer" className="hover:underline">
-                  {f.short}
-                </a>
-                {i < FEEDS.length - 1 ? " · " : ""}
-              </span>
-            ))}
-          </span>
+          <span>Journal Watch · feeds proxied via worker · cached 1h</span>
           <span>
             <a href="#/" className="hover:underline">{t("nav.atlas")}</a>
             {" · "}

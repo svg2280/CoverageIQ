@@ -526,7 +526,7 @@
   .marquee-track {
     display: flex;
     width: max-content;
-    animation: marquee-x 60s linear infinite;
+    animation: marquee-x 150s linear infinite;
     will-change: transform;
   }
   .marquee-mask {
