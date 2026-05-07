@@ -130,7 +130,7 @@ export function FeedbackWidget() {
         aria-label={open ? t("fb.close") : t("fb.open")}
         aria-expanded={open}
         data-testid="button-feedback"
-        className="fixed bottom-3 right-3 sm:bottom-4 sm:right-4 z-[60] inline-flex items-center gap-1.5 rounded-full border-2 border-foreground bg-primary text-primary-foreground shadow-block-sm hover:shadow-block-md hover:-translate-x-px hover:-translate-y-px transition-all p-2 sm:px-3 sm:py-2 text-[12px] font-mono uppercase tracking-wider"
+        className="hidden md:inline-flex fixed bottom-4 right-4 z-[60] items-center gap-1.5 rounded-full border-2 border-foreground bg-primary text-primary-foreground shadow-block-sm hover:shadow-block-md hover:-translate-x-px hover:-translate-y-px transition-all px-3 py-2 text-[12px] font-mono uppercase tracking-wider"
       >
         <MessageSquare className="w-3.5 h-3.5" />
         <span className="hidden sm:inline">{t("nav.feedback")}</span>

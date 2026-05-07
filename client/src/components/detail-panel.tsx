@@ -13,6 +13,8 @@ interface DetailPanelProps {
   onSelect: (sel: Selection) => void;
   bugImages: Record<string, string>;
   drugImages: Record<string, string>;
+  /** When true, render without sticky positioning / desktop-only visibility (for bottom-sheet use) */
+  embedded?: boolean;
 }
 
 export function DetailPanel({
@@ -22,8 +24,10 @@ export function DetailPanel({
   onSelect,
   bugImages,
   drugImages,
+  embedded = false,
 }: DetailPanelProps) {
   if (!selection) {
+    if (embedded) return null;
     // Empty state — keep slim and quiet so the bottom-right Feature Card is the
     // primary call-to-action area. The Feature Card overlays the bottom of this
     // column when nothing is selected.
@@ -47,7 +51,12 @@ export function DetailPanel({
 
   return (
     <aside
-      className="sticky top-24 rounded-2xl border border-border bg-card/90 backdrop-blur-md p-5 max-h-[calc(100vh-7rem)] overflow-y-auto nice-scroll rise-in"
+      className={cn(
+        "rounded-2xl border border-border bg-card/90 backdrop-blur-md p-5 nice-scroll rise-in",
+        embedded
+          ? ""
+          : "sticky top-24 max-h-[calc(100vh-7rem)] overflow-y-auto",
+      )}
       data-testid="detail-panel"
     >
       <div className="flex items-start justify-between gap-3 mb-3">

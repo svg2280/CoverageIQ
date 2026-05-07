@@ -5,6 +5,7 @@ import { DetailPanel } from "@/components/detail-panel";
 import { Logo } from "@/components/logo";
 import { Legend } from "@/components/legend";
 import { ClassRail, type ClassRailGroup } from "@/components/class-rail";
+import { MobileLayout } from "@/components/mobile-layout";
 import { useTheme, FLAVOR_META, type ThemeFlavor } from "@/components/theme-provider";
 import {
   Search,
@@ -140,7 +141,11 @@ export default function Home() {
   const flavorMeta = FLAVOR_META[flavor as ThemeFlavor];
 
   return (
-    <div className="h-screen overflow-hidden flex flex-col">
+    <>
+    {/* MOBILE LAYOUT (<768px) */}
+    <MobileLayout />
+    {/* DESKTOP / TABLET LAYOUT (≥768px) */}
+    <div className="hidden md:flex h-screen overflow-hidden flex-col">
       {/* HEADER */}
       <header className="flex-shrink-0 border-b-2 border-foreground bg-background">
         <div className="max-w-[1700px] mx-auto px-4 lg:px-6 py-2 flex items-center gap-3">
@@ -416,6 +421,7 @@ export default function Home() {
         </div>
       </footer>
     </div>
+    </>
   );
 }
 
