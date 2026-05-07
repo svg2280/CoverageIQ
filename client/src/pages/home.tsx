@@ -111,7 +111,7 @@ export default function Home() {
     const seen = new Set<string>();
     for (const mk of moduleOrder) {
       const m = modules[mk];
-      const moduleLabel = m.label;
+      const moduleLabel = t(`tab.${mk}`);
       for (const d of m.drugs) {
         const key = `drug-${d.id}`;
         if (!seen.has(key) && d.name.toLowerCase().includes(q)) {
@@ -135,7 +135,7 @@ export default function Home() {
       }
     }
     return results;
-  }, [search]);
+  }, [search, t]);
 
   function onPin(sel: Selection) {
     if (pinned && sel && pinned.kind === sel.kind && pinned.id === sel.id) {

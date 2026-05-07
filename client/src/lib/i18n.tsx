@@ -25,7 +25,7 @@ const en: Dict = {
 
   // Tabs (modules)
   "tab.antibacterials": "Antibacterials",
-  "tab.antifungals": "Antifungals",
+  "tab.antifungals": "Antifungals / Anti-TB",
   "tab.antivirals": "Antivirals",
   "tab.antiparasitics": "Antiparasitics",
 
@@ -101,7 +101,7 @@ const es: Dict = {
 
   // Tabs
   "tab.antibacterials": "Antibacterianos",
-  "tab.antifungals": "Antifúngicos",
+  "tab.antifungals": "Antifúngicos / Anti-TB",
   "tab.antivirals": "Antivirales",
   "tab.antiparasitics": "Antiparasitarios",
 

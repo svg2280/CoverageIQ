@@ -86,7 +86,7 @@ export function MobileLayout() {
     const seen = new Set<string>();
     for (const mk of moduleOrder) {
       const m = modules[mk];
-      const moduleLabel = m.label;
+      const moduleLabel = t(`tab.${mk}`);
       for (const d of m.drugs) {
         const key = `drug-${d.id}`;
         if (!seen.has(key) && d.name.toLowerCase().includes(q)) {
@@ -110,7 +110,7 @@ export function MobileLayout() {
       }
     }
     return r.slice(0, 50);
-  }, [search]);
+  }, [search, t]);
 
   const flavorMeta = FLAVOR_META[flavor as ThemeFlavor];
 
