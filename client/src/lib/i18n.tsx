@@ -56,6 +56,24 @@ const en: Dict = {
   "detail.title": "Detail card",
   "detail.placeholder":
     "Hover or click anything in the matrix to load full coverage notes here.",
+
+  // Detail panel section titles
+  "section.mechanism": "Mechanism",
+  "section.spectrum": "Spectrum",
+  "section.adultDose": "Adult dose",
+  "section.pearls": "Pearls",
+  "section.primaryCoverage": "Primary coverage",
+  "section.alternateCoverage": "Alternate coverage",
+  "section.empiricFor": "Empiric for",
+  "section.firstLineDrugs": "First-line drugs",
+  "section.alternates": "Alternates",
+  "section.commonSyndromes": "Common syndromes",
+  "section.primaryRegimen": "Primary regimen",
+  "section.primaryRegimenGuideline": "Primary regimen — first-line per guideline",
+  "section.alternateRegimen": "Alternate regimen",
+  "section.guidelineNotes": "Guideline notes",
+  "section.likelyPathogens": "Likely pathogens",
+  "detail.pregnancy": "Pregnancy",
   "detail.helper.title": "Hover. Click. Cover.",
   "detail.helper.body":
     "Hover any drug, bug, or syndrome to preview coverage.",
@@ -129,6 +147,24 @@ const es: Dict = {
   "detail.title": "Ficha clínica",
   "detail.placeholder":
     "Pasa el cursor o haz clic sobre cualquier elemento para ver las notas completas.",
+
+  // Títulos de secciones del panel de detalle
+  "section.mechanism": "Mecanismo",
+  "section.spectrum": "Espectro",
+  "section.adultDose": "Dosis adulta",
+  "section.pearls": "Perlas clínicas",
+  "section.primaryCoverage": "Cobertura primaria",
+  "section.alternateCoverage": "Cobertura alternativa",
+  "section.empiricFor": "Empírico para",
+  "section.firstLineDrugs": "Fármacos de primera línea",
+  "section.alternates": "Alternativas",
+  "section.commonSyndromes": "Síndromes frecuentes",
+  "section.primaryRegimen": "Esquema primario",
+  "section.primaryRegimenGuideline": "Esquema primario — primera línea según guía",
+  "section.alternateRegimen": "Esquema alternativo",
+  "section.guidelineNotes": "Notas de la guía",
+  "section.likelyPathogens": "Patógenos probables",
+  "detail.pregnancy": "Embarazo",
   "detail.helper.title": "Pasa. Haz clic. Cubre.",
   "detail.helper.body":
     "Pasa el cursor sobre cualquier fármaco, microbio o síndrome para previsualizar la cobertura.",

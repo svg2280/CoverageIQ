@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { X, Pill, Bug as BugIcon, Stethoscope, ExternalLink, BookOpen } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useI18n } from "@/lib/i18n";
+import { loc, locArr } from "@/lib/localized";
 
 interface DetailPanelProps {
   data: ModuleData;
@@ -124,9 +125,11 @@ function DrugDetail({
   drugImages: Record<string, string>;
   onSelect: (sel: Selection) => void;
 }) {
+  const { t, lang } = useI18n();
   const drug = data.drugs.find((d) => d.id === drugId);
   if (!drug) return null;
   const drugClass = data.drugClasses.find((c) => c.id === drug.classId);
+  const drugPearls = locArr(drug, "pearls", lang);
 
   // Bugs with coverage
   const primaryBugs = data.bugs.filter((b) => data.getCoverage(drug.id, b.id) === "primary");
@@ -161,25 +164,25 @@ function DrugDetail({
         </div>
       </div>
 
-      <p className="text-sm mt-3 text-foreground/85 leading-relaxed">{drug.blurb}</p>
+      <p className="text-sm mt-3 text-foreground/85 leading-relaxed">{loc(drug, "blurb", lang)}</p>
 
-      <Section title="Mechanism">
-        <p className="text-sm">{drug.mechanism}</p>
+      <Section title={t("section.mechanism")}>
+        <p className="text-sm">{loc(drug, "mechanism", lang)}</p>
       </Section>
 
-      <Section title="Spectrum">
-        <p className="text-sm text-foreground/85">{drug.spectrum}</p>
+      <Section title={t("section.spectrum")}>
+        <p className="text-sm text-foreground/85">{loc(drug, "spectrum", lang)}</p>
       </Section>
 
-      <Section title="Adult dose">
-        <code className="text-xs font-mono bg-muted/50 px-2 py-1 rounded">{drug.doseAdult}</code>
+      <Section title={t("section.adultDose")}>
+        <code className="text-xs font-mono bg-muted/50 px-2 py-1 rounded">{loc(drug, "doseAdult", lang)}</code>
         <span className="text-xs text-muted-foreground ml-2">{drug.route.join(" / ")}</span>
       </Section>
 
-      {drug.pearls.length > 0 && (
-        <Section title="Pearls">
+      {drugPearls.length > 0 && (
+        <Section title={t("section.pearls")}>
           <ul className="space-y-1.5">
-            {drug.pearls.map((p, i) => (
+            {drugPearls.map((p, i) => (
               <li key={i} className="text-sm flex gap-2">
                 <span className="text-primary mt-0.5">→</span>
                 <span>{p}</span>
@@ -190,7 +193,7 @@ function DrugDetail({
       )}
 
       {primaryBugs.length > 0 && (
-        <Section title="Primary coverage">
+        <Section title={t("section.primaryCoverage")}>
           <div className="flex flex-wrap gap-1.5">
             {primaryBugs.map((b) => (
               <Chip
@@ -206,7 +209,7 @@ function DrugDetail({
       )}
 
       {altBugs.length > 0 && (
-        <Section title="Alternate coverage">
+        <Section title={t("section.alternateCoverage")}>
           <div className="flex flex-wrap gap-1.5">
             {altBugs.map((b) => (
               <Chip
@@ -222,7 +225,7 @@ function DrugDetail({
       )}
 
       {synList.length > 0 && (
-        <Section title="Empiric for">
+        <Section title={t("section.empiricFor")}>
           <div className="flex flex-wrap gap-1.5">
             {synList.map((s) => (
               <Chip
@@ -238,7 +241,7 @@ function DrugDetail({
 
       {drug.pregnancy && (
         <div className="mt-4 text-xs text-muted-foreground">
-          <span className="font-mono uppercase tracking-wider">Pregnancy</span>: {drug.pregnancy}
+          <span className="font-mono uppercase tracking-wider">{t("detail.pregnancy")}</span>: {drug.pregnancy}
         </div>
       )}
     </>
@@ -256,8 +259,10 @@ function BugDetail({
   bugImages: Record<string, string>;
   onSelect: (sel: Selection) => void;
 }) {
+  const { t, lang } = useI18n();
   const bug = data.bugs.find((b) => b.id === bugId);
   if (!bug) return null;
+  const bugPearls = locArr(bug, "pearls", lang);
 
   const primaryDrugs = data.drugs.filter((d) => data.getCoverage(d.id, bug.id) === "primary");
   const altDrugs = data.drugs.filter((d) => data.getCoverage(d.id, bug.id) === "alternate");
@@ -282,12 +287,12 @@ function BugDetail({
         </div>
       </div>
 
-      <p className="text-sm mt-3 text-foreground/85 leading-relaxed">{bug.blurb}</p>
+      <p className="text-sm mt-3 text-foreground/85 leading-relaxed">{loc(bug, "blurb", lang)}</p>
 
-      {bug.pearls.length > 0 && (
-        <Section title="Pearls">
+      {bugPearls.length > 0 && (
+        <Section title={t("section.pearls")}>
           <ul className="space-y-1.5">
-            {bug.pearls.map((p, i) => (
+            {bugPearls.map((p, i) => (
               <li key={i} className="text-sm flex gap-2">
                 <span className="text-primary mt-0.5">→</span>
                 <span>{p}</span>
@@ -298,7 +303,7 @@ function BugDetail({
       )}
 
       {primaryDrugs.length > 0 && (
-        <Section title="First-line drugs">
+        <Section title={t("section.firstLineDrugs")}>
           <div className="flex flex-wrap gap-1.5">
             {primaryDrugs.map((d) => (
               <Chip
@@ -314,7 +319,7 @@ function BugDetail({
       )}
 
       {altDrugs.length > 0 && (
-        <Section title="Alternates">
+        <Section title={t("section.alternates")}>
           <div className="flex flex-wrap gap-1.5">
             {altDrugs.map((d) => (
               <Chip
@@ -330,7 +335,7 @@ function BugDetail({
       )}
 
       {synList.length > 0 && (
-        <Section title="Common syndromes">
+        <Section title={t("section.commonSyndromes")}>
           <div className="flex flex-wrap gap-1.5">
             {synList.map((s) => (
               <Chip
@@ -356,6 +361,7 @@ function SyndromeDetail({
   synId: string;
   onSelect: (sel: Selection) => void;
 }) {
+  const { t, lang } = useI18n();
   const [oeCopied, setOeCopied] = useState(false);
   const syn = data.syndromes.find((s) => s.id === synId);
   if (!syn) return null;
@@ -416,10 +422,10 @@ function SyndromeDetail({
         {syn.category}
       </div>
 
-      <p className="text-sm mt-3 text-foreground/85 leading-relaxed">{syn.blurb}</p>
+      <p className="text-sm mt-3 text-foreground/85 leading-relaxed">{loc(syn, "blurb", lang)}</p>
 
       {primaryDrugs.length > 0 && (
-        <Section title={`Primary regimen${refs.length > 0 ? " \u2014 first-line per guideline" : ""}`}>
+        <Section title={refs.length > 0 ? t("section.primaryRegimenGuideline") : t("section.primaryRegimen")}>
           <div className="flex flex-wrap gap-1.5 items-center">
             {primaryDrugs.map((d) => (
               <Chip
@@ -450,7 +456,7 @@ function SyndromeDetail({
       )}
 
       {alternateDrugs.length > 0 && (
-        <Section title="Alternate regimen">
+        <Section title={t("section.alternateRegimen")}>
           <div className="flex flex-wrap gap-1.5">
             {alternateDrugs.map((d) => (
               <Chip
@@ -466,15 +472,15 @@ function SyndromeDetail({
       )}
 
       {syn.guidelineNotes && (
-        <Section title="Guideline notes">
+        <Section title={t("section.guidelineNotes")}>
           <p className="text-[12.5px] leading-relaxed text-foreground/80">
-            {syn.guidelineNotes}
+            {loc(syn, "guidelineNotes", lang)}
           </p>
         </Section>
       )}
 
       {bugList.length > 0 && (
-        <Section title="Likely pathogens">
+        <Section title={t("section.likelyPathogens")}>
           <div className="flex flex-wrap gap-1.5">
             {bugList.map((b) => (
               <Chip
