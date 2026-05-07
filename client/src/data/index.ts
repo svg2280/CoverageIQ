@@ -10,6 +10,37 @@ import type { SourceRef } from "./sources";
 export type { Coverage, Drug, DrugClass, Bug, Syndrome, SourceRef };
 export { sources, getSource };
 
+// Cross-module drug shim: TB/NTM/leprosy regimens reference some drugs (moxi, levo,
+// linezolid, azithro, amikacin) whose canonical entries live in Antibacterials.
+// We import those entries into the Antifungals module's drug list and synthesize
+// a coverage row for them against TB bugs so the matrix renders correctly.
+const SHARED_AB_DRUG_IDS = antifun.sharedAntibacterialDrugIds;
+const sharedAntibacDrugs: Drug[] = SHARED_AB_DRUG_IDS
+  .map((id) => antibac.drugs.find((d) => d.id === id))
+  .filter((d): d is Drug => Boolean(d));
+const sharedAntibacClasses: DrugClass[] = Array.from(
+  new Set(sharedAntibacDrugs.map((d) => d.classId))
+)
+  .map((cid) => antibac.drugClasses.find((c) => c.id === cid))
+  .filter((c): c is DrugClass => Boolean(c) && !antifun.drugClasses.some((ac) => ac.id === c!.id));
+
+// Build the Antifungals/Anti-TB drug list = native antifungal drugs + shared antibacterial drugs.
+const antifunDrugsCombined: Drug[] = [...antifun.drugs, ...sharedAntibacDrugs];
+const antifunClassesCombined: DrugClass[] = [...antifun.drugClasses, ...sharedAntibacClasses];
+
+// Cross-module getCoverage for the Antifungals/Anti-TB module:
+// - if a row exists in antifun.coverage, use it
+// - else if the bug is mycobacterial AND the drug is shared, fall back to antibac.getCoverage
+const MYCOBACTERIAL_BUGS = new Set(["mtb", "mavium", "mabscessus", "mleprae", "mkansasii"]);
+function antifunGetCoverage(drugId: string, bugId: string): Coverage {
+  const direct = antifun.getCoverage(drugId, bugId);
+  if (direct !== "none") return direct;
+  if (MYCOBACTERIAL_BUGS.has(bugId) && SHARED_AB_DRUG_IDS.includes(drugId)) {
+    return antibac.getCoverage(drugId, bugId);
+  }
+  return "none";
+}
+
 export type ModuleKey = "antibacterials" | "antifungals" | "antivirals" | "antiparasitics";
 
 export interface ModuleData {
@@ -38,14 +69,14 @@ export const modules: Record<ModuleKey, ModuleData> = {
   },
   antifungals: {
     key: "antifungals",
-    label: "Antifungals",
+    label: "Antifungals / Anti-TB",
     emoji: "🍄",
     accent: "fungi",
-    drugs: antifun.drugs,
-    drugClasses: antifun.drugClasses,
+    drugs: antifunDrugsCombined,
+    drugClasses: antifunClassesCombined,
     bugs: antifun.bugs,
     syndromes: antifun.syndromes,
-    getCoverage: antifun.getCoverage,
+    getCoverage: antifunGetCoverage,
   },
   antivirals: {
     key: "antivirals",
@@ -82,6 +113,7 @@ export function bugCategoryColor(category: string): string {
     case "mold": return "fungi";
     case "dimorphic": return "fungi";
     case "atypical-fungus": return "fungi";
+    case "mycobacteria": return "atypical";
     case "virus": return "virus";
     case "parasite-protozoa": return "parasite";
     case "parasite-helminth": return "parasite";

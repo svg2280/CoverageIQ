@@ -103,22 +103,39 @@ export default function Home() {
     return g ? g.drugIds : null;
   }, [activeClassGroupId, classRailGroups]);
 
-  // Search across drugs, bugs, syndromes in the active module
+  // Search across drugs, bugs, syndromes — globally across ALL modules.
   const searchResults = useMemo(() => {
     const q = search.trim().toLowerCase();
     if (!q) return [];
-    const results: Array<{ kind: "drug" | "bug" | "syndrome"; id: string; label: string }> = [];
-    for (const d of data.drugs) {
-      if (d.name.toLowerCase().includes(q)) results.push({ kind: "drug", id: d.id, label: d.name });
-    }
-    for (const b of data.bugs) {
-      if (b.name.toLowerCase().includes(q)) results.push({ kind: "bug", id: b.id, label: b.name });
-    }
-    for (const s of data.syndromes) {
-      if (s.name.toLowerCase().includes(q)) results.push({ kind: "syndrome", id: s.id, label: s.name });
+    const results: Array<{ kind: "drug" | "bug" | "syndrome"; id: string; label: string; module: ModuleKey; moduleLabel: string }> = [];
+    const seen = new Set<string>();
+    for (const mk of moduleOrder) {
+      const m = modules[mk];
+      const moduleLabel = m.label;
+      for (const d of m.drugs) {
+        const key = `drug-${d.id}`;
+        if (!seen.has(key) && d.name.toLowerCase().includes(q)) {
+          seen.add(key);
+          results.push({ kind: "drug", id: d.id, label: d.name, module: mk, moduleLabel });
+        }
+      }
+      for (const b of m.bugs) {
+        const key = `bug-${b.id}-${mk}`;
+        if (!seen.has(key) && b.name.toLowerCase().includes(q)) {
+          seen.add(key);
+          results.push({ kind: "bug", id: b.id, label: b.name, module: mk, moduleLabel });
+        }
+      }
+      for (const s of m.syndromes) {
+        const key = `syndrome-${s.id}-${mk}`;
+        if (!seen.has(key) && s.name.toLowerCase().includes(q)) {
+          seen.add(key);
+          results.push({ kind: "syndrome", id: s.id, label: s.name, module: mk, moduleLabel });
+        }
+      }
     }
     return results;
-  }, [search, data]);
+  }, [search]);
 
   function onPin(sel: Selection) {
     if (pinned && sel && pinned.kind === sel.kind && pinned.id === sel.id) {
@@ -226,31 +243,35 @@ export default function Home() {
                 className="absolute right-0 top-full mt-1 w-72 max-h-[60vh] overflow-y-auto bg-card border-2 border-foreground shadow-[3px_3px_0_hsl(var(--foreground))] z-50"
                 data-testid="search-results"
               >
-                {searchResults.slice(0, 12).map((r) => (
+                {searchResults.slice(0, 12).map((r, i) => (
                   <button
-                    key={`${r.kind}-${r.id}`}
+                    key={`${r.kind}-${r.id}-${r.module}-${i}`}
                     onMouseDown={(e) => e.preventDefault()}
                     onClick={() => {
+                      if (r.module !== activeModule) changeModule(r.module);
                       setPinned({ kind: r.kind, id: r.id } as Selection);
                       setSearch("");
                       setSearchOpen(false);
                     }}
-                    className="w-full text-left px-2.5 py-1.5 flex items-center gap-2 border-b border-border last:border-b-0 hover:bg-accent transition-colors"
+                    className="w-full text-left px-2.5 py-1.5 flex items-start gap-2 border-b border-border last:border-b-0 hover:bg-accent transition-colors"
                     data-testid={`search-result-${r.kind}-${r.id}`}
                   >
                     <span
-                      className="font-script text-[10px] uppercase tracking-wider px-1.5 py-0.5 border border-foreground bg-background"
+                      className="font-script text-[10px] uppercase tracking-wider px-1.5 py-0.5 border border-foreground bg-background mt-0.5"
                     >
                       {r.kind}
                     </span>
-                    <span className="font-serif font-bold text-[12px] truncate">{r.label}</span>
+                    <span className="min-w-0 flex-1">
+                      <span className="block font-serif font-bold text-[12px] truncate">{r.label}</span>
+                      <span className="block text-[10px] text-muted-foreground truncate">{r.moduleLabel}</span>
+                    </span>
                   </button>
                 ))}
               </div>
             )}
             {searchOpen && search.trim() && searchResults.length === 0 && (
               <div className="absolute right-0 top-full mt-1 w-72 bg-card border-2 border-foreground shadow-[3px_3px_0_hsl(var(--foreground))] z-50 px-3 py-3 text-[12px] text-muted-foreground">
-                No matches in this module.
+                No matches across any module.
               </div>
             )}
           </div>

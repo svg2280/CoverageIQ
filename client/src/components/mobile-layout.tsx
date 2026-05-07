@@ -16,6 +16,7 @@ import {
   Stethoscope,
   ChevronDown,
   ChevronRight,
+  MessageSquare,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { BUG_IMAGES } from "@/data/bug-images";
@@ -81,12 +82,35 @@ export function MobileLayout() {
   const searchResults = useMemo(() => {
     const q = search.trim().toLowerCase();
     if (!q) return [];
-    const r: Array<{ kind: "drug" | "bug" | "syndrome"; id: string; label: string }> = [];
-    for (const d of data.drugs) if (d.name.toLowerCase().includes(q)) r.push({ kind: "drug", id: d.id, label: d.name });
-    for (const b of data.bugs) if (b.name.toLowerCase().includes(q)) r.push({ kind: "bug", id: b.id, label: b.name });
-    for (const s of data.syndromes) if (s.name.toLowerCase().includes(q)) r.push({ kind: "syndrome", id: s.id, label: s.name });
-    return r.slice(0, 30);
-  }, [search, data]);
+    const r: Array<{ kind: "drug" | "bug" | "syndrome"; id: string; label: string; module: ModuleKey; moduleLabel: string }> = [];
+    const seen = new Set<string>();
+    for (const mk of moduleOrder) {
+      const m = modules[mk];
+      const moduleLabel = m.label;
+      for (const d of m.drugs) {
+        const key = `drug-${d.id}`;
+        if (!seen.has(key) && d.name.toLowerCase().includes(q)) {
+          seen.add(key);
+          r.push({ kind: "drug", id: d.id, label: d.name, module: mk, moduleLabel });
+        }
+      }
+      for (const b of m.bugs) {
+        const key = `bug-${b.id}-${mk}`;
+        if (!seen.has(key) && b.name.toLowerCase().includes(q)) {
+          seen.add(key);
+          r.push({ kind: "bug", id: b.id, label: b.name, module: mk, moduleLabel });
+        }
+      }
+      for (const s of m.syndromes) {
+        const key = `syndrome-${s.id}-${mk}`;
+        if (!seen.has(key) && s.name.toLowerCase().includes(q)) {
+          seen.add(key);
+          r.push({ kind: "syndrome", id: s.id, label: s.name, module: mk, moduleLabel });
+        }
+      }
+    }
+    return r.slice(0, 50);
+  }, [search]);
 
   const flavorMeta = FLAVOR_META[flavor as ThemeFlavor];
 
@@ -327,13 +351,14 @@ export function MobileLayout() {
           <div className="flex-1 overflow-y-auto">
             {search.trim() && searchResults.length === 0 && (
               <div className="px-3 py-8 text-center text-muted-foreground text-[14px]">
-                No matches in {data.label}.
+                No matches across any module.
               </div>
             )}
-            {searchResults.map((r) => (
+            {searchResults.map((r, i) => (
               <button
-                key={`${r.kind}-${r.id}`}
+                key={`${r.kind}-${r.id}-${r.module}-${i}`}
                 onClick={() => {
+                  if (r.module !== activeModule) setActiveModule(r.module);
                   setPinned({ kind: r.kind, id: r.id } as Selection);
                   setSearch(""); setSearchOpen(false);
                 }}
@@ -342,7 +367,10 @@ export function MobileLayout() {
                 <span className="text-[10px] font-mono uppercase tracking-wider px-2 py-1 border border-foreground bg-card flex-shrink-0">
                   {r.kind}
                 </span>
-                <span className="font-serif font-bold text-[15px] flex-1">{r.label}</span>
+                <div className="flex-1 min-w-0">
+                  <div className="font-serif font-bold text-[15px] truncate">{r.label}</div>
+                  <div className="text-[11px] text-muted-foreground truncate">{r.moduleLabel}</div>
+                </div>
                 <ChevronRight className="w-4 h-4 text-muted-foreground" />
               </button>
             ))}
@@ -406,6 +434,22 @@ export function MobileLayout() {
               <span className="font-serif font-bold text-[14px] flex-1 text-left">{t("nav.journalWatch")}</span>
               <ChevronRight className="w-4 h-4 text-muted-foreground" />
             </a>
+
+            <button
+              onClick={() => {
+                setMenuOpen(false);
+                // Defer slightly so the sheet can animate out before the panel pops
+                setTimeout(() => {
+                  window.dispatchEvent(new Event("coverageiq:open-feedback"));
+                }, 150);
+              }}
+              className="w-full min-h-[52px] flex items-center gap-3 px-3 border-2 border-foreground bg-primary text-primary-foreground active:opacity-90"
+              data-testid="mbtn-feedback"
+            >
+              <MessageSquare className="w-5 h-5" />
+              <span className="font-serif font-bold text-[14px] flex-1 text-left">{t("nav.feedback")}</span>
+              <ChevronRight className="w-4 h-4 opacity-70" />
+            </button>
 
             <div className="pt-3 border-t border-border space-y-2">
               <a href="#/disclaimer" onClick={() => setMenuOpen(false)} className="block text-[13px] text-muted-foreground py-2">Disclaimer</a>

@@ -55,6 +55,13 @@ export function FeedbackWidget() {
     }
   }, [open]);
 
+  // Allow other components (e.g. mobile sidebar) to open feedback via a custom event
+  useEffect(() => {
+    const handler = () => setOpen(true);
+    window.addEventListener("coverageiq:open-feedback", handler);
+    return () => window.removeEventListener("coverageiq:open-feedback", handler);
+  }, []);
+
   const send = async (e: React.FormEvent) => {
     e.preventDefault();
     const trimmed = note.trim();
@@ -130,7 +137,7 @@ export function FeedbackWidget() {
         aria-label={open ? t("fb.close") : t("fb.open")}
         aria-expanded={open}
         data-testid="button-feedback"
-        className="hidden md:inline-flex fixed bottom-4 right-4 z-[60] items-center gap-1.5 rounded-full border-2 border-foreground bg-primary text-primary-foreground shadow-block-sm hover:shadow-block-md hover:-translate-x-px hover:-translate-y-px transition-all px-3 py-2 text-[12px] font-mono uppercase tracking-wider"
+        className="inline-flex fixed right-4 z-[60] items-center gap-1.5 rounded-full border-2 border-foreground bg-primary text-primary-foreground shadow-block-sm hover:shadow-block-md hover:-translate-x-px hover:-translate-y-px transition-all px-3 py-2 text-[12px] font-mono uppercase tracking-wider bottom-[max(1rem,env(safe-area-inset-bottom))] md:bottom-4"
       >
         <MessageSquare className="w-3.5 h-3.5" />
         <span className="hidden sm:inline">{t("nav.feedback")}</span>
