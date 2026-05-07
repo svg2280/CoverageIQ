@@ -252,6 +252,44 @@ set("cs", "mtb", "alternate");
 set("eto", "mtb", "alternate");
 set("azithro", "mtb", "alternate");  set("azithro", "mleprae", "alternate");
 
+// --- M. avium complex (MAC) — ATS/IDSA/ERS/ESCMID 2020 ---
+// Macrolide-based 3-drug regimen: macrolide + rifamycin + ethambutol; amikacin (IV or ALIS) for severe/refractory
+set("azithro", "mavium", "primary");
+set("clari", "mavium", "primary");
+set("emb", "mavium", "primary");
+set("rif", "mavium", "primary");
+set("rfb", "mavium", "primary"); // preferred rifamycin in HIV due to fewer DDIs with ART
+set("amk", "mavium", "alternate"); // IV or ALIS for cavitary/refractory
+set("moxi", "mavium", "alternate");
+set("linezolid", "mavium", "alternate");
+set("cfz", "mavium", "alternate");
+
+// --- M. abscessus complex — ATS/IDSA 2020 (intensive multi-drug, macrolide-resistance common) ---
+set("azithro", "mabscessus", "primary"); // if functional erm(41)/macrolide-susceptible
+set("clari", "mabscessus", "primary");
+set("amk", "mabscessus", "primary"); // IV or ALIS
+set("cfz", "mabscessus", "primary");
+set("linezolid", "mabscessus", "alternate");
+set("bdq", "mabscessus", "alternate");
+set("eto", "mabscessus", "alternate");
+set("moxi", "mabscessus", "alternate");
+
+// --- M. kansasii — ATS/IDSA 2020 (RIF + EMB + macrolide or INH for ≥12 mo after culture conversion) ---
+set("rif", "mkansasii", "primary");
+set("emb", "mkansasii", "primary");
+set("azithro", "mkansasii", "primary");
+set("clari", "mkansasii", "primary");
+set("inh", "mkansasii", "primary"); // historical RHE regimen still used
+set("rfb", "mkansasii", "alternate");
+set("moxi", "mkansasii", "alternate");
+set("linezolid", "mkansasii", "alternate");
+
+// --- M. leprae — WHO MDT (multibacillary: RIF + dapsone + clofazimine; paucibacillary: RIF + dapsone) ---
+// dapsone is not in our drug list; rif/cfz/azithro/moxi covered as alternates per WHO update + ROM regimen
+set("moxi", "mleprae", "alternate"); // ROM (rifampin/ofloxacin/minocycline) — moxi commonly substituted
+set("linezolid", "mleprae", "alternate");
+set("clari", "mleprae", "alternate");
+
 export const coverage = C;
 export function getCoverage(drugId: string, bugId: string): Coverage {
   return C[drugId]?.[bugId] || "none";
