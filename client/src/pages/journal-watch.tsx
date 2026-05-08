@@ -3,10 +3,11 @@
 // Layout: above-the-fold by default — feeds are paneled in a horizontally
 // scrollable grid; clicking a panel expands it inline.
 import { useEffect, useMemo, useState } from "react";
-import { ChevronLeft, ExternalLink, Newspaper, Rss, RefreshCw } from "lucide-react";
+import { ChevronLeft, ExternalLink, Newspaper, Rss, RefreshCw, Sun, Moon } from "lucide-react";
 import { Logo } from "@/components/logo";
 import { cn } from "@/lib/utils";
 import { useI18n } from "@/lib/i18n";
+import { useTheme, FLAVOR_META } from "@/components/theme-provider";
 
 // ---- WordPress blog (replace via env or update here when finalized) ----
 export const BLOG_URL = "https://blog.coverageiq.net";
@@ -141,7 +142,9 @@ function accentChip(a: FeedDef["accent"]): string {
 }
 
 export default function JournalWatchPage() {
-  const { t } = useI18n();
+  const { t, lang, setLang } = useI18n();
+  const { theme, flavor, toggle: toggleTheme, cycleFlavor } = useTheme();
+  const flavorMeta = FLAVOR_META[flavor];
   const [feeds, setFeeds] = useState<Record<string, FeedState>>(() =>
     Object.fromEntries(FEEDS.map((f) => [f.id, { status: "idle", items: [] }])),
   );
@@ -259,6 +262,39 @@ export default function JournalWatchPage() {
             {BLOG_LABEL}
             <ExternalLink className="w-3 h-3 opacity-70" />
           </a>
+
+          {/* FLAVOR SWITCHER */}
+          <button
+            onClick={cycleFlavor}
+            className="theme-switcher"
+            title={`Theme: ${flavorMeta.label} \u2014 ${flavorMeta.subtitle}`}
+            aria-label="Switch visual theme"
+            data-testid="button-flavor"
+          >
+            <span aria-hidden className="text-[14px] leading-none">{flavorMeta.emoji}</span>
+            <span>{flavorMeta.label}</span>
+          </button>
+
+          {/* LANGUAGE TOGGLE */}
+          <button
+            onClick={() => setLang(lang === "en" ? "es" : "en")}
+            aria-label={lang === "en" ? "Cambiar a espa\u00f1ol" : "Switch to English"}
+            title={lang === "en" ? "Espa\u00f1ol" : "English"}
+            data-testid="button-lang"
+            className="px-2 h-8 inline-flex items-center justify-center border-2 border-foreground bg-card hover:bg-foreground hover:text-background transition-colors font-mono text-[11px] font-bold tracking-wider uppercase"
+          >
+            {lang === "en" ? "ES" : "EN"}
+          </button>
+
+          {/* DARK / LIGHT */}
+          <button
+            onClick={toggleTheme}
+            aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+            data-testid="button-theme"
+            className="w-8 h-8 grid place-items-center border-2 border-foreground bg-card hover:bg-foreground hover:text-background transition-colors"
+          >
+            {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+          </button>
 
           <button
             onClick={() => setBumpKey((k) => k + 1)}
