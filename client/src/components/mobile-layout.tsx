@@ -129,7 +129,12 @@ export function MobileLayout() {
         <div className="px-3 py-2 flex items-center gap-2">
           <a href="#/" className="flex items-center gap-2 min-w-0" data-testid="link-home">
             <Logo className="w-8 h-8 flex-shrink-0" />
-            <span className="font-serif font-black text-[18px] tracking-tight truncate">CoverageIQ</span>
+            <div className="leading-tight min-w-0">
+              <div className="font-serif font-black text-[18px] tracking-tight truncate">CoverageIQ</div>
+              <div className="font-script text-[11px] text-muted-foreground -mt-0.5 truncate">
+                an antimicrobial atlas
+              </div>
+            </div>
           </a>
           <div className="flex-1" />
           <button
