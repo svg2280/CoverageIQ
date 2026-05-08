@@ -127,7 +127,7 @@ export function MobileLayout() {
       <header className="sticky top-0 z-40 bg-background border-b-2 border-foreground">
         <div className="px-3 py-2 flex items-center gap-2">
           <a href="#/" className="flex items-center gap-2 min-w-0" data-testid="link-home">
-            <Logo className="w-7 h-7 flex-shrink-0" />
+            <Logo className="w-8 h-8 flex-shrink-0" />
             <span className="font-serif font-black text-[18px] tracking-tight truncate">CoverageIQ</span>
           </a>
           <div className="flex-1" />
