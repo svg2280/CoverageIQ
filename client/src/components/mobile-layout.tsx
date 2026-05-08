@@ -3,6 +3,7 @@ import { modules, type ModuleKey, type ModuleData } from "@/data";
 import { type Selection } from "@/components/matrix";
 import { DetailPanel } from "@/components/detail-panel";
 import { Logo } from "@/components/logo";
+import { MobileDrawer } from "@/components/mobile-drawer";
 import { useTheme, FLAVOR_META, type ThemeFlavor } from "@/components/theme-provider";
 import { useI18n } from "@/lib/i18n";
 import {
@@ -379,87 +380,11 @@ export function MobileLayout() {
       )}
 
       {/* OVERFLOW MENU SHEET */}
-      {menuOpen && (
-        <div className="fixed inset-0 z-50 bg-foreground/40" onClick={() => setMenuOpen(false)}>
-          <div
-            className="absolute right-0 top-0 bottom-0 w-72 bg-background border-l-2 border-foreground shadow-2xl p-4 space-y-3"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="flex items-center justify-between mb-2">
-              <span className="font-serif font-black text-[16px]">Settings</span>
-              <button onClick={() => setMenuOpen(false)} className="w-9 h-9 grid place-items-center" aria-label="Close menu">
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-
-            <button
-              onClick={() => { cycleFlavor(); }}
-              className="w-full min-h-[52px] flex items-center gap-3 px-3 border-2 border-foreground bg-card active:bg-accent"
-              data-testid="mbtn-flavor"
-            >
-              <span className="text-[18px]">{flavorMeta.emoji}</span>
-              <div className="flex-1 text-left">
-                <div className="font-serif font-bold text-[14px]">Theme: {flavorMeta.label}</div>
-                <div className="text-[11px] text-muted-foreground">{flavorMeta.subtitle}</div>
-              </div>
-            </button>
-
-            <button
-              onClick={() => { setLang(lang === "en" ? "es" : "en"); setMenuOpen(false); }}
-              className="w-full min-h-[52px] flex items-center gap-3 px-3 border-2 border-foreground bg-card active:bg-accent"
-              data-testid="mbtn-lang"
-            >
-              <span className="font-mono font-bold text-[13px] px-2 py-1 border border-foreground">{lang.toUpperCase()}</span>
-              <span className="font-serif font-bold text-[14px] flex-1 text-left">
-                {lang === "en" ? "Switch to Español" : "Cambiar a English"}
-              </span>
-            </button>
-
-            <button
-              onClick={toggleTheme}
-              className="w-full min-h-[52px] flex items-center gap-3 px-3 border-2 border-foreground bg-card active:bg-accent"
-              data-testid="mbtn-theme"
-            >
-              {theme === "dark" ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-              <span className="font-serif font-bold text-[14px] flex-1 text-left">
-                {theme === "dark" ? "Light mode" : "Dark mode"}
-              </span>
-            </button>
-
-            <a
-              href="#/journal-watch"
-              onClick={() => setMenuOpen(false)}
-              className="w-full min-h-[52px] flex items-center gap-3 px-3 border-2 border-foreground bg-card active:bg-accent"
-            >
-              <span className="font-serif font-bold text-[14px] flex-1 text-left">{t("nav.journalWatch")}</span>
-              <ChevronRight className="w-4 h-4 text-muted-foreground" />
-            </a>
-
-            <button
-              onClick={() => {
-                setMenuOpen(false);
-                // Defer slightly so the sheet can animate out before the panel pops
-                setTimeout(() => {
-                  window.dispatchEvent(new Event("coverageiq:open-feedback"));
-                }, 150);
-              }}
-              className="w-full min-h-[52px] flex items-center gap-3 px-3 border-2 border-foreground bg-primary text-primary-foreground active:opacity-90"
-              data-testid="mbtn-feedback"
-            >
-              <MessageSquare className="w-5 h-5" />
-              <span className="font-serif font-bold text-[14px] flex-1 text-left">{t("nav.feedback")}</span>
-              <ChevronRight className="w-4 h-4 opacity-70" />
-            </button>
-
-            <div className="pt-3 border-t border-border space-y-2">
-              <a href="#/disclaimer" onClick={() => setMenuOpen(false)} className="block text-[13px] text-muted-foreground py-2">{t("footer.disclaimer")}</a>
-              <a href="#/privacy" onClick={() => setMenuOpen(false)} className="block text-[13px] text-muted-foreground py-2">{t("footer.privacy")}</a>
-              <a href="#/terms" onClick={() => setMenuOpen(false)} className="block text-[13px] text-muted-foreground py-2">{t("footer.terms")}</a>
-              <a href="#/contact" onClick={() => setMenuOpen(false)} className="block text-[13px] text-muted-foreground py-2">{t("footer.contact")}</a>
-            </div>
-          </div>
-        </div>
-      )}
+      <MobileDrawer
+        open={menuOpen}
+        onClose={() => setMenuOpen(false)}
+        current="atlas"
+      />
     </div>
   );
 }

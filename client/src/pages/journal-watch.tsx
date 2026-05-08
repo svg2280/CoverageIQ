@@ -3,8 +3,9 @@
 // Layout: above-the-fold by default — feeds are paneled in a horizontally
 // scrollable grid; clicking a panel expands it inline.
 import { useEffect, useMemo, useState } from "react";
-import { ChevronLeft, ExternalLink, Newspaper, Rss, RefreshCw, Sun, Moon } from "lucide-react";
+import { ChevronLeft, ExternalLink, Newspaper, Rss, RefreshCw, Sun, Moon, Menu } from "lucide-react";
 import { Logo } from "@/components/logo";
+import { MobileDrawer } from "@/components/mobile-drawer";
 import { cn } from "@/lib/utils";
 import { useI18n } from "@/lib/i18n";
 import { useTheme, FLAVOR_META } from "@/components/theme-provider";
@@ -145,6 +146,7 @@ export default function JournalWatchPage() {
   const { t, lang, setLang } = useI18n();
   const { theme, flavor, toggle: toggleTheme, cycleFlavor } = useTheme();
   const flavorMeta = FLAVOR_META[flavor];
+  const [menuOpen, setMenuOpen] = useState(false);
   const [feeds, setFeeds] = useState<Record<string, FeedState>>(() =>
     Object.fromEntries(FEEDS.map((f) => [f.id, { status: "idle", items: [] }])),
   );
@@ -263,10 +265,10 @@ export default function JournalWatchPage() {
             <ExternalLink className="w-3 h-3 opacity-70" />
           </a>
 
-          {/* FLAVOR SWITCHER */}
+          {/* DESKTOP-ONLY: FLAVOR SWITCHER */}
           <button
             onClick={cycleFlavor}
-            className="theme-switcher"
+            className="theme-switcher hidden md:inline-flex"
             title={`Theme: ${flavorMeta.label} \u2014 ${flavorMeta.subtitle}`}
             aria-label="Switch visual theme"
             data-testid="button-flavor"
@@ -275,23 +277,23 @@ export default function JournalWatchPage() {
             <span>{flavorMeta.label}</span>
           </button>
 
-          {/* LANGUAGE TOGGLE */}
+          {/* DESKTOP-ONLY: LANGUAGE TOGGLE */}
           <button
             onClick={() => setLang(lang === "en" ? "es" : "en")}
             aria-label={lang === "en" ? "Cambiar a espa\u00f1ol" : "Switch to English"}
             title={lang === "en" ? "Espa\u00f1ol" : "English"}
             data-testid="button-lang"
-            className="px-2 h-8 inline-flex items-center justify-center border-2 border-foreground bg-card hover:bg-foreground hover:text-background transition-colors font-mono text-[11px] font-bold tracking-wider uppercase"
+            className="hidden md:inline-flex px-2 h-8 items-center justify-center border-2 border-foreground bg-card hover:bg-foreground hover:text-background transition-colors font-mono text-[11px] font-bold tracking-wider uppercase"
           >
             {lang === "en" ? "ES" : "EN"}
           </button>
 
-          {/* DARK / LIGHT */}
+          {/* DESKTOP-ONLY: DARK / LIGHT */}
           <button
             onClick={toggleTheme}
             aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
             data-testid="button-theme"
-            className="w-8 h-8 grid place-items-center border-2 border-foreground bg-card hover:bg-foreground hover:text-background transition-colors"
+            className="hidden md:grid w-8 h-8 place-items-center border-2 border-foreground bg-card hover:bg-foreground hover:text-background transition-colors"
           >
             {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
           </button>
@@ -304,6 +306,16 @@ export default function JournalWatchPage() {
           >
             <RefreshCw className="w-3 h-3" />
             <span className="hidden sm:inline">{t("nav.refresh")}</span>
+          </button>
+
+          {/* MOBILE-ONLY: HAMBURGER MENU */}
+          <button
+            aria-label="Menu"
+            onClick={() => setMenuOpen(true)}
+            className="md:hidden w-10 h-10 grid place-items-center border-2 border-foreground bg-card active:bg-foreground active:text-background"
+            data-testid="button-mobile-menu"
+          >
+            <Menu className="w-5 h-5" />
           </button>
         </div>
       </header>
@@ -577,6 +589,13 @@ export default function JournalWatchPage() {
           </span>
         </div>
       </footer>
+
+      {/* MOBILE OVERFLOW DRAWER — same component used by Home */}
+      <MobileDrawer
+        open={menuOpen}
+        onClose={() => setMenuOpen(false)}
+        current="journal-watch"
+      />
     </div>
   );
 }
